@@ -15,7 +15,7 @@ const startFastify: (port: number) => FastifyInstance<Server, IncomingMessage, S
     server.listen(port, (err, _) => {
         if (err) {
             console.error(err)
-            process.exit(0)
+            // process.exit(0)
         }
         establishConnection()
     })
