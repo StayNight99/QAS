@@ -4,10 +4,13 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import HeaderBar from "./HeaderBar"
+import FooterArea from "./FooterArea"
 
 ReactDOM.render(
-  <React.StrictMode><HeaderBar></HeaderBar>
+  <React.StrictMode>
+    {/* <HeaderBar></HeaderBar> */}
     <App />
+    <FooterArea />
   </React.StrictMode>,
   document.getElementById('root')
 );

@@ -1,16 +1,16 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import rocketLogo from './image/ufo-removebg.png';
+import ufoLogo from './Image/ufo-removebg.png';
 
 function App() {
   return (
-    <div className="App">
+    <div className="App default-font">
       <header className="App-header">
         {/* <img src={logo} className="App-logo" alt="logo" />  */}
-        <img src={rocketLogo} className="App-logo" alt="logo" />
+        <img src={ufoLogo} className="App-logo" alt="logo" />
         <p>
-          Edit <code>src/App.tsx</code> and save to reload.
+          Foucs on the solution, not on the problem.
         </p>
         <a
           className="App-link"
@@ -18,7 +18,7 @@ function App() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Learn React
+          Question and Anwser Site(開放性知識分享平台)
         </a>
       </header>
     </div>
