@@ -37,7 +37,7 @@ const startFastify: (port: number) => FastifyInstance<Server, IncomingMessage, S
 
     //[測試] loginPage一般帳號密碼登入
     //Input : account/password
-    //Output : msg/userInfo
+    //Output : loginMsg/User(Schema)
     server.get('/loginData/:account/:password', async (request: FastifyRequest, reply: FastifyReply) => {
         let param:any = request.params
         let account = param.account
@@ -57,9 +57,7 @@ const startFastify: (port: number) => FastifyInstance<Server, IncomingMessage, S
         {
             return reply.status(200).send({ msg: 'account not exist!' })
         }
-        
 
-        
     })
 
     return server
