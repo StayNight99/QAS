@@ -3,6 +3,7 @@ import { Server, IncomingMessage, ServerResponse } from 'http'
 import { establishConnection } from './plugins/mongodb'
 
 import Cat from './models/cat'
+import Login from './models/login'
 
 const server: FastifyInstance<Server, IncomingMessage, ServerResponse> = fastify({
     logger: { prettyPrint: true }
@@ -33,6 +34,14 @@ const startFastify: (port: number) => FastifyInstance<Server, IncomingMessage, S
         const postBody = request.body
         const cat = await Cat.create(postBody)
         return reply.status(200).send({ cat })
+    })
+
+    //login api
+
+    server.post('/login', async (request: FastifyRequest, reply: FastifyReply) => {
+        const postBody = request.body
+        const login = await Login.create(postBody)
+        return reply.status(200).send({ login })
     })
 
     return server
