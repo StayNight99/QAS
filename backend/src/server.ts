@@ -35,6 +35,33 @@ const startFastify: (port: number) => FastifyInstance<Server, IncomingMessage, S
         return reply.status(200).send({ cat })
     })
 
+    //[測試] loginPage一般帳號密碼登入
+    //Input : account/password
+    //Output : msg/userInfo
+    server.get('/loginData/:account/:password', async (request: FastifyRequest, reply: FastifyReply) => {
+        let param:any = request.params
+        let account = param.account
+        let password = param.password
+        console.log(account);
+        console.log(password);
+
+        if(account === 'Daniel' && password === '1234')
+        {
+            return reply.status(200).send({ msg: 'login success!' })
+        }
+        else if(account === 'Daniel' && password != '1234')
+        {
+            return reply.status(200).send({ msg: 'password incorrect!' })
+        }
+        else
+        {
+            return reply.status(200).send({ msg: 'account not exist!' })
+        }
+        
+
+        
+    })
+
     return server
 }
 
