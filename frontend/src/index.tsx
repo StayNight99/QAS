@@ -6,6 +6,7 @@ import reportWebVitals from './reportWebVitals';
 import HeaderBar from "./HeaderBar"
 import FooterArea from "./FooterArea"
 import LoginApp from './LoginApp';
+import QuestionsListApp from './QuestionsListApp';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 ReactDOM.render(
@@ -13,7 +14,8 @@ ReactDOM.render(
     {/* <HeaderBar></HeaderBar> */}
     <Router >
       <Route exact path="/" component={App} />
-      <Route exact path="/loginPage" component={LoginApp} />
+      <Route exact path="/LoginPage" component={LoginApp} />
+      <Route exact path="/QuestionsListPage" component={QuestionsListApp} />
     </Router>
 
     {/* <App /> */}
