@@ -1,6 +1,7 @@
 import fastify, { FastifyInstance, FastifyReply, FastifyRequest } from 'fastify'
 import { Server, IncomingMessage, ServerResponse } from 'http'
 import { establishConnection, InitialMongoDB } from './plugins/mongodb'
+import { IPostQuestion } from './types/content'
 
 import Cat from './models/cat'
 import Login from './models/login'
@@ -53,16 +54,24 @@ const startFastify: (port: number) => FastifyInstance<Server, IncomingMessage, S
         }
     })
 
-    server.get('/content', async (request: FastifyRequest, reply: FastifyReply) => {
-        const question = await PostQuestion.find({}).exec()
+    //question api
+    server.get('/setNewQuestionToDB', async (request: FastifyRequest, reply: FastifyReply) => {
+        const question: Array<IPostQuestion> = await PostQuestion.find()
         return reply.status(200).send({ question })
     })
 
-    server.post('/content', async (request: FastifyRequest, reply: FastifyReply) => {
-        const postBody = request.body
-        const question = await PostQuestion.find({ postBody }).exec()
-        return reply.status(200).send({ question })
-
+    server.post('/setNewQuestionToDB', async (request: FastifyRequest, reply: FastifyReply) => {
+        const postBody: IPostQuestion = request.body as IPostQuestion
+        const question = await PostQuestion.create(postBody)
+        if(question === null)
+        {
+            return reply.status(201).send({msg: "Create Question Failed"})
+        }
+        else
+        {
+            return reply.status(201).send({ question })
+        }
+    })
     //[測試] loginPage一般帳號密碼登入
     //Input : account/password
     //Output : msg/userInfo

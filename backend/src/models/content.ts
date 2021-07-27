@@ -1,9 +1,14 @@
+import { IPostQuestion } from './../types/content'
 import { model, Schema } from 'mongoose'
 
 const postQuestionSchema: Schema = new Schema(
     {
-        QuestionerName: {
-            type: String,
+        _id: {
+            type: Number,
+            required: true
+        },
+        QuestionerId: {
+            type: Number,
             required: true
         },
         content: {
@@ -20,4 +25,4 @@ const postQuestionSchema: Schema = new Schema(
     }
 )
 
-export default model("PostQuestion", postQuestionSchema)
+export default model<IPostQuestion>("PostQuestion", postQuestionSchema)
