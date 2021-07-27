@@ -21,4 +21,19 @@ const establishConnection = () => {
   }
 }
 
-export { establishConnection }
+const InitialMongoDB = () => {
+  /*mongoose.Users.insert({  
+    "user":[
+        {"_id":1,
+         "Name":"Nelson",
+         "Passwd":"12345",
+         },
+        {"_id":2,
+         "Name":"Kevin",
+         "Passwd":"678910",
+         }
+    ],
+  })*/
+}
+
+export { establishConnection, InitialMongoDB }

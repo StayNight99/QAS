@@ -1,6 +1,6 @@
 import fastify, { FastifyInstance, FastifyReply, FastifyRequest } from 'fastify'
 import { Server, IncomingMessage, ServerResponse } from 'http'
-import { establishConnection } from './plugins/mongodb'
+import { establishConnection, InitialMongoDB } from './plugins/mongodb'
 
 import Cat from './models/cat'
 import Login from './models/login'
@@ -20,6 +20,7 @@ const startFastify: (port: number) => FastifyInstance<Server, IncomingMessage, S
             // process.exit(0)
         }
         establishConnection()
+        InitialMongoDB()
     })
 
     server.get('/ping', async (request: FastifyRequest, reply: FastifyReply) => {
