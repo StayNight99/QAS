@@ -3,6 +3,8 @@ import { Server, IncomingMessage, ServerResponse } from 'http'
 import { establishConnection } from './plugins/mongodb'
 
 import Cat from './models/cat'
+import Login from './models/login'
+import PostQuestion from './models/content'
 
 const server: FastifyInstance<Server, IncomingMessage, ServerResponse> = fastify({
     logger: { prettyPrint: true }
@@ -34,6 +36,31 @@ const startFastify: (port: number) => FastifyInstance<Server, IncomingMessage, S
         const cat = await Cat.create(postBody)
         return reply.status(200).send({ cat })
     })
+
+
+    //login api
+    server.post('/loginData', async (request: FastifyRequest, reply: FastifyReply) => {
+        const postBody = request.body
+        const login = await Login.find({ postBody }).exec()
+        if(login != null)
+        {
+            return reply.status(200).send({ msg: 'login success!' })
+        }
+        else
+        {
+            return reply.status(200).send({ msg: 'account or password incorrect!' })
+        }
+    })
+
+    server.get('/content', async (request: FastifyRequest, reply: FastifyReply) => {
+        const question = await PostQuestion.find({}).exec()
+        return reply.status(200).send({ question })
+    })
+
+    server.post('/content', async (request: FastifyRequest, reply: FastifyReply) => {
+        const postBody = request.body
+        const question = await PostQuestion.find({ postBody }).exec()
+        return reply.status(200).send({ question })
 
     //[測試] loginPage一般帳號密碼登入
     //Input : account/password
