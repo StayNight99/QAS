@@ -5,11 +5,19 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import HeaderBar from "./HeaderBar"
 import FooterArea from "./FooterArea"
+import LoginApp from './LoginApp';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 ReactDOM.render(
   <React.StrictMode>
     {/* <HeaderBar></HeaderBar> */}
-    <App />
+    <Router >
+      <Route exact path="/" component={App} />
+      <Route exact path="/loginPage" component={LoginApp} />
+    </Router>
+
+    {/* <App /> */}
+    {/* <LoginApp /> */}
     <FooterArea />
   </React.StrictMode>,
   document.getElementById('root')

@@ -5,7 +5,7 @@ import './App.css';
 export default function FooterArea(){
     return(
         <footer className="text-center footer default-font">
-            <div className="paddingWithTop2pp">
+            <div className="paddingWithTop1pp">
                 <b>Copyright © 2021 Taiwan Semiconductor Manufacturing Company. All rights reserved.</b>
             </div>
             <div className="paddingWithTop1pp">
