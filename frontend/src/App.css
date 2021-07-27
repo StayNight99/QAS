@@ -7,15 +7,17 @@
   pointer-events: none;
 }
 
+/*alternate為反向播放、infinite為重複播放*/
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+    /* animation: App-logo-spin infinite 3s linear alternate; */
+    animation: App-logo-spin infinite 3s cubic-bezier(0.96, -0.48, 0.22, 2.1) alternate;
   }
 }
 
 .App-header {
   background-color: #282c34;
-  min-height: 100vh;
+  min-height: 90vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -30,9 +32,44 @@
 
 @keyframes App-logo-spin {
   from {
-    transform: rotate(0deg);
+    /* transform: rotate(0deg); */
+    transform: translateX(-100px)
   }
   to {
-    transform: rotate(360deg);
-  }
+    /* transform: rotate(360deg); */
+    transform: translateX(100px)
+  } 
+}
+
+/* 用於設定預設字形，若client沒有第一個字形，則會以第二個補上，以此類推 */
+.default-font {
+  font-family: 'Helvetica', 'Arial','LiHei Pro','黑體-繁,微軟正黑體', 'sans-serif';
+}
+
+/* 文字置中 */
+.text-center {
+  text-align: center;
+}
+
+/* 頁尾背景渲染 */
+.footer {
+  min-height: 10vh;
+  background: url(./Image/index_footer_bg.png);
+}
+
+.paddingWithTop2pp{
+  padding: 2% 0px 0px 0px;
+}
+
+.paddingWithTop1pp{
+  padding: 1% 0px 0px 0px;
+}
+
+.marginWithTop1pp{
+  margin: 1% 0px 0px 0px;
+}
+
+.fontSize13px
+{
+  font-size:13px !important
 }
