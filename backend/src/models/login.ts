@@ -2,15 +2,15 @@ import { model, Schema } from 'mongoose'
 
 const loginSchema: Schema = new Schema(
     {
+        _id: {
+            type: Number,
+            required: true
+        },
         name: {
             type: String,
             required: true
         },
         password: {
-            type: String,
-            required: true
-        },
-        accountType:{
             type: String,
             required: true
         }
