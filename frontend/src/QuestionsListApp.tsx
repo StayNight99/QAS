@@ -22,14 +22,8 @@ function QuestionsListApp() {
     const nodeService = new NodeService();
 
 
-    async function submitLoginData() {
-        let loginData = await nodeService.getLoginData(addAccount, addPassword);
-        if (loginData.msg === "login success!") {
-            swal.fire('登入成功！', loginData.msg, 'success')
-        }
-        else {
-            swal.fire('登入失敗！', loginData.msg, 'error')
-        }
+    function btnAskQuestion() {
+        window.location.href = '/AskQuestionPage';
     }
 
 
@@ -43,7 +37,7 @@ function QuestionsListApp() {
                             <h2 className="flex--item fl1 fs-headline1">Top Questions</h2>
                         </td>
                         <td className="padding30px">
-                            <Button id="btnAskQuestion" label="Ask Question" onClick={submitLoginData} className="" />
+                            <Button id="btnAskQuestion" label="Ask Question" onClick={btnAskQuestion} className="" />
                         </td>
                     </tr>
                 </div>

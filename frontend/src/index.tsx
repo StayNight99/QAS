@@ -8,6 +8,7 @@ import FooterArea from "./FooterArea"
 import LoginApp from './LoginApp';
 import QuestionsListApp from './QuestionsListApp';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
+import AskQuestionApp from './AskQuestionApp';
 
 ReactDOM.render(
   <React.StrictMode>
@@ -16,6 +17,7 @@ ReactDOM.render(
       <Route exact path="/" component={App} />
       <Route exact path="/LoginPage" component={LoginApp} />
       <Route exact path="/QuestionsListPage" component={QuestionsListApp} />
+      <Route exact path="/AskQuestionPage" component={AskQuestionApp} />
     </Router>
 
     {/* <App /> */}
