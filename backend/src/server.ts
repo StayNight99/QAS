@@ -1,11 +1,11 @@
 import fastify, { FastifyInstance, FastifyReply, FastifyRequest } from 'fastify'
 import { Server, IncomingMessage, ServerResponse } from 'http'
 import { establishConnection, InitialMongoDB } from './plugins/mongodb'
-import { IPostQuestion } from './types/content'
+import { IQuestion } from './types/question'
 
 import Cat from './models/cat'
-import Login from './models/login'
-import PostQuestion from './models/content'
+import Users from './models/user'
+import Question from './models/question'
 
 const server: FastifyInstance<Server, IncomingMessage, ServerResponse> = fastify({
     logger: { prettyPrint: true }
@@ -43,7 +43,7 @@ const startFastify: (port: number) => FastifyInstance<Server, IncomingMessage, S
     //login api
     server.post('/loginData', async (request: FastifyRequest, reply: FastifyReply) => {
         const postBody = request.body
-        const login = await Login.find({ postBody }).exec()
+        const login = await Users.find({ postBody }).exec()
         if(login != null)
         {
             return reply.status(200).send({ msg: 'login success!' })
@@ -56,13 +56,13 @@ const startFastify: (port: number) => FastifyInstance<Server, IncomingMessage, S
 
     //question api
     server.get('/setNewQuestionToDB', async (request: FastifyRequest, reply: FastifyReply) => {
-        const question: Array<IPostQuestion> = await PostQuestion.find()
+        const question: Array<IQuestion> = await Question.find()
         return reply.status(200).send({ question })
     })
 
     server.post('/setNewQuestionToDB', async (request: FastifyRequest, reply: FastifyReply) => {
-        const postBody: IPostQuestion = request.body as IPostQuestion
-        const question = await PostQuestion.create(postBody)
+        const postBody: IQuestion = request.body as IQuestion
+        const question = await Question.create(postBody)
         if(question === null)
         {
             return reply.status(201).send({msg: "Create Question Failed"})
