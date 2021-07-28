@@ -3,6 +3,7 @@ import { Server, IncomingMessage, ServerResponse } from 'http'
 import { establishConnection } from './plugins/mongodb'
 
 import Cat from './models/cat'
+import Users from './models/Users'
 
 const server: FastifyInstance<Server, IncomingMessage, ServerResponse> = fastify({
     logger: { prettyPrint: true }
@@ -18,6 +19,18 @@ const startFastify: (port: number) => FastifyInstance<Server, IncomingMessage, S
             // process.exit(0)
         }
         establishConnection()
+        const users = new Users([
+            {
+            _id: 1,
+            Name: "Nelson",
+            Passwd:"12345",
+            },
+            {
+            _id: 2,
+            Name: "Kevin",
+            Passwd: "678910",
+            }
+        ],)
     })
 
     server.get('/ping', async (request: FastifyRequest, reply: FastifyReply) => {
