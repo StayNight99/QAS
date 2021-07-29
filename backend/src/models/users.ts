@@ -1,27 +1,20 @@
 import { model, Schema } from 'mongoose'
 
-const UserSchema: Schema = new Schema(
+const userSchema: Schema = new Schema(
     {
         _id: {
             type: Number,
             required: true
         },
         Name: {
-            type: String,
+            type:String,
             required: true
         },
         Passwd: {
-            type: String,
+            type:String,
             required: true
-        },
-        FollowPost_id: {
-            type: Array,
-            required: false
         }
-    },
-    {
-        timestamps: true
     }
 )
 
-export default model("Users", UserSchema)
+export default model("Users",userSchema)
