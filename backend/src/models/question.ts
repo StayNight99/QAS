@@ -20,7 +20,7 @@ const QuestionSchema: Schema = new Schema(
             required: true
         },
         QuestionType:{
-            type: String,
+            type: Array,
             required: false
         },
         AnswerScore:{
