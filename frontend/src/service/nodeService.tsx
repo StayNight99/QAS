@@ -42,13 +42,14 @@ export class NodeService {
     }
 
     //[測試] loginPage一般帳號密碼登入
-    //Input : account/password
-    //Output : msg/userInfo
+    //Input : account、password
+    //Output : loginMsg(login success! / password incorrect! / account not exist!) / User(Schema)
     async getLoginData(strAccount: string, strPassword: string) {
         try {
             //const res = await axios.get("/loginData/" + strAccount + "/" + strPassword);
             const res = await axios.get("http://localhost:8888/loginData/" + strAccount + "/" + strPassword);
             console.log(res);
+            
             //return res.data.todos;
             return res.data;
         } catch (e) {
@@ -56,5 +57,21 @@ export class NodeService {
         }
     }
 
+    //使用者發問問題，需要新增問題相關資訊至資料庫
+    //Input : UserPK、Contents、Question Type
+    //Output : success/fall
+    async setNewQuestionToDB(strUserPK: string, strContent: string, strQuestionType: string) {
+        try {
+            //const res = await axios.get("/loginData/" + strAccount + "/" + strPassword);
+            const res = await axios.get("http://localhost:8888/setNewQuestionToDB/" + strUserPK + "/" + strContent + "/" + strQuestionType);
+            console.log(res);
+            
+            //return res.data.todos;
+            return res.data;
+        } catch (e) {
+            console.error(e);
+        }
+    }
+    
 
 }
