@@ -14,18 +14,25 @@ import { Password } from 'primereact/password';
 import { Divider } from 'primereact/divider';
 import './App.css';
 import { default as swal } from 'sweetalert2'
-
+import ProductService from './service/ProductService';
 
 function QuestionsListApp() {
     const [addAccount, setAddAccount] = useState<string>("");
     const [addPassword, setAddPassword] = useState<string>("");
     const nodeService = new NodeService();
 
-
     function btnAskQuestion() {
         window.location.href = '/AskQuestionPage';
     }
 
+    //DataTable
+    const [products, setProducts] = useState([]);
+    const [multiSortMeta, setMultiSortMeta] = useState([{ field: 'category', order: -1 }]);
+    const productService = new ProductService();
+
+    useEffect(() => {
+        productService.getProductsSmall().then(data => setProducts(data));
+    }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     return (
         <div className="default-font">
@@ -34,7 +41,7 @@ function QuestionsListApp() {
                 <div className="d-flex">
                     <tr>
                         <td className="padding30px">
-                            <h2 className="flex--item fl1 fs-headline1">Top Questions</h2>
+                            <h2 className="flex--item fl1 fs-headline1">Questions List</h2>
                         </td>
                         <td className="padding30px">
                             <Button id="btnAskQuestion" label="Ask Question" onClick={btnAskQuestion} className="" />
@@ -43,8 +50,16 @@ function QuestionsListApp() {
                 </div>
 
 
-                {/*Ref: https://primefaces.org/primereact/showcase/#/datatable */}
-                
+                <div className="styleWithQuestionTable">
+                    <DataTable value={products} paginator rows={5}>
+                        <Column field="code" header="Title" sortable></Column>
+                        <Column field="name" header="Name" sortable></Column>
+                        <Column field="category" header="Answer Count" sortable></Column>
+                        <Column field="quantity" header="Score" sortable></Column>
+                        <Column field="price" header="Tag" sortable></Column>
+                    </DataTable>
+                </div>
+
 
             </header>
         </div>

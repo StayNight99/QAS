@@ -62,11 +62,9 @@ export class NodeService {
     //Output : success/fall
     async setNewQuestionToDB(strUserPK: string, strContent: string, strQuestionType: string) {
         try {
-            //const res = await axios.get("/loginData/" + strAccount + "/" + strPassword);
             const res = await axios.get("http://localhost:8888/setNewQuestionToDB/" + strUserPK + "/" + strContent + "/" + strQuestionType);
             console.log(res);
             
-            //return res.data.todos;
             return res.data;
         } catch (e) {
             console.error(e);
