@@ -15,7 +15,7 @@ function App() {
         <a
           className="App-link"
           href="/loginPage"
-          target="_blank"
+          target="_self"
           rel="noopener noreferrer"
         >
           Question and Anwser Site(開放性知識分享平台)
