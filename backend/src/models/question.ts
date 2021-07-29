@@ -15,16 +15,16 @@ const QuestionSchema: Schema = new Schema(
             type: String,
             required: true
         },
-        Questioner: {
+        Answer: {
             type: Array,
             required: true
         },
         QuestionType:{
-            type: String,
+            type: Array,
             required: false
         },
         AnswerScore:{
-            type: Number,
+            type: Array,
             required: false
         }
     },
