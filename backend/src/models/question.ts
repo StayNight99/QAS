@@ -21,7 +21,7 @@ const QuestionSchema: Schema = new Schema(
         },
         Answer: {
             type: Array,
-            required: true
+            required: false
         },
         QuestionType:{
             type: Array,
