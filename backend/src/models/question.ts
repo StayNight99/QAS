@@ -15,7 +15,7 @@ const QuestionSchema: Schema = new Schema(
             type: String,
             required: true
         },
-        Questioner: {
+        Answer: {
             type: Array,
             required: true
         },
@@ -24,7 +24,7 @@ const QuestionSchema: Schema = new Schema(
             required: false
         },
         AnswerScore:{
-            type: Number,
+            type: Array,
             required: false
         }
     },
