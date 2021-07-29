@@ -1,6 +1,6 @@
 import fastify, { FastifyInstance, FastifyReply, FastifyRequest } from 'fastify'
 import { Server, IncomingMessage, ServerResponse } from 'http'
-import { establishConnection, InitialMongoDB } from './plugins/mongodb'
+import { establishConnection } from './plugins/mongodb'
 import { IQuestion } from './types/question'
 
 import Cat from './models/cat'
@@ -21,7 +21,18 @@ const startFastify: (port: number) => FastifyInstance<Server, IncomingMessage, S
             // process.exit(0)
         }
         establishConnection()
-        InitialMongoDB()
+        const users = new Users([
+            {
+                _id: 1,
+                Name: "Nelson",
+                Passwd:"12345",
+            },
+            {
+                _id: 2,
+                Name: "Kevin",
+                Passwd: "678910",
+            }
+        ],)
     })
 
     server.get('/ping', async (request: FastifyRequest, reply: FastifyReply) => {
@@ -55,12 +66,24 @@ const startFastify: (port: number) => FastifyInstance<Server, IncomingMessage, S
     })
 
     //question api
-    server.get('/setNewQuestionToDB', async (request: FastifyRequest, reply: FastifyReply) => {
+    server.get('/getAllPost', async (request: FastifyRequest, reply: FastifyReply) => {
         const question: Array<IQuestion> = await Question.find()
         return reply.status(200).send({ question })
     })
 
     server.post('/setNewQuestionToDB', async (request: FastifyRequest, reply: FastifyReply) => {
+        const postBody: IQuestion = request.body as IQuestion
+        const question = await Question.create(postBody)
+        if(question === null)
+        {
+            return reply.status(201).send({msg: "Create Question Failed"})
+        }
+        else
+        {
+            return reply.status(201).send({ question })
+        }
+    })
+    server.post('/setNewAnswerToDB', async (request: FastifyRequest, reply: FastifyReply) => {
         const postBody: IQuestion = request.body as IQuestion
         const question = await Question.create(postBody)
         if(question === null)

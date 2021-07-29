@@ -15,7 +15,7 @@ const UserSchema: Schema = new Schema(
             required: true
         },
         FollowPost_id: {
-            type: Number,
+            type: Array,
             required: false
         }
     },

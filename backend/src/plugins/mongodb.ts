@@ -21,8 +21,4 @@ const establishConnection = () => {
   }
 }
 
-const InitialMongoDB = () => {
-  
-}
-
-export { establishConnection, InitialMongoDB }
+export { establishConnection }

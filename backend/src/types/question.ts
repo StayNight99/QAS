@@ -5,7 +5,7 @@ interface IQuestion extends Document{
     QuestionerId: number
     Content: string
     QuestionType: string
-    AnswerScore: number
+    AnswerScore: Array<number>
 }
 
 export { IQuestion }

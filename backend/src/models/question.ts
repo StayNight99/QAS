@@ -15,6 +15,10 @@ const QuestionSchema: Schema = new Schema(
             type: String,
             required: true
         },
+        Questioner: {
+            type: Array,
+            required: true
+        },
         QuestionType:{
             type: String,
             required: false
