@@ -1,9 +1,10 @@
 import fastify, { FastifyInstance, FastifyReply, FastifyRequest } from 'fastify'
 import { Server, IncomingMessage, ServerResponse } from 'http'
 import { establishConnection } from './plugins/mongodb'
+import { IQuestion } from './types/question'
 
-import Cat from './models/cat'
-import Users from './models/Users'
+import Users from './models/users'
+import Question from './models/question'
 
 const server: FastifyInstance<Server, IncomingMessage, ServerResponse> = fastify({
     logger: { prettyPrint: true }
@@ -33,46 +34,22 @@ const startFastify: (port: number) => FastifyInstance<Server, IncomingMessage, S
         ],)
     })
 
-    server.get('/ping', async (request: FastifyRequest, reply: FastifyReply) => {
-        return reply.status(200).send({ msg: 'pong' })
+    server.get('/data', async (request: FastifyRequest, reply: FastifyReply) => {
+        const question: Array<IQuestion> = await Question.find()
+        return reply.status(200).send({ question })
     })
 
-    server.get('/cats', async (request: FastifyRequest, reply: FastifyReply) => {
-        const cats = await Cat.find({}).exec()
-        return reply.status(200).send({ cats })
-    })
-
-    server.post('/cats', async (request: FastifyRequest, reply: FastifyReply) => {
-        const postBody = request.body
-        const cat = await Cat.create(postBody)
-        return reply.status(200).send({ cat })
-    })
-
-    //[測試] loginPage一般帳號密碼登入
-    //Input : account/password
-    //Output : msg/userInfo
-    server.get('/loginData/:account/:password', async (request: FastifyRequest, reply: FastifyReply) => {
-        let param:any = request.params
-        let account = param.account
-        let password = param.password
-        console.log(account);
-        console.log(password);
-
-        if(account === 'Daniel' && password === '1234')
+    server.post('/data', async (request: FastifyRequest, reply: FastifyReply) => {
+        const postBody: IQuestion = request.body as IQuestion
+        const question = await Question.create(postBody)
+        if(question === null)
         {
-            return reply.status(200).send({ msg: 'login success!' })
-        }
-        else if(account === 'Daniel' && password != '1234')
-        {
-            return reply.status(200).send({ msg: 'password incorrect!' })
+            return reply.status(201).send({msg: "Create Question Failed"})
         }
         else
         {
-            return reply.status(200).send({ msg: 'account not exist!' })
+            return reply.status(201).send({ question })
         }
-        
-
-        
     })
 
     return server
