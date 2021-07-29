@@ -4,14 +4,8 @@ import { establishConnection } from './plugins/mongodb'
 import { IQuestion } from './types/question'
 
 import Cat from './models/cat'
-<<<<<<< HEAD
 import Users from './models/user'
 import Question from './models/question'
-=======
-import Users from './models/Users'
-import Login from './models/login'
-import PostQuestion from './models/content'
->>>>>>> 59040bf2a7c98a3f659e4db154c0106b450c6b25
 
 const server: FastifyInstance<Server, IncomingMessage, ServerResponse> = fastify({
     logger: { prettyPrint: true }
@@ -29,7 +23,6 @@ const startFastify: (port: number) => FastifyInstance<Server, IncomingMessage, S
         establishConnection()
         const users = new Users([
             {
-<<<<<<< HEAD
                 _id: 1,
                 Name: "Nelson",
                 Passwd:"12345",
@@ -38,16 +31,6 @@ const startFastify: (port: number) => FastifyInstance<Server, IncomingMessage, S
                 _id: 2,
                 Name: "Kevin",
                 Passwd: "678910",
-=======
-            _id: 1,
-            Name: "Nelson",
-            Passwd:"12345",
-            },
-            {
-            _id: 2,
-            Name: "Kevin",
-            Passwd: "678910",
->>>>>>> 59040bf2a7c98a3f659e4db154c0106b450c6b25
             }
         ],)
     })
@@ -67,30 +50,12 @@ const startFastify: (port: number) => FastifyInstance<Server, IncomingMessage, S
         return reply.status(200).send({ cat })
     })
 
-<<<<<<< HEAD
-=======
-
-    //login api
-    server.post('/loginData', async (request: FastifyRequest, reply: FastifyReply) => {
-        const postBody = request.body
-        const login = await Users.find({ postBody }).exec()
-        if(login != null)
-        {
-            return reply.status(200).send({ msg: 'login success!' })
-        }
-        else
-        {
-            return reply.status(200).send({ msg: 'account or password incorrect!' })
-        }
-    })
-
     //question api
     server.get('/getAllPost', async (request: FastifyRequest, reply: FastifyReply) => {
         const question: Array<IQuestion> = await Question.find()
         return reply.status(200).send({ question })
     })
 
-<<<<<<< HEAD
     server.post('/setNewQuestionToDB', async (request: FastifyRequest, reply: FastifyReply) => {
         const postBody: IQuestion = request.body as IQuestion
         const question = await Question.create(postBody)
@@ -115,15 +80,6 @@ const startFastify: (port: number) => FastifyInstance<Server, IncomingMessage, S
             return reply.status(201).send({ question })
         }
     })
->>>>>>> ykl_dev
-=======
-    server.post('/content', async (request: FastifyRequest, reply: FastifyReply) => {
-        const postBody = request.body
-        const question = await PostQuestion.find({ postBody }).exec()
-        return reply.status(200).send({ question })
-    })
-
->>>>>>> 59040bf2a7c98a3f659e4db154c0106b450c6b25
     //[測試] loginPage一般帳號密碼登入
     //Input : account、password
     //Output : loginMsg(login success! / password incorrect! / account not exist!) 、 User(Schema)
@@ -146,9 +102,6 @@ const startFastify: (port: number) => FastifyInstance<Server, IncomingMessage, S
         {
             return reply.status(200).send({ msg: 'account not exist!' })
         }
-<<<<<<< HEAD
-    })
-=======
 
     })
 
@@ -163,7 +116,6 @@ const startFastify: (port: number) => FastifyInstance<Server, IncomingMessage, S
     //Input : QuestionPK
     //Output : Answer(Schema)/Name
     server.get('/getAnswerByQuestionPK', async (request: FastifyRequest, reply: FastifyReply) => {
->>>>>>> 59040bf2a7c98a3f659e4db154c0106b450c6b25
         
     })
 
@@ -186,11 +138,11 @@ const startFastify: (port: number) => FastifyInstance<Server, IncomingMessage, S
     //Output : success/fall
     server.get('/setNewAnswerToDB', async (request: FastifyRequest, reply: FastifyReply) => {
         
-<<<<<<< HEAD
+    })
     //login api
     server.post('/loginData', async (request: FastifyRequest, reply: FastifyReply) => {
         const postBody = request.body
-        const login = await Login.find({ postBody }).exec()
+        const login = await Users.find({ postBody }).exec()
         if(login != null)
         {
             return reply.status(200).send({ msg: 'login success!' })
@@ -199,19 +151,6 @@ const startFastify: (port: number) => FastifyInstance<Server, IncomingMessage, S
         {
             return reply.status(200).send({ msg: 'account or password incorrect!' })
         }
-    })
-
-    server.get('/content', async (request: FastifyRequest, reply: FastifyReply) => {
-        const question = await PostQuestion.find({}).exec()
-        return reply.status(200).send({ question })
-    })
-
-    server.post('/content', async (request: FastifyRequest, reply: FastifyReply) => {
-        const postBody = request.body
-        const question = await PostQuestion.find({ postBody }).exec()
-        return reply.status(200).send({ question })
-=======
->>>>>>> ykl_dev
     })
 
     return server
