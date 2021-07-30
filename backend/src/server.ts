@@ -8,6 +8,7 @@ import { findInsertionPoint } from './plugins/search'
 import Cat from './models/cat'
 import Users from './models/user'
 import Question from './models/question'
+import { number } from 'yargs'
 
 const server: FastifyInstance<Server, IncomingMessage, ServerResponse> = fastify({
     logger: { prettyPrint: true }
@@ -64,18 +65,31 @@ const startFastify: (port: number) => FastifyInstance<Server, IncomingMessage, S
         }
     })
     
-    //Delete User Posts 回傳 userID,postID
-    server.delete('/deletePosts/:user_id/:post_id', async (request: FastifyRequest, reply: FastifyReply) => {
+    //Put User Posts 回傳 userID,postID
+    server.put('/putPosts/:user_id/:post_id', async (request: FastifyRequest, reply: FastifyReply) => {
         let param:any = request.params as any
         const users:IUsers = await Users.findById(param.user_id).exec() as IUsers
         if(users === null){
-            return reply.status(404).send({msg: "Users not exist"})
+            return reply.status(404).send({msg: "User is not exist"})
         }
         else{
-            const OwnPost_id:Array<number> = users.OwnPost_id as Array<number>
-            let result = await findInsertionPoint(OwnPost_id,param.post_id)
+            const OwnPost_array:Array<number> = users.OwnPost_id as Array<number>
+            let [Index,result] = await findInsertionPoint(OwnPost_array,param.post_id)
+            // result[0] : number 回傳可插入的insert index 
+            // result[1] : boolean True:不存在此index可新增 False:存在此index可移除 
 
-            return reply.status(200).send({OwnPost_id,result})
+            if(result != false){
+                let index:number = Index as number
+                await OwnPost_array.splice( index,0, parseInt(param.post_id) )
+                await OwnPost_array.sort( (a,b)=>a-b )
+                //await users.OwnPost_id.update({OwnPost_array})
+                await users.save()
+
+                return reply.status(404).send(users)
+            }
+            else{
+                return reply.status(404).send({msg: "User have this post can delete"})
+            }
         }
 
         //Users.addToSet({})
