@@ -4,12 +4,8 @@ import { establishConnection } from './plugins/mongodb'
 import { IQuestion } from './types/question'
 
 import Cat from './models/cat'
-<<<<<<< HEAD
-import Users from './models/users'
-=======
 import Users from './models/user'
 import Question from './models/question'
->>>>>>> eadfe8691ee29f7ce3e76697a485bb217f9cd078
 
 const server: FastifyInstance<Server, IncomingMessage, ServerResponse> = fastify({
     logger: { prettyPrint: true }
@@ -27,16 +23,6 @@ const startFastify: (port: number) => FastifyInstance<Server, IncomingMessage, S
         establishConnection()
         const users = new Users([
             {
-<<<<<<< HEAD
-            _id: 1,
-            Name: "Nelson",
-            Passwd:"12345",
-            },
-            {
-            _id: 2,
-            Name: "Kevin",
-            Passwd: "678910",
-=======
                 _id: 1,
                 Name: "Nelson",
                 Passwd:"12345",
@@ -45,7 +31,6 @@ const startFastify: (port: number) => FastifyInstance<Server, IncomingMessage, S
                 _id: 2,
                 Name: "Kevin",
                 Passwd: "678910",
->>>>>>> eadfe8691ee29f7ce3e76697a485bb217f9cd078
             }
         ],)
     })
@@ -65,8 +50,6 @@ const startFastify: (port: number) => FastifyInstance<Server, IncomingMessage, S
         return reply.status(200).send({ cat })
     })
 
-<<<<<<< HEAD
-=======
     //[測試] loginPage一般帳號密碼登入
     //Input : account、password
     //Output : loginMsg(login success! / password incorrect! / account not exist!) 、 User(Schema)
@@ -146,7 +129,6 @@ const startFastify: (port: number) => FastifyInstance<Server, IncomingMessage, S
         }
     })
 
->>>>>>> eadfe8691ee29f7ce3e76697a485bb217f9cd078
     return server
 }
 
