@@ -35,6 +35,25 @@ const startFastify: (port: number) => FastifyInstance<Server, IncomingMessage, S
                 Passwd: "678910",
             }
         ],)
+        const testQuestion = new Question([
+            {
+                _id: 1,
+                Questioner_id: 1,
+                QuestionTitle: "Test",
+                Contents: "hello world!",
+                Answer: [1],
+                QuestionType: ["text"],
+                AnswerScore: [2]
+            }
+        ],)
+        const testAnswer = new Answer([
+            {
+                _id: 1,
+                User_id: 2,
+                Contents: "hello world!",
+                Scoring: [1]
+            }
+        ],)
     })
 
     server.get('/ping', async (request: FastifyRequest, reply: FastifyReply) => {
