@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">36.26% </span>
+                <span class="strong">33.66% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>33/91</span>
+                <span class='fraction'>34/101</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">11.11% </span>
+                <span class="strong">10.34% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>3/27</span>
+                <span class='fraction'>3/29</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">33.33% </span>
+                <span class="strong">30% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>6/18</span>
+                <span class='fraction'>6/20</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">40.28% </span>
+                <span class="strong">37.5% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>29/72</span>
+                <span class='fraction'>30/80</span>
             </div>
         
             
@@ -222,7 +222,22 @@
 <a name='L163'></a><a href='#L163'>163</a>
 <a name='L164'></a><a href='#L164'>164</a>
 <a name='L165'></a><a href='#L165'>165</a>
-<a name='L166'></a><a href='#L166'>166</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L166'></a><a href='#L166'>166</a>
+<a name='L167'></a><a href='#L167'>167</a>
+<a name='L168'></a><a href='#L168'>168</a>
+<a name='L169'></a><a href='#L169'>169</a>
+<a name='L170'></a><a href='#L170'>170</a>
+<a name='L171'></a><a href='#L171'>171</a>
+<a name='L172'></a><a href='#L172'>172</a>
+<a name='L173'></a><a href='#L173'>173</a>
+<a name='L174'></a><a href='#L174'>174</a>
+<a name='L175'></a><a href='#L175'>175</a>
+<a name='L176'></a><a href='#L176'>176</a>
+<a name='L177'></a><a href='#L177'>177</a>
+<a name='L178'></a><a href='#L178'>178</a>
+<a name='L179'></a><a href='#L179'>179</a>
+<a name='L180'></a><a href='#L180'>180</a>
+<a name='L181'></a><a href='#L181'>181</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -301,6 +316,20 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -352,6 +381,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -455,10 +485,24 @@ const startFastify: (port: number) =&gt; FastifyInstance&lt;Server, IncomingMess
 <span class="cstat-no" title="statement not covered" >        return reply.status(200).send({ answer })</span>
     })
 &nbsp;
+    server.get('/question/:Question_id', <span class="fstat-no" title="function not covered" >async (r</span>equest: FastifyRequest, reply: FastifyReply<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >) =&gt; {</span></span>
+        let <span class="cstat-no" title="statement not covered" >param:any = request.params</span>
+        let <span class="cstat-no" title="statement not covered" >Question_id : number = param.Question_id</span>
+        const <span class="cstat-no" title="statement not covered" >question: IQuestion = <span class="cstat-no" title="statement not covered" >await Question.findById(Question_id) as IQuestion</span></span>
+<span class="cstat-no" title="statement not covered" >        if(question === null)</span>
+        {
+<span class="cstat-no" title="statement not covered" >            return reply.status(404).send({msg: "Question Not Found"})</span>
+        }
+        else
+        {
+<span class="cstat-no" title="statement not covered" >            return reply.status(200).send({ question })</span>
+        }
+    })
+&nbsp;
     server.get('/question/answers/:Question_id', <span class="fstat-no" title="function not covered" >async (r</span>equest: FastifyRequest, reply: FastifyReply<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >) =&gt; {</span></span>
         let <span class="cstat-no" title="statement not covered" >param:any = request.params</span>
         let <span class="cstat-no" title="statement not covered" >Question_id : number = param.Question_id</span>
-        const <span class="cstat-no" title="statement not covered" >question: IQuestion = <span class="cstat-no" title="statement not covered" >await Question.findOne( { _id: Question_id } ).exec() as IQuestion</span></span>
+        const <span class="cstat-no" title="statement not covered" >question: IQuestion = <span class="cstat-no" title="statement not covered" >await Question.findById(Question_id) as IQuestion</span></span>
         if(<span class="cstat-no" title="statement not covered" >question </span>=== null)
         {
 <span class="cstat-no" title="statement not covered" >            return reply.status(404).send({msg: "Question Not Found"})</span>
@@ -479,7 +523,7 @@ const startFastify: (port: number) =&gt; FastifyInstance&lt;Server, IncomingMess
                 } as IAnswer]
 <span class="cstat-no" title="statement not covered" >                answer.pop()</span>
                 for (var <span class="cstat-no" title="statement not covered" >val of <span class="cstat-no" title="statement not covered" >q</span>uestion.Answer<span class="cstat-no" title="statement not covered" >) {</span></span>
-<span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" >                    answer.push(<span class="cstat-no" title="statement not covered" >a</span>wait Answer.findOne({ _id: val }) as IAnswer)</span></span>
+<span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" >                    answer.push(<span class="cstat-no" title="statement not covered" >a</span>wait Answer.findById(val) as IAnswer)</span></span>
                 }
 <span class="cstat-no" title="statement not covered" ><span class="branch-0 cbranch-no" title="branch not covered" >                return reply.status(200).send({ answer })</span></span>
             }
@@ -502,7 +546,7 @@ const startFastify: (port: number) =&gt; FastifyInstance&lt;Server, IncomingMess
     server.put('/question/answer/new/:Question_id', <span class="fstat-no" title="function not covered" >async (r</span>equest: FastifyRequest, reply: FastifyReply<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >) =&gt; {</span></span>
         let <span class="cstat-no" title="statement not covered" >param:any = request.params</span>
         let <span class="cstat-no" title="statement not covered" >Question_id = param.Question_id</span>
-        let <span class="cstat-no" title="statement not covered" >question: IQuestion = <span class="cstat-no" title="statement not covered" >await Question.findOne({ _id: Question_id }).exec() as IQuestion</span></span>
+        let <span class="cstat-no" title="statement not covered" >question: IQuestion = <span class="cstat-no" title="statement not covered" >await Question.findById(Question_id).exec() as IQuestion</span></span>
         if(<span class="cstat-no" title="statement not covered" >question </span>=== null)
         {
 <span class="cstat-no" title="statement not covered" >            return reply.status(404).send({msg: "Question Not Found"})</span>
@@ -511,13 +555,14 @@ const startFastify: (port: number) =&gt; FastifyInstance&lt;Server, IncomingMess
         {
             const <span class="cstat-no" title="statement not covered" >postBody: IAnswer = request.body as IAnswer</span>
             const <span class="cstat-no" title="statement not covered" >answer = <span class="cstat-no" title="statement not covered" >await Answer.create(postBody)</span></span>
-<span class="cstat-no" title="statement not covered" >            if(answer === null)</span>
+            if(<span class="cstat-no" title="statement not covered" >answer </span>=== null)
             {
 <span class="cstat-no" title="statement not covered" >                return reply.status(400).send({msg: "Create Answer Failed"})</span>
             }
             else
             {
 <span class="cstat-no" title="statement not covered" >                question.Answer.push(answer._id)</span>
+<span class="cstat-no" title="statement not covered" >                await question.save()</span>
 <span class="cstat-no" title="statement not covered" >                return reply.status(200).send({ answer })</span>
             }
         }
@@ -559,7 +604,7 @@ export { startFastify }</pre></td></tr></table></pre>
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Jul 30 2021 09:47:11 GMT+0800 (台北標準時間)
+                at Fri Jul 30 2021 13:40:24 GMT+0800 (台北標準時間)
             </div>
         </div>
         <script src="../prettify.js"></script>
