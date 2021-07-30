@@ -73,3 +73,18 @@
 {
   font-size:13px !important
 }
+
+.padding30px{
+  padding: 30px;
+}
+
+.marginWithTopDown15px{
+  margin: 15px 0 15px 0
+}
+
+.styleWithQuestionTable{
+  margin-top: 1%;
+  margin-right: 5%;
+  margin-bottom: 1%;
+  margin-left: 5%;
+}

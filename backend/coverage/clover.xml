@@ -26,8 +26,13 @@
         <line num="22" count="5" type="stmt"/>
         <line num="23" count="0" type="stmt"/>
         <line num="24" count="0" type="stmt"/>
+<<<<<<< HEAD
         <line num="26" count="8" type="cond" truecount="6" falsecount="1"/>
         <line num="27" count="4" type="cond" truecount="3" falsecount="3"/>
+=======
+        <line num="26" count="1" type="cond" truecount="5" falsecount="2"/>
+        <line num="27" count="0" type="cond" truecount="0" falsecount="6"/>
+>>>>>>> 02f2f6534bf188b4c8a80073360531298a546647
         <line num="28" count="0" type="cond" truecount="0" falsecount="4"/>
         <line num="29" count="0" type="cond" truecount="0" falsecount="4"/>
         <line num="30" count="0" type="cond" truecount="0" falsecount="2"/>
