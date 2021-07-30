@@ -14,6 +14,10 @@ const UserSchema: Schema = new Schema(
             type: String,
             required: true
         },
+        OwnPost_id:{
+            type: Array,
+            required: false
+        },
         FollowPost_id: {
             type: Array,
             required: false
