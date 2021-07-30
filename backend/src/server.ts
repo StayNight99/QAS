@@ -35,25 +35,6 @@ const startFastify: (port: number) => FastifyInstance<Server, IncomingMessage, S
                 Passwd: "678910",
             }
         ],)
-        const testQuestion = new Question([
-            {
-                _id: 1,
-                Questioner_id: 1,
-                QuestionTitle: "Test",
-                Contents: "hello world!",
-                Answer: [1],
-                QuestionType: ["text"],
-                AnswerScore: [2]
-            }
-        ],)
-        const testAnswer = new Answer([
-            {
-                _id: 1,
-                User_id: 2,
-                Contents: "hello world!",
-                Scoring: [1]
-            }
-        ],)
     })
 
     server.get('/ping', async (request: FastifyRequest, reply: FastifyReply) => {
@@ -76,11 +57,10 @@ const startFastify: (port: number) => FastifyInstance<Server, IncomingMessage, S
     server.post('/loginData', async (request: FastifyRequest, reply: FastifyReply) => {
         const postBody = request.body
         const login = await Users.find({ postBody }).exec()
-        if(login != null)
-        {
-            return reply.status(200).send({ msg: 'login success!' })
+        if(login != null)        {
+            return reply.status(200).send({ msg: 'login success!' , _id: '3' })
         }
-        else if(account === 'Daniel' && password != '1234')
+        else if(login.Name === 'Daniel' && login.Passwd != '1234')
         {
             return reply.status(200).send({ msg: 'password incorrect!' })
         }
@@ -89,6 +69,7 @@ const startFastify: (port: number) => FastifyInstance<Server, IncomingMessage, S
             return reply.status(200).send({ msg: 'account not exist!' })
         }
     })
+
 
 
     //question api
