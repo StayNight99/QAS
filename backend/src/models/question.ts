@@ -11,13 +11,17 @@ const QuestionSchema: Schema = new Schema(
             type: Number,
             required: true
         },
+        QuestionTitle: {
+            type: String,
+            required: true
+        },
         Contents: {
             type: String,
             required: true
         },
         Answer: {
             type: Array,
-            required: true
+            required: false
         },
         QuestionType:{
             type: Array,
