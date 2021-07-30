@@ -41,6 +41,18 @@ const startFastify: (port: number) => FastifyInstance<Server, IncomingMessage, S
         return reply.status(200).send({ msg: 'pong' })
     })
 
+    server.get('/cats', async (request: FastifyRequest, reply: FastifyReply) => {
+        const cats = await Cat.find({}).exec()
+        return reply.status(200).send({ cats })
+    })
+
+    server.post('/cats', async (request: FastifyRequest, reply: FastifyReply) => {
+        const postBody = request.body
+        const cat = await Cat.create(postBody)
+        return reply.status(200).send({ cat })
+    })
+  
+
     //login api
     server.post('/loginData', async (request: FastifyRequest, reply: FastifyReply) => {
         const postBody = request.body
@@ -49,17 +61,23 @@ const startFastify: (port: number) => FastifyInstance<Server, IncomingMessage, S
         {
             return reply.status(200).send({ msg: 'login success!' })
         }
+        else if(account === 'Daniel' && password != '1234')
+        {
+            return reply.status(200).send({ msg: 'password incorrect!' })
+        }
         else
         {
-            return reply.status(200).send({ msg: 'account or password incorrect!' })
+            return reply.status(200).send({ msg: 'account not exist!' })
         }
     })
+
 
     //question api
     server.get('/question', async (request: FastifyRequest, reply: FastifyReply) => {
         const question: Array<IQuestion> = await Question.find()
         return reply.status(200).send({ question })
     })
+
 
     server.get('/answer', async (request: FastifyRequest, reply: FastifyReply) => {
         const answer: Array<IAnswer> = await Answer.find()
@@ -79,6 +97,7 @@ const startFastify: (port: number) => FastifyInstance<Server, IncomingMessage, S
             return reply.status(200).send({ question })
         }
     })
+
 
     server.get('/question/answers/:Question_id', async (request: FastifyRequest, reply: FastifyReply) => {
         let param:any = request.params
@@ -123,6 +142,7 @@ const startFastify: (port: number) => FastifyInstance<Server, IncomingMessage, S
             return reply.status(201).send({ question })
         }
     })
+
 
     server.put('/question/answer/new/:Question_id', async (request: FastifyRequest, reply: FastifyReply) => {
         let param:any = request.params
@@ -174,6 +194,7 @@ const startFastify: (port: number) => FastifyInstance<Server, IncomingMessage, S
 
         
     })
+
 
     return server
 }

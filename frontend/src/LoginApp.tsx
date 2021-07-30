@@ -29,7 +29,8 @@ function LoginApp() {
         let loginData = await nodeService.getLoginData(addAccount , addPassword);
         if(loginData.msg === "login success!")
         {
-            swal.fire('登入成功！',loginData.msg,'success')
+            //swal.fire('登入成功！',loginData.msg,'success')
+            window.location.href = "/QuestionsListPage"
         }
         else
         {

@@ -1,4 +1,5 @@
 import { Document } from 'mongoose'
+import { IAnswer } from './answer'
 
 interface IQuestion extends Document{
     _id: number

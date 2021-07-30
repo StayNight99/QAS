@@ -18,7 +18,7 @@ const AnswerSchema: Schema = new Schema(
         Scoring: {
             type: Array,
             required: false
-        },
+        }
     },
     {
         timestamps: true
