@@ -66,10 +66,24 @@ const startFastify: (port: number) => FastifyInstance<Server, IncomingMessage, S
         return reply.status(200).send({ answer })
     })
 
+    server.get('/question/:Question_id', async (request: FastifyRequest, reply: FastifyReply) => {
+        let param:any = request.params
+        let Question_id : number = param.Question_id
+        const question: IQuestion = await Question.findById(Question_id) as IQuestion
+        if(question === null)
+        {
+            return reply.status(404).send({msg: "Question Not Found"})
+        }
+        else
+        {
+            return reply.status(200).send({ question })
+        }
+    })
+
     server.get('/question/answers/:Question_id', async (request: FastifyRequest, reply: FastifyReply) => {
         let param:any = request.params
         let Question_id : number = param.Question_id
-        const question: IQuestion = await Question.findOne( { _id: Question_id } ).exec() as IQuestion
+        const question: IQuestion = await Question.findById(Question_id) as IQuestion
         if(question === null)
         {
             return reply.status(404).send({msg: "Question Not Found"})
@@ -90,7 +104,7 @@ const startFastify: (port: number) => FastifyInstance<Server, IncomingMessage, S
                 } as IAnswer]
                 answer.pop()
                 for (var val of question.Answer) {
-                    answer.push(await Answer.findOne({ _id: val }) as IAnswer)
+                    answer.push(await Answer.findById(val) as IAnswer)
                 }
                 return reply.status(200).send({ answer })
             }
@@ -113,7 +127,7 @@ const startFastify: (port: number) => FastifyInstance<Server, IncomingMessage, S
     server.put('/question/answer/new/:Question_id', async (request: FastifyRequest, reply: FastifyReply) => {
         let param:any = request.params
         let Question_id = param.Question_id
-        let question: IQuestion = await Question.findOne({ _id: Question_id }).exec() as IQuestion
+        let question: IQuestion = await Question.findById(Question_id).exec() as IQuestion
         if(question === null)
         {
             return reply.status(404).send({msg: "Question Not Found"})
@@ -129,6 +143,7 @@ const startFastify: (port: number) => FastifyInstance<Server, IncomingMessage, S
             else
             {
                 question.Answer.push(answer._id)
+                await question.save()
                 return reply.status(200).send({ answer })
             }
         }
