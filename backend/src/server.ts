@@ -58,9 +58,9 @@ const startFastify: (port: number) => FastifyInstance<Server, IncomingMessage, S
         const postBody = request.body
         const login = await Users.find({ postBody }).exec()
         if(login != null)        {
-            return reply.status(200).send({ msg: 'login success!' , _id: '1' })
+            return reply.status(200).send({ msg: 'login success!' , _id: '3' })
         }
-        else if(Name === 'Daniel' && Passwd != '1234')
+        else if(login.Name === 'Daniel' && login.Passwd != '1234')
         {
             return reply.status(200).send({ msg: 'password incorrect!' })
         }
