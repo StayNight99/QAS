@@ -26,11 +26,11 @@ function LoginApp() {
     async function submitLoginData() {
         //await postData();
         //getData();
-        let loginData = await nodeService.getLoginData(addAccount , addPassword);
+        let loginData = await nodeService.postLoginData(addAccount , addPassword);
         if(loginData.msg === "login success!")
         {
             //swal.fire('登入成功！',loginData.msg,'success')
-            window.location.href = "/QuestionsListPage"
+            window.location.href = "/QuestionsListPage/" + loginData._id
         }
         else
         {

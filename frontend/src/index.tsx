@@ -17,7 +17,7 @@ ReactDOM.render(
     <Router >
       <Route exact path="/" component={App} />
       <Route exact path="/LoginPage" component={LoginApp} />
-      <Route exact path="/QuestionsListPage" component={QuestionsListApp} />
+      <Route exact path="/QuestionsListPage/:_id" component={QuestionsListApp} />
       <Route exact path="/AskQuestionPage" component={AskQuestionApp} />
       <Route exact path="/ReviewAnswerPage/:QID" component={ReviewAnserApp} />
     </Router>

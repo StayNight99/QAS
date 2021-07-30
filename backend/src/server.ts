@@ -53,18 +53,21 @@ const startFastify: (port: number) => FastifyInstance<Server, IncomingMessage, S
     //[測試] loginPage一般帳號密碼登入
     //Input : account、password
     //Output : loginMsg(login success! / password incorrect! / account not exist!) 、 User(Schema)
-    server.get('/loginData/:account/:password', async (request: FastifyRequest, reply: FastifyReply) => {
-        let param:any = request.params
-        let account = param.account
-        let password = param.password
-        console.log(account);
-        console.log(password);
+    server.post('/loginData', async (request: FastifyRequest, reply: FastifyReply) => {
+        // let param:any = request.params
+        // let account = param.account
+        // let password = param.password
+        const postBody:any = request.body
+        let Name = postBody.Name;
+        let Passwd = postBody.Passwd;
+        console.log(Name)
+        console.log(Passwd)
 
-        if(account === 'Daniel' && password === '1234')
+        if(Name === 'Daniel' && Passwd === '1234')
         {
-            return reply.status(200).send({ msg: 'login success!' })
+            return reply.status(200).send({ msg: 'login success!' , _id: '1' })
         }
-        else if(account === 'Daniel' && password != '1234')
+        else if(Name === 'Daniel' && Passwd != '1234')
         {
             return reply.status(200).send({ msg: 'password incorrect!' })
         }

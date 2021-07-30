@@ -44,13 +44,15 @@ export class NodeService {
     //[測試] loginPage一般帳號密碼登入
     //Input : account、password
     //Output : loginMsg(login success! / password incorrect! / account not exist!) / User(Schema)
-    async getLoginData(strAccount: string, strPassword: string) {
+    async postLoginData(strAccount: string, strPassword: string) {
         try {
             //const res = await axios.get("/loginData/" + strAccount + "/" + strPassword);
-            const res = await axios.get("http://localhost:8888/loginData/" + strAccount + "/" + strPassword);
+            const res = await axios.post("http://localhost:8888/loginData", {
+                Name: strAccount,
+                Passwd: strPassword
+            });
             console.log(res);
-            
-            //return res.data.todos;
+
             return res.data;
         } catch (e) {
             console.error(e);
@@ -64,12 +66,12 @@ export class NodeService {
         try {
             const res = await axios.get("http://localhost:8888/setNewQuestionToDB/" + strUserPK + "/" + strContent + "/" + strQuestionType);
             console.log(res);
-            
+
             return res.data;
         } catch (e) {
             console.error(e);
         }
     }
-    
+
 
 }
