@@ -3,6 +3,7 @@ import { Server, IncomingMessage, ServerResponse, request } from 'http'
 import { establishConnection } from './plugins/mongodb'
 import { IQuestion } from './types/question'
 import { IUsers } from './types/user'
+import { findInsertionPoint } from './plugins/search'
 
 import Cat from './models/cat'
 import Users from './models/user'
@@ -56,7 +57,7 @@ const startFastify: (port: number) => FastifyInstance<Server, IncomingMessage, S
         const postBody: IUsers = request.body as IUsers
         const c_users = await Users.create(postBody)
         if(c_users === null){
-            return reply.status(201).send({msg: "Create Users Failed"})
+            return reply.status(401).send({msg: "Create Users Failed"})
         }
         else{
             return reply.status(201).send({c_users})
@@ -64,16 +65,21 @@ const startFastify: (port: number) => FastifyInstance<Server, IncomingMessage, S
     })
     
     //Delete User Posts 回傳 userID,postID
-    server.delete('/deletePosts', async (request: FastifyRequest, reply: FastifyReply) => {
-        const deleteBody:any = request.body as any
-        const users:Array<IUsers> = await Users.find({ '_id':deleteBody.userID })
+    server.delete('/deletePosts/:user_id/:post_id', async (request: FastifyRequest, reply: FastifyReply) => {
+        let param:any = request.params as any
+        const users:IUsers = await Users.findById(param.user_id).exec() as IUsers
+        if(users === null){
+            return reply.status(404).send({msg: "Users not exist"})
+        }
+        else{
+            const OwnPost_id:Array<number> = users.OwnPost_id as Array<number>
+            let result = await findInsertionPoint(OwnPost_id,param.post_id)
+
+            return reply.status(200).send({OwnPost_id,result})
+        }
+
         //Users.addToSet({})
         //users[0].OwnPost_id.length
-        const result = await Users.findByIdAndRemove({
-            query:  { '_id':deleteBody.userID }
-        }) 
-        
-        return reply.status(200).send(users)
     })
 
     //Delete User
