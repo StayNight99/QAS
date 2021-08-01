@@ -5,7 +5,7 @@ const AnswerSchema: Schema = new Schema(
     {
         _id: {
             type: Number,
-            required: true
+            required: false
         },
         User_id: {
             type: Number,

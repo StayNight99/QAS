@@ -4,6 +4,7 @@ import { establishConnection } from './plugins/mongodb'
 import { IQuestion } from './types/question'
 import { IUsers } from './types/user'
 import { IAnswer } from './types/answer'
+import * as dbHandler from './test/db'
 
 import Answer from './models/answer'
 import Cat from './models/cat'
@@ -16,6 +17,10 @@ const server: FastifyInstance<Server, IncomingMessage, ServerResponse> = fastify
 
 const startFastify: (port: number) => FastifyInstance<Server, IncomingMessage, ServerResponse> = (port) => {
 
+    let user_id: number = 1
+    let question_id: number = 1
+    let answer_id: number = 1
+
     server.register(require('fastify-cors'), {})
     
     server.listen(port, (err, _) => {
@@ -23,6 +28,7 @@ const startFastify: (port: number) => FastifyInstance<Server, IncomingMessage, S
             console.error(err)
         }
         establishConnection()
+        dbHandler.clearDatabase()
         const users = new Users([
             {
                 _id: 1,
@@ -35,9 +41,9 @@ const startFastify: (port: number) => FastifyInstance<Server, IncomingMessage, S
                 Passwd: "678910",
             }
         ],)
-        Question.findByIdAndDelete(123).exec()
+        Question.findByIdAndDelete(question_id).exec()
         Question.create({
-            _id: 123,
+                _id: question_id,
                 Questioner_id: 123,
                 QuestionTitle: "Test",
                 Contents: "hello world!",
@@ -45,6 +51,7 @@ const startFastify: (port: number) => FastifyInstance<Server, IncomingMessage, S
                 QuestionType: ["text"],
                 AnswerScore: [2]
         })
+        question_id ++
     })
 
     server.get('/ping', async (request: FastifyRequest, reply: FastifyReply) => {
@@ -150,7 +157,7 @@ const startFastify: (port: number) => FastifyInstance<Server, IncomingMessage, S
             let size = question.Answer.length;
             if(size === 0)
             {
-                return reply.status(400).send({ msg: "Failed"})
+                return reply.status(400).send({ msg: "No Answer Exist"})
             }
             else
             {
@@ -170,6 +177,7 @@ const startFastify: (port: number) => FastifyInstance<Server, IncomingMessage, S
 
     server.post('/question/new', async (request: FastifyRequest, reply: FastifyReply) => {
         const postBody: IQuestion = request.body as IQuestion
+        postBody._id = question_id
         const question = await Question.create( postBody )
         if(question === null)
         {
@@ -177,7 +185,8 @@ const startFastify: (port: number) => FastifyInstance<Server, IncomingMessage, S
         }
         else
         {
-            return reply.status(201).send({ question })
+            question_id ++
+            return reply.status(201).send({ msg: "Create Question Success", question })
         }
     })
 
@@ -193,6 +202,7 @@ const startFastify: (port: number) => FastifyInstance<Server, IncomingMessage, S
         else
         {
             const postBody: IAnswer = request.body as IAnswer
+            postBody._id = answer_id
             const answer = await Answer.create(postBody)
             if(answer === null)
             {
