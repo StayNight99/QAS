@@ -26,7 +26,7 @@ function AskQuestionApp() {
     const nodeService = new NodeService();
 
     async function btnPostQuestion() {
-        let dbAccessData = await nodeService.setNewQuestion("3", inputTitle, editorBody, tags);
+        let dbAccessData = await nodeService.setNewQuestion(3, inputTitle, editorBody, tags);
         
         if (dbAccessData.msg === "Create Question Failed") {
             swal.fire('發生錯誤！', '請檢查資料是否填寫不完全!', 'error');

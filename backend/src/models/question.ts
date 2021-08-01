@@ -9,7 +9,7 @@ const QuestionSchema: Schema = new Schema(
         },
         Questioner_id: {
             type: Number,
-            required: true
+            required: false
         },
         QuestionTitle: {
             type: String,

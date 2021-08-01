@@ -58,11 +58,10 @@ export default class Server {
     //使用者發問問題，需要新增問題相關資訊至資料庫
     //Input : UserPK、Contents、Question Type
     //Output : success/fall
-    async setNewQuestion(strUserPK: string, strTitle: string, strContent: string, strQuestionType: string[]) {
-        let question: any
-        
+    async setNewQuestion(strUserPK: number, strTitle: string, strContent: string, strQuestionType: string[]) {
         try {
-            question.Questioner_id = strUserPK
+            let question: any
+            question._id = strUserPK
             question.QuestionTitle = strTitle
             question.Contents = strContent
             question.QuestionType = strQuestionType
