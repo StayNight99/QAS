@@ -7,7 +7,7 @@ import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { InputText } from "primereact/inputtext";
 import { Button } from "primereact/button";
-import { NodeService, todoObject } from "./service/nodeService";
+import NodeService from "./service/Server";
 import * as TE from "fp-ts/TaskEither";
 import { zero } from "fp-ts/Array";
 import { Divider } from 'primereact/divider';
@@ -19,10 +19,10 @@ import ReactTagInput from "@pathofdev/react-tag-input";
 function QuestionsListApp() {
     const [tags, setTags] = React.useState(["React","TypeScript"])
     const nodeService = new NodeService();
-    const dt = useRef(null);
+    // const dt = useRef(null);
 
-    function btnAskQuestion() {
-        window.location.href = '/AskQuestionPage';
+    function btnAskQuestion(this : any) {
+        window.location.href = '/AskQuestionPage/' + "3";
     }
 
     const btnReviewQuestion = (rowData: any) => {
@@ -35,7 +35,9 @@ function QuestionsListApp() {
     const productService = new ProductService();
 
     useEffect(() => {
-        productService.getProductsSmall().then(data => setProducts(data));
+        //productService.getProductsSmall().then(data => setProducts(data));
+        nodeService.getAllQuestions().then((data) => setProducts(data));
+        
     }, []); 
 
     const reviewBodyTemplate = (rowData: any) => {
@@ -71,7 +73,7 @@ function QuestionsListApp() {
 
 
                 <div className="styleWithQuestionTable">
-                    <DataTable value={products} ref={dt} paginator rows={5}>
+                    <DataTable value={products} paginator rows={5}>
                         <Column field="title" header="Title" filter filterPlaceholder="Search by title" sortable></Column>
                         <Column field="name" header="Name" filter filterPlaceholder="Search by name" sortable></Column>
                         <Column field="category" header="Answer Count" sortable></Column>

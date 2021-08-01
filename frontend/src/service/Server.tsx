@@ -1,4 +1,4 @@
-import axios, { AxiosResponse } from "axios";
+import axios from "axios";
 import * as A from "fp-ts/Array";
 import * as TE from "fp-ts/TaskEither";
 import * as O from "fp-ts/lib/Option";
@@ -6,13 +6,9 @@ import * as E from "fp-ts/Either";
 import { of } from "fp-ts/Identity";
 import { zero } from "fp-ts/Array";
 import { pipe } from "fp-ts/lib/function";
+import QuestionsListApp from "../QuestionsListApp";
 
-export type todoObject = {
-    name: string;
-    id: string;
-};
-
-export class NodeService {
+export default class Server {
 
     //examples
     async getTodoData() {
@@ -62,10 +58,17 @@ export class NodeService {
     //使用者發問問題，需要新增問題相關資訊至資料庫
     //Input : UserPK、Contents、Question Type
     //Output : success/fall
-    async setNewQuestionToDB(strUserPK: string, strContent: string, strQuestionType: string) {
+    async setNewQuestion(strUserPK: string, strTitle: string, strContent: string, strQuestionType: string[]) {
+        let question: any
+        
         try {
-            const res = await axios.get("http://localhost:8888/setNewQuestionToDB/" + strUserPK + "/" + strContent + "/" + strQuestionType);
-            console.log(res);
+            question.Questioner_id = strUserPK
+            question.QuestionTitle = strTitle
+            question.Contents = strContent
+            question.QuestionType = strQuestionType
+
+            const res = await axios.post("http://localhost:8888/question/new", question);
+            console.log(res);       
 
             return res.data;
         } catch (e) {
@@ -73,5 +76,15 @@ export class NodeService {
         }
     }
 
+    //取得所有問題
+    async getAllQuestions() {
+        try {
+            const res = await axios.get("http://localhost:8888/question");
+            console.log(res);
 
+            return res.data;
+        } catch (e) {
+            console.error(e);
+        }
+    }
 }
