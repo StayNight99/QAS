@@ -54,7 +54,7 @@ const startFastify: (port: number) => FastifyInstance<Server, IncomingMessage, S
   
 
     //login api
-    server.post('/loginData', async (request: FastifyRequest, reply: FastifyReply) => {
+    /*server.post('/loginData', async (request: FastifyRequest, reply: FastifyReply) => {
         const postBody = request.body
         const login = await Users.find({ postBody }).exec()
         if(login != null)        {
@@ -67,6 +67,20 @@ const startFastify: (port: number) => FastifyInstance<Server, IncomingMessage, S
         else
         {
             return reply.status(200).send({ msg: 'account not exist!' })
+        }
+    })*/
+
+    server.get('/user/:user_id', async (request: FastifyRequest, reply: FastifyReply) => {
+        let param:any = request.params
+        let user_id : number = param.user_id
+        const user: IUsers = await Users.findById(user_id) as IUsers
+        if(user === null)
+        {
+            return reply.status(404).send({ msg: "User Not Found" })
+        }
+        else
+        {
+            return reply.status(200).send({ user })
         }
     })
 
@@ -146,8 +160,8 @@ const startFastify: (port: number) => FastifyInstance<Server, IncomingMessage, S
 
     server.put('/question/answer/new/:Question_id', async (request: FastifyRequest, reply: FastifyReply) => {
         let param:any = request.params
-        let Question_id = param.Question_id
-        let question: IQuestion = await Question.findById(Question_id).exec() as IQuestion
+        let question_id = param.Question_id
+        let question: IQuestion = await Question.findById(question_id).exec() as IQuestion
         if(question === null)
         {
             return reply.status(404).send({msg: "Question Not Found"})

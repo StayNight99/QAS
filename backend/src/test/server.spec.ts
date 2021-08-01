@@ -56,11 +56,20 @@ describe('API test', () => {
                 Scoring: [1]
         })
 
+        Users.create({
+            _id: 1,
+            Name: "Kevin",
+            Passwd: "hello world!"
+        })
+
         const res = await server.inject({ method: 'GET', url: '/question' })
         expect(res.statusCode).toBe(200)
 
         const res6 = await server.inject({ method: 'GET', url: '/question/1' })
         expect(res6.statusCode).toBe(200)
+
+        const res7 = await server.inject({ method: 'GET', url: '/user/1' })
+        expect(res7.statusCode).toBe(200)
 
         const res4 = await server.inject({ method: 'GET', url: '/question/answers/1' })
         expect(res4.statusCode).toBe(200)
@@ -80,8 +89,13 @@ describe('API test', () => {
             }
         })
         expect(res1.statusCode).toBe(201)
+        /*const res2: { Question: IQuestion } = JSON.parse(res1.body)
+        expect(res2.Question._id).toBe(123)
+        expect(res2.Question.Questioner_id).toBe(123)
+        expect(res2.Question.QuestionTitle).toBe("Test case")
+        expect(res2.Question.Contents).toBe("blablabla")*/
 
-       /*const res3 = await server.inject({
+        const res3 = await server.inject({
             method: 'PUT',
             url: '/question/answer/new/1',
             payload: {
@@ -91,12 +105,6 @@ describe('API test', () => {
             }
         })
         expect(res3.statusCode).toBe(200)
-
-        const res2: { Question: IQuestion } = JSON.parse(res1.body)
-        expect(res2.Question._id).toBe(123)
-        expect(res2.Question.Questioner_id).toBe(123)
-        expect(res2.Question.QuestionTitle).toBe("Test case")
-        expect(res2.Question.Contents).toBe("blablabla")*/
 
     })
 })
