@@ -35,6 +35,16 @@ const startFastify: (port: number) => FastifyInstance<Server, IncomingMessage, S
                 Passwd: "678910",
             }
         ],)
+        Question.findByIdAndDelete(123).exec()
+        Question.create({
+            _id: 123,
+                Questioner_id: 123,
+                QuestionTitle: "Test",
+                Contents: "hello world!",
+                Answer: [],
+                QuestionType: ["text"],
+                AnswerScore: [2]
+        })
     })
 
     server.get('/ping', async (request: FastifyRequest, reply: FastifyReply) => {
@@ -102,6 +112,20 @@ const startFastify: (port: number) => FastifyInstance<Server, IncomingMessage, S
         let param:any = request.params
         let Question_id : number = param.Question_id
         const question: IQuestion = await Question.findById(Question_id) as IQuestion
+        if(question === null)
+        {
+            return reply.status(404).send({msg: "Question Not Found"})
+        }
+        else
+        {
+            return reply.status(200).send({ question })
+        }
+    })
+
+    server.delete('/question/:Question_id', async (request: FastifyRequest, reply: FastifyReply) => {
+        let param:any = request.params
+        let Question_id : number = param.Question_id
+        const question: IQuestion = await Question.findByIdAndDelete(Question_id) as IQuestion
         if(question === null)
         {
             return reply.status(404).send({msg: "Question Not Found"})
