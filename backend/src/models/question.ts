@@ -5,11 +5,11 @@ const QuestionSchema: Schema = new Schema(
     {
         _id: {
             type: Number,
-            required: true
+            required: false
         },
         Questioner_id: {
             type: Number,
-            required: false
+            required: true
         },
         QuestionTitle: {
             type: String,

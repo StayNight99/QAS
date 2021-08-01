@@ -1,12 +1,57 @@
-import React from 'react';
+import React, { useState, useEffect } from "react";
 import './App.css';
+import NodeService from "./service/Server";
+import { default as swal } from 'sweetalert2'
+import { InputText } from "primereact/inputtext";
+import ReactTagInput from "@pathofdev/react-tag-input";
+import { useParams } from "react-router-dom";
 
 function ReviewAnswerApp() {
-  return (   
-    <div className="App default-font">
+  const [inputBody, setInputBody] = useState<string>('');
+  const [inputTitle, setInputTitle] = useState('');
+  const [tags, setTags] = React.useState(["example tag"])
+  const nodeService = new NodeService();
+  const [questions, setQuestions] = useState([]);
+
+  //從URL取參數
+  let params: any = useParams();
+  let userID = params._id;
+
+  useEffect(() => {
+    //取得問題內容
+    nodeService.getAllQuestions().then((data) => setQuestions(data));
+  }, []);
+
+  return (
+    <div className="default-font">
       <header className="App-header">
 
-       
+        <div className="d-flex">
+          <h2 className="flex--item fl1 fs-headline1">Need Your Answer</h2>
+        </div>
+        <tr>
+          <td >
+            <div>
+              <div style={{ margin: '15px 0 15px 0' }}>Title</div>
+                <InputText value={inputTitle} className="width400pxWithInput" onChange={(e) => setInputTitle(e.target.value)} />
+            </div>
+          </td>
+
+          <td>
+            <div className="width400pxWithInput">
+              <div style={{ margin: '15px 0 15px 0' }}>Keyword</div>
+                <ReactTagInput tags={tags} readOnly onChange={(newTags) => setTags(newTags)} />
+            </div>
+          </td>
+
+          <div>
+            <div style={{ margin: '15px 0 15px 0' }}>Body</div>
+            <InputText className="widthAndHeightQuestion" value={inputBody} onChange={(e) => setInputBody(e.target.value)} />
+          </div>
+
+
+        </tr>
+
       </header>
     </div>
   );

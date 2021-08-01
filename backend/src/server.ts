@@ -23,18 +23,38 @@ const startFastify: (port: number) => FastifyInstance<Server, IncomingMessage, S
             console.error(err)
         }
         establishConnection()
-        const users = new Users([
-            {
+
+        //inital User
+        Users.findByIdAndDelete(1).exec()
+        Users.findByIdAndDelete(2).exec()
+        Users.findByIdAndDelete(3).exec()
+        Users.create({
                 _id: 1,
                 Name: "Nelson",
                 Passwd:"12345",
-            },
-            {
-                _id: 2,
-                Name: "Kevin",
-                Passwd: "678910",
-            }
-        ],)
+        })
+        Users.create({
+            _id: 2,
+            Name: "Kevin",
+            Passwd: "678910",
+        })
+        Users.create({
+            _id: 3,
+            Name: "Daniel",
+            Passwd: "1234",
+        })
+
+        //inital Questions
+        Question.findByIdAndDelete(140).exec()
+        Question.create({
+            _id: 140,
+                Questioner_id: 140,
+                QuestionTitle: "How to programing by MERN stack",
+                Contents: "so diffuclt!",
+                Answer: [],
+                QuestionType: ["React","TypeScript","MERN"],
+                AnswerScore: [2]
+        })
     })
 
     server.get('/ping', async (request: FastifyRequest, reply: FastifyReply) => {
@@ -52,21 +72,35 @@ const startFastify: (port: number) => FastifyInstance<Server, IncomingMessage, S
         return reply.status(200).send({ cat })
     })
   
-
-    //login api
-    server.post('/loginData', async (request: FastifyRequest, reply: FastifyReply) => {
-        const postBody = request.body
-        const login = await Users.find({ postBody }).exec()
-        if(login != null)        {
-            return reply.status(200).send({ msg: 'login success!' , _id: '3' })
-        }
-        else if(login.Name === 'Daniel' && login.Passwd != '1234')
+    server.get('/user/:user_id', async (request: FastifyRequest, reply: FastifyReply) => {
+        let param:any = request.params
+        let user_id : number = param.user_id
+        const user: IUsers = await Users.findById(user_id) as IUsers
+        if(user === null)
         {
-            return reply.status(200).send({ msg: 'password incorrect!' })
+            return reply.status(404).send({ msg: "User Not Found" })
         }
         else
         {
-            return reply.status(200).send({ msg: 'account not exist!' })
+            return reply.status(200).send({ user })
+        }
+    })
+
+    //login api
+    server.post('/login', async (request: FastifyRequest, reply: FastifyReply) => {
+        const postBody = request.body
+        var login = await Users.find({postBody}).exec()
+
+        let param:any = request.params
+        let account = param.Name
+        let password = param.Passwd
+
+        if(true){
+            return reply.status(200).send({ msg: 'login success!' , _id: '3'})
+        }
+        else
+        {
+            return reply.status(200).send({ msg: 'login error!' })
         }
     })
 

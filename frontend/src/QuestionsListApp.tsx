@@ -15,14 +15,19 @@ import './App.css';
 import { default as swal } from 'sweetalert2'
 import ProductService from './service/ProductService';
 import ReactTagInput from "@pathofdev/react-tag-input";
+import { useParams } from "react-router-dom";
 
 function QuestionsListApp() {
-    const [tags, setTags] = React.useState(["React","TypeScript"])
+    var [tags, setTags] = React.useState(["no-tag"])
     const nodeService = new NodeService();
     // const dt = useRef(null);
 
+    //從URL取參數
+    let params:any = useParams();
+    let userID = params._id;
+
     function btnAskQuestion(this : any) {
-        window.location.href = '/AskQuestionPage/' + "3";
+        window.location.href = '/AskQuestionPage/' + userID;
     }
 
     const btnReviewQuestion = (rowData: any) => {
@@ -31,13 +36,14 @@ function QuestionsListApp() {
     }
 
     //DataTable
-    const [products, setProducts] = useState([]);
+    const [questions, setQuestions] = useState([]);
     const productService = new ProductService();
 
     useEffect(() => {
-        //productService.getProductsSmall().then(data => setProducts(data));
-        nodeService.getAllQuestions().then((data) => setProducts(data));
-        
+        //productService.getProductsSmall().then(data => setQuestions(data));
+
+        //取得所有Questions
+        nodeService.getAllQuestions().then((data) => setQuestions(data));       
     }, []); 
 
     const reviewBodyTemplate = (rowData: any) => {
@@ -49,9 +55,28 @@ function QuestionsListApp() {
     }
 
     const tagTemplate = (rowData: any) => {
+        let QuestionType = rowData.QuestionType
         return (
             <React.Fragment>
-                <ReactTagInput tags={tags} readOnly onChange={(newTags) => setTags(newTags)}/>
+                <ReactTagInput tags={QuestionType} readOnly onChange={(newTags) => setTags(newTags)}/>
+            </React.Fragment>
+        );
+    }
+
+    const scoreTemplate = (rowData: any) => {
+        let AnswerScore = rowData.AnswerScore
+        return (
+            <React.Fragment>
+                {AnswerScore.length}
+            </React.Fragment>
+        );
+    }
+
+    const answerTemplate= (rowData: any) => {
+        let Answer = rowData.Answer
+        return (
+            <React.Fragment>
+                {Answer.length}
             </React.Fragment>
         );
     }
@@ -73,12 +98,12 @@ function QuestionsListApp() {
 
 
                 <div className="styleWithQuestionTable">
-                    <DataTable value={products} paginator rows={5}>
-                        <Column field="title" header="Title" filter filterPlaceholder="Search by title" sortable></Column>
+                    <DataTable value={questions} paginator rows={5}>
+                        <Column field="QuestionTitle" header="Title" filter filterPlaceholder="Search by title" sortable></Column>
                         <Column field="name" header="Name" filter filterPlaceholder="Search by name" sortable></Column>
-                        <Column field="category" header="Answer Count" sortable></Column>
-                        <Column field="quantity" header="Score" sortable></Column>
-                        <Column field="price" header="Tag"  body={tagTemplate} sortable></Column>
+                        <Column field="Answer" header="Answer Count" body={answerTemplate} sortable></Column>
+                        <Column field="AnswerScore" header="Score" body={scoreTemplate} sortable></Column>
+                        <Column field="QuestionType" header="Tag"  body={tagTemplate} sortable></Column>
                         <Column field="Questioner_id" header="Review" body={reviewBodyTemplate}></Column>
                     </DataTable>
                 </div>

@@ -43,7 +43,7 @@ export default class Server {
     async postLoginData(strAccount: string, strPassword: string) {
         try {
             //const res = await axios.get("/loginData/" + strAccount + "/" + strPassword);
-            const res = await axios.post("http://localhost:8888/loginData", {
+            const res = await axios.post("http://localhost:8888/login", {
                 Name: strAccount,
                 Passwd: strPassword
             });
@@ -61,7 +61,7 @@ export default class Server {
     async setNewQuestion(strUserPK: number, strTitle: string, strContent: string, strQuestionType: string[]) {
         try {
             let question: any
-            question._id = strUserPK
+            question.Questioner_id = strUserPK
             question.QuestionTitle = strTitle
             question.Contents = strContent
             question.QuestionType = strQuestionType
@@ -81,7 +81,10 @@ export default class Server {
             const res = await axios.get("http://localhost:8888/question");
             console.log(res);
 
-            return res.data;
+            //console.log(res.data['question'].QuestionType);
+            //console.log(res.data['question'].AnswerScore.count());
+
+            return res.data['question'];;
         } catch (e) {
             console.error(e);
         }
