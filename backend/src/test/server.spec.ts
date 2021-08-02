@@ -5,6 +5,11 @@ import * as dbHandler from './db'
 import { IQuestion } from './../types/question'
 import { IUsers } from './../types/user'
 import { IAnswer } from './../types/answer'
+
+import Answer from './../models/answer'
+import Cat from './../models/cat'
+import Users from './../models/user'
+import Question from './../models/question'
  
 describe('API test', () => {
     let server: FastifyInstance<Server, IncomingMessage, ServerResponse>
@@ -35,9 +40,43 @@ describe('API test', () => {
         //const response = await server.inject({ method: 'GET', url: '/ping' })
         //expect(response.statusCode).toBe(200)
         //expect(response.body).toStrictEqual(JSON.stringify({ msg: 'pong' }))
+        Question.create({
+                _id: 1,
+                Questioner_id: 1,
+                QuestionTitle: "Test",
+                Contents: "hello world!",
+                Answer: [1],
+                QuestionType: ["text"],
+                AnswerScore: [2]
+            })
+        Answer.create({
+                _id: 1,
+                User_id: 2,
+                Contents: "hello world!",
+                Scoring: [1]
+        })
+
+        Users.create({
+            _id: 1,
+            Name: "Kevin",
+            Passwd: "hello world!"
+        })
 
         const res = await server.inject({ method: 'GET', url: '/question' })
         expect(res.statusCode).toBe(200)
+
+        const res6 = await server.inject({ method: 'GET', url: '/question/1' })
+        expect(res6.statusCode).toBe(200)
+
+        const res7 = await server.inject({ method: 'GET', url: '/user/1' })
+        expect(res7.statusCode).toBe(200)
+
+        const res4 = await server.inject({ method: 'GET', url: '/question/answers/1' })
+        expect(res4.statusCode).toBe(200)
+
+        const res5 = await server.inject({ method: 'GET', url: '/question/answers/2048' })
+        expect(res5.statusCode).toBe(404)
+        expect(res5.body).toStrictEqual(JSON.stringify({ msg: "Question Not Found"}))
 
         const res1 = await server.inject({
             method: 'POST',
@@ -50,15 +89,15 @@ describe('API test', () => {
             }
         })
         expect(res1.statusCode).toBe(201)
-        const res2: { Question: IQuestion } = JSON.parse(res1.body)
+        /*const res2: { Question: IQuestion } = JSON.parse(res1.body)
         expect(res2.Question._id).toBe(123)
         expect(res2.Question.Questioner_id).toBe(123)
         expect(res2.Question.QuestionTitle).toBe("Test case")
-        expect(res2.Question.Contents).toBe("blablabla")
+        expect(res2.Question.Contents).toBe("blablabla")*/
 
         const res3 = await server.inject({
             method: 'PUT',
-            url: '/question/answer/new/123',
+            url: '/question/answer/new/1',
             payload: {
                 _id: 12,
                 User_id: 40,
@@ -66,14 +105,6 @@ describe('API test', () => {
             }
         })
         expect(res3.statusCode).toBe(200)
-
-        const res4 = await server.inject({ method: 'GET', url: '/question/answers/123' })
-        expect(res4.statusCode).toBe(200)
-        //expect(res2.body).toStrictEqual(JSON.stringify({ msg: "Failed"}))
-
-        const res5 = await server.inject({ method: 'GET', url: '/question/answers/2048' })
-        expect(res5.statusCode).toBe(404)
-        expect(res5.body).toStrictEqual(JSON.stringify({ msg: "Question deosn't exist"}))
 
     })
 })
