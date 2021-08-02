@@ -4,6 +4,7 @@ import { establishConnection } from './plugins/mongodb'
 import { IQuestion } from './types/question'
 import { IUsers } from './types/user'
 import { IAnswer } from './types/answer'
+import { findInsertionPoint } from './plugins/search'
 
 import Answer from './models/answer'
 import Users from './models/user'
