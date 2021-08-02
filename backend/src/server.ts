@@ -24,23 +24,15 @@ const startFastify: (port: number) => FastifyInstance<Server, IncomingMessage, S
             console.error(err)
         }
         establishConnection()
-
-        //inital User
-        Users.findByIdAndDelete(1).exec()
-        Users.findByIdAndDelete(2).exec()
-        Users.findByIdAndDelete(3).exec()
         Users.create({
-                _id: 1,
-                Name: "Nelson",
-                Passwd:"12345",
+            Name: "Nelson",
+            Passwd:"12345",
         })
         Users.create({
-            _id: 2,
             Name: "Kevin",
             Passwd: "678910",
         })
         Users.create({
-            _id: 3,
             Name: "Daniel",
             Passwd: "1234",
         })
@@ -61,6 +53,11 @@ const startFastify: (port: number) => FastifyInstance<Server, IncomingMessage, S
         return reply.status(200).send({ cat })
     })
 
+    server.get('/user', async (request: FastifyRequest, reply: FastifyReply) => {
+        const user: Array<IUsers> = await Users.find()
+        return reply.status(200).send({msg: "Get Users Success", user })
+    })
+
     server.get('/user/:user_id', async (request: FastifyRequest, reply: FastifyReply) => {
         let param:any = request.params
         let user_id : number = param.user_id
@@ -77,22 +74,16 @@ const startFastify: (port: number) => FastifyInstance<Server, IncomingMessage, S
 
     //login api
     server.post('/login', async (request: FastifyRequest, reply: FastifyReply) => {
-        const postBody = request.body
-        var login = await Users.find({postBody}).exec()
-
-        let param:any = request.params
-        let account = param.Name
-        let password = param.Passwd
-
-        if(true){
-            return reply.status(200).send({ msg: 'login success!' , _id: '3'})
+        const postBody: IUsers = request.body as IUsers
+        const login: IUsers = await Users.findOne( {Name: postBody.Name, Passwd: postBody.Passwd} ).exec() as IUsers
+        if(login === null){
+            return reply.status(200).send({ msg: 'login error!' })
         }
         else
         {
-            return reply.status(200).send({ msg: 'login error!' })
+            return reply.status(200).send({ msg: 'login success!' , login})
         }
     })
-
 
 
     //get all questions api
