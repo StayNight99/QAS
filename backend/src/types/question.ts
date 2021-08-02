@@ -8,5 +8,4 @@ interface IQuestion extends Document{
     QuestionType: Array<string>
     AnswerScore: Array<string>
 }
-
 export { IQuestion }

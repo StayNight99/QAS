@@ -66,10 +66,9 @@ export default class Server {
             question.Contents = strContent
             question.QuestionType = strQuestionType
 
-            const res = await axios.post("http://localhost:8888/question/new", question);
-            console.log(res);       
-
-            return res.data;
+            const res = await axios.post("http://localhost:8888/question/new", question);     
+            console.log(res);
+            return res.data.msg;
         } catch (e) {
             console.error(e);
         }
@@ -118,6 +117,18 @@ export default class Server {
             //console.log(res);
 
             return res.data.question.QuestionType;
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    //取得該問題下的所有回覆
+    async getAllAnswersByQID(strQID: string){
+        try {
+            const res = await axios.get("http://localhost:8888/question/answers/" + strQID);
+            console.log(res);
+
+            return res.data['answer'];
         } catch (e) {
             console.error(e);
         }
