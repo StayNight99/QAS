@@ -37,7 +37,7 @@ const startFastify: (port: number) => FastifyInstance<Server, IncomingMessage, S
     })
     
     //Put User Posts (param: userID,postID)
-    server.put('/api/posts/:user_id/:post_id', async (request: FastifyRequest, reply: FastifyReply) => {
+    server.put('/api/Ownposts/:user_id/:post_id', async (request: FastifyRequest, reply: FastifyReply) => {
         let param:any = request.params as any
         const users:IUsers = await Users.findById(param.user_id).exec() as IUsers
         if(users === null){
@@ -51,7 +51,7 @@ const startFastify: (port: number) => FastifyInstance<Server, IncomingMessage, S
                 let index:number = Index as number
                 OwnPost_array.splice( index,0, parseInt(param.post_id) )
                 OwnPost_array.sort( (a,b)=>a-b )
-                await users.save()
+                users.save()
                 return reply.status(200).send({ msg: 'put post successful' })
             }
             else{
@@ -61,7 +61,7 @@ const startFastify: (port: number) => FastifyInstance<Server, IncomingMessage, S
     })
 
     //Delete User Post (param: userID,postID)
-    server.delete('/api/delete/:user_id/:post_id', async (request: FastifyRequest, reply:FastifyReply) =>{
+    server.delete('/api/deleteOwn/:user_id/:post_id', async (request: FastifyRequest, reply:FastifyReply) =>{
         let param:any = request.params
         const users:IUsers = await Users.findById(param.user_id).exec() as IUsers
         if(users === null){
@@ -73,7 +73,7 @@ const startFastify: (port: number) => FastifyInstance<Server, IncomingMessage, S
             if(result === false){
                 let index:number = Index as number
                 OwnPost_array.splice(index,1)
-                await users.save()
+                users.save()
                 return reply.status(200).send({ msg: 'delete users success!'})
             }
             else{
