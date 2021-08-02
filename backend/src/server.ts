@@ -4,7 +4,6 @@ import { establishConnection } from './plugins/mongodb'
 import { IQuestion } from './types/question'
 import { IUsers } from './types/user'
 import { IAnswer } from './types/answer'
-import * as dbHandler from './test/db'
 
 import Answer from './models/answer'
 import Cat from './models/cat'
@@ -17,9 +16,6 @@ const server: FastifyInstance<Server, IncomingMessage, ServerResponse> = fastify
 
 const startFastify: (port: number) => FastifyInstance<Server, IncomingMessage, ServerResponse> = (port) => {
 
-    let user_id: number = 1
-    let question_id: number = 1
-    let answer_id: number = 1
 
     server.register(require('fastify-cors'), {})
     
@@ -28,7 +24,6 @@ const startFastify: (port: number) => FastifyInstance<Server, IncomingMessage, S
             console.error(err)
         }
         establishConnection()
-        dbHandler.clearDatabase()
         const users = new Users([
             {
                 _id: 1,
@@ -41,17 +36,6 @@ const startFastify: (port: number) => FastifyInstance<Server, IncomingMessage, S
                 Passwd: "678910",
             }
         ],)
-        Question.findByIdAndDelete(question_id).exec()
-        Question.create({
-                _id: question_id,
-                Questioner_id: 123,
-                QuestionTitle: "Test",
-                Contents: "hello world!",
-                Answer: [],
-                QuestionType: ["text"],
-                AnswerScore: [2]
-        })
-        question_id ++
     })
 
     server.get('/ping', async (request: FastifyRequest, reply: FastifyReply) => {
@@ -68,24 +52,6 @@ const startFastify: (port: number) => FastifyInstance<Server, IncomingMessage, S
         const cat = await Cat.create(postBody)
         return reply.status(200).send({ cat })
     })
-  
-
-    //login api
-    /*server.post('/loginData', async (request: FastifyRequest, reply: FastifyReply) => {
-        const postBody = request.body
-        const login = await Users.find({ postBody }).exec()
-        if(login != null)        {
-            return reply.status(200).send({ msg: 'login success!' , _id: '3' })
-        }
-        else if(login.Name === 'Daniel' && login.Passwd != '1234')
-        {
-            return reply.status(200).send({ msg: 'password incorrect!' })
-        }
-        else
-        {
-            return reply.status(200).send({ msg: 'account not exist!' })
-        }
-    })*/
 
     server.get('/user/:user_id', async (request: FastifyRequest, reply: FastifyReply) => {
         let param:any = request.params
@@ -103,18 +69,13 @@ const startFastify: (port: number) => FastifyInstance<Server, IncomingMessage, S
 
 
 
-    //question api
+    //get all questions api
     server.get('/question', async (request: FastifyRequest, reply: FastifyReply) => {
         const question: Array<IQuestion> = await Question.find()
-        return reply.status(200).send({ question })
+        return reply.status(200).send({msg: "Get Questions Success", question })
     })
 
-
-    server.get('/answer', async (request: FastifyRequest, reply: FastifyReply) => {
-        const answer: Array<IAnswer> = await Answer.find()
-        return reply.status(200).send({ answer })
-    })
-
+    //get question api
     server.get('/question/:Question_id', async (request: FastifyRequest, reply: FastifyReply) => {
         let param:any = request.params
         let Question_id : number = param.Question_id
@@ -125,25 +86,31 @@ const startFastify: (port: number) => FastifyInstance<Server, IncomingMessage, S
         }
         else
         {
-            return reply.status(200).send({ question })
+            return reply.status(200).send({msg: "Get Question Success", question })
         }
     })
 
-    server.delete('/question/:Question_id', async (request: FastifyRequest, reply: FastifyReply) => {
-        let param:any = request.params
-        let Question_id : number = param.Question_id
-        const question: IQuestion = await Question.findByIdAndDelete(Question_id) as IQuestion
+    //create new question
+    server.post('/question/new', async (request: FastifyRequest, reply: FastifyReply) => {
+        const postBody: IQuestion = request.body as IQuestion
+        const question = await Question.create( postBody )
         if(question === null)
         {
-            return reply.status(404).send({msg: "Question Not Found"})
+            return reply.status(201).send({msg: "Create Question Failed"})
         }
         else
         {
-            return reply.status(200).send({ question })
+            return reply.status(201).send({ msg: "Create Question Success", question })
         }
     })
 
+    //get all answers api
+    server.get('/answer', async (request: FastifyRequest, reply: FastifyReply) => {
+        const answer: Array<IAnswer> = await Answer.find()
+        return reply.status(200).send({msg: "Get Answers Success", answer })
+    })
 
+    // get all answers for this question
     server.get('/question/answers/:Question_id', async (request: FastifyRequest, reply: FastifyReply) => {
         let param:any = request.params
         let Question_id : number = param.Question_id
@@ -170,27 +137,12 @@ const startFastify: (port: number) => FastifyInstance<Server, IncomingMessage, S
                 for (var val of question.Answer) {
                     answer.push(await Answer.findById(val) as IAnswer)
                 }
-                return reply.status(200).send({ answer })
+                return reply.status(200).send({msg: "Get Answers Success", answer })
             }
         }
     })
 
-    server.post('/question/new', async (request: FastifyRequest, reply: FastifyReply) => {
-        const postBody: IQuestion = request.body as IQuestion
-        postBody._id = question_id
-        const question = await Question.create( postBody )
-        if(question === null)
-        {
-            return reply.status(201).send({msg: "Create Question Failed"})
-        }
-        else
-        {
-            question_id ++
-            return reply.status(201).send({ msg: "Create Question Success", question })
-        }
-    })
-
-
+    //create new answer for this question
     server.put('/question/answer/new/:Question_id', async (request: FastifyRequest, reply: FastifyReply) => {
         let param:any = request.params
         let question_id = param.Question_id
@@ -202,7 +154,6 @@ const startFastify: (port: number) => FastifyInstance<Server, IncomingMessage, S
         else
         {
             const postBody: IAnswer = request.body as IAnswer
-            postBody._id = answer_id
             const answer = await Answer.create(postBody)
             if(answer === null)
             {
@@ -212,10 +163,11 @@ const startFastify: (port: number) => FastifyInstance<Server, IncomingMessage, S
             {
                 question.Answer.push(answer._id)
                 await question.save()
-                return reply.status(200).send({ answer })
+                return reply.status(200).send({msg: "Create Answer Success", answer })
             }
         }
     })
+
     //[測試] loginPage一般帳號密碼登入
     //Input : account/password
     //Output : msg/userInfo
