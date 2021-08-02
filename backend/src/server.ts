@@ -24,18 +24,18 @@ const startFastify: (port: number) => FastifyInstance<Server, IncomingMessage, S
             console.error(err)
         }
         establishConnection()
-        const users = new Users([
-            {
-                _id: 1,
-                Name: "Nelson",
-                Passwd:"12345",
-            },
-            {
-                _id: 2,
-                Name: "Kevin",
-                Passwd: "678910",
-            }
-        ],)
+        Users.create({
+            Name: "Nelson",
+            Passwd:"12345",
+        })
+        Users.create({
+            Name: "Kevin",
+            Passwd: "678910",
+        })
+        Users.create({
+            Name: "Daniel",
+            Passwd: "1234",
+        })
     })
 
     server.get('/ping', async (request: FastifyRequest, reply: FastifyReply) => {
@@ -53,6 +53,11 @@ const startFastify: (port: number) => FastifyInstance<Server, IncomingMessage, S
         return reply.status(200).send({ cat })
     })
 
+    server.get('/user', async (request: FastifyRequest, reply: FastifyReply) => {
+        const user: Array<IUsers> = await Users.find()
+        return reply.status(200).send({msg: "Get Users Success", user })
+    })
+
     server.get('/user/:user_id', async (request: FastifyRequest, reply: FastifyReply) => {
         let param:any = request.params
         let user_id : number = param.user_id
@@ -67,6 +72,18 @@ const startFastify: (port: number) => FastifyInstance<Server, IncomingMessage, S
         }
     })
 
+    //login api
+    server.post('/login', async (request: FastifyRequest, reply: FastifyReply) => {
+        const postBody: IUsers = request.body as IUsers
+        const login: IUsers = await Users.findOne( {Name: postBody.Name, Passwd: postBody.Passwd} ).exec() as IUsers
+        if(login === null){
+            return reply.status(200).send({ msg: 'login error!' })
+        }
+        else
+        {
+            return reply.status(200).send({ msg: 'login success!' , login})
+        }
+    })
 
 
     //get all questions api

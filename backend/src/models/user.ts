@@ -3,10 +3,6 @@ import { model, Schema } from 'mongoose'
 
 const UserSchema: Schema = new Schema(
     {
-        _id: {
-            type: Number,
-            required: false
-        },
         Name: {
             type: String,
             required: true
