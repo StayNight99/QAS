@@ -17,6 +17,7 @@ FN:38,(anonymous_13)
 FN:51,(anonymous_14)
 FN:53,(anonymous_15)
 <<<<<<< HEAD
+<<<<<<< HEAD
 FN:72,(anonymous_16)
 FN:72,(anonymous_17)
 FN:73,(anonymous_18)
@@ -60,6 +61,8 @@ FNDA:3,verb
 FNDA:1,(anonymous_11)
 FNDA:1,step
 =======
+=======
+>>>>>>> d20a1b7fd9dbe5aa4d39b2ea48865db0b6a39339
 FN:71,(anonymous_16)
 FN:71,(anonymous_17)
 FN:72,(anonymous_18)
@@ -102,7 +105,10 @@ FNDA:0,(anonymous_9)
 FNDA:6,verb
 FNDA:4,(anonymous_11)
 FNDA:4,step
+<<<<<<< HEAD
 >>>>>>> ykl_dev
+=======
+>>>>>>> d20a1b7fd9dbe5aa4d39b2ea48865db0b6a39339
 FNDA:4,(anonymous_13)
 FNDA:1,(anonymous_14)
 FNDA:1,(anonymous_15)
@@ -125,6 +131,7 @@ FNDA:0,(anonymous_31)
 FNDA:0,(anonymous_32)
 FNDA:0,(anonymous_33)
 <<<<<<< HEAD
+<<<<<<< HEAD
 FNDA:0,(anonymous_34)
 FNDA:0,(anonymous_35)
 FNDA:0,(anonymous_36)
@@ -133,6 +140,11 @@ FNDA:1,(anonymous_34)
 FNDA:1,(anonymous_35)
 FNDA:2,(anonymous_36)
 >>>>>>> ykl_dev
+=======
+FNDA:1,(anonymous_34)
+FNDA:1,(anonymous_35)
+FNDA:2,(anonymous_36)
+>>>>>>> d20a1b7fd9dbe5aa4d39b2ea48865db0b6a39339
 FNDA:0,(anonymous_37)
 FNDA:0,(anonymous_38)
 FNDA:0,(anonymous_39)
@@ -140,6 +152,7 @@ FNDA:0,(anonymous_40)
 FNDA:0,(anonymous_41)
 FNDA:0,(anonymous_42)
 DA:2,1
+<<<<<<< HEAD
 <<<<<<< HEAD
 DA:3,0
 DA:4,1
@@ -159,6 +172,8 @@ DA:20,2
 DA:21,1
 DA:22,0
 =======
+=======
+>>>>>>> d20a1b7fd9dbe5aa4d39b2ea48865db0b6a39339
 DA:3,2
 DA:4,2
 DA:5,2
@@ -176,7 +191,10 @@ DA:19,8
 DA:20,8
 DA:21,4
 DA:22,2
+<<<<<<< HEAD
 >>>>>>> ykl_dev
+=======
+>>>>>>> d20a1b7fd9dbe5aa4d39b2ea48865db0b6a39339
 DA:23,0
 DA:24,0
 DA:26,1
@@ -186,6 +204,7 @@ DA:29,0
 DA:30,0
 DA:31,0
 <<<<<<< HEAD
+<<<<<<< HEAD
 DA:33,1
 DA:34,2
 DA:35,1
@@ -194,6 +213,11 @@ DA:33,4
 DA:34,8
 DA:35,2
 >>>>>>> ykl_dev
+=======
+DA:33,4
+DA:34,8
+DA:35,2
+>>>>>>> d20a1b7fd9dbe5aa4d39b2ea48865db0b6a39339
 DA:38,1
 DA:39,4
 DA:41,1
@@ -209,6 +233,7 @@ DA:52,1
 DA:53,1
 DA:54,1
 <<<<<<< HEAD
+<<<<<<< HEAD
 DA:55,1
 DA:58,1
 DA:59,1
@@ -216,18 +241,24 @@ DA:72,1
 DA:73,1
 DA:74,1
 =======
+=======
+>>>>>>> d20a1b7fd9dbe5aa4d39b2ea48865db0b6a39339
 DA:55,0
 DA:57,1
 DA:58,1
 DA:71,1
 DA:72,0
 DA:73,0
+<<<<<<< HEAD
 >>>>>>> ykl_dev
+=======
+>>>>>>> d20a1b7fd9dbe5aa4d39b2ea48865db0b6a39339
 DA:77,1
 DA:79,0
 DA:80,0
 DA:82,0
 DA:83,0
+<<<<<<< HEAD
 <<<<<<< HEAD
 DA:84,0
 DA:88,1
@@ -266,6 +297,8 @@ DA:157,1
 DA:159,0
 DA:160,0
 =======
+=======
+>>>>>>> d20a1b7fd9dbe5aa4d39b2ea48865db0b6a39339
 DA:85,0
 DA:86,0
 DA:87,0
@@ -308,12 +341,16 @@ DA:153,0
 DA:154,0
 DA:156,0
 DA:161,0
+<<<<<<< HEAD
 >>>>>>> ykl_dev
+=======
+>>>>>>> d20a1b7fd9dbe5aa4d39b2ea48865db0b6a39339
 DA:162,0
 DA:163,0
 DA:165,0
 DA:166,0
 DA:167,0
+<<<<<<< HEAD
 <<<<<<< HEAD
 DA:170,0
 DA:172,0
@@ -343,6 +380,8 @@ BRDA:7,3,1,0
 BRDA:8,4,0,1
 BRDA:8,4,1,1
 =======
+=======
+>>>>>>> d20a1b7fd9dbe5aa4d39b2ea48865db0b6a39339
 DA:168,0
 DA:170,0
 DA:171,0
@@ -405,11 +444,15 @@ BRDA:7,3,0,2
 BRDA:7,3,1,2
 BRDA:8,4,0,2
 BRDA:8,4,1,2
+<<<<<<< HEAD
 >>>>>>> ykl_dev
+=======
+>>>>>>> d20a1b7fd9dbe5aa4d39b2ea48865db0b6a39339
 BRDA:11,5,0,1
 BRDA:11,5,1,1
 BRDA:11,5,2,1
 BRDA:12,6,0,0
+<<<<<<< HEAD
 <<<<<<< HEAD
 BRDA:12,6,1,0
 BRDA:13,7,0,1
@@ -420,6 +463,8 @@ BRDA:18,9,0,0
 BRDA:18,9,1,2
 BRDA:18,10,0,2
 =======
+=======
+>>>>>>> d20a1b7fd9dbe5aa4d39b2ea48865db0b6a39339
 BRDA:12,6,1,2
 BRDA:13,7,0,2
 BRDA:13,7,1,2
@@ -428,7 +473,10 @@ BRDA:16,8,1,4
 BRDA:18,9,0,0
 BRDA:18,9,1,8
 BRDA:18,10,0,8
+<<<<<<< HEAD
 >>>>>>> ykl_dev
+=======
+>>>>>>> d20a1b7fd9dbe5aa4d39b2ea48865db0b6a39339
 BRDA:18,10,1,0
 BRDA:18,10,2,0
 BRDA:18,11,0,0
@@ -441,16 +489,22 @@ BRDA:18,14,0,0
 BRDA:18,14,1,0
 BRDA:19,15,0,0
 <<<<<<< HEAD
+<<<<<<< HEAD
 BRDA:19,15,1,2
 BRDA:20,16,0,1
 BRDA:20,16,1,1
 BRDA:20,16,2,0
 =======
+=======
+>>>>>>> d20a1b7fd9dbe5aa4d39b2ea48865db0b6a39339
 BRDA:19,15,1,8
 BRDA:20,16,0,4
 BRDA:20,16,1,4
 BRDA:20,16,2,2
+<<<<<<< HEAD
 >>>>>>> ykl_dev
+=======
+>>>>>>> d20a1b7fd9dbe5aa4d39b2ea48865db0b6a39339
 BRDA:20,16,3,0
 BRDA:20,16,4,0
 BRDA:20,16,5,1
@@ -489,6 +543,7 @@ BRDA:39,30,1,1
 BRDA:39,31,0,4
 BRDA:39,31,1,4
 <<<<<<< HEAD
+<<<<<<< HEAD
 BRDA:54,32,0,1
 BRDA:54,32,1,0
 BRDA:80,33,0,0
@@ -516,6 +571,8 @@ BRDA:188,43,1,0
 BRF:99
 BRH:35
 =======
+=======
+>>>>>>> d20a1b7fd9dbe5aa4d39b2ea48865db0b6a39339
 BRDA:54,32,0,0
 BRDA:54,32,1,1
 BRDA:80,33,0,0
@@ -568,7 +625,10 @@ BRDA:240,51,0,0
 BRDA:240,51,1,0
 BRF:125
 BRH:45
+<<<<<<< HEAD
 >>>>>>> ykl_dev
+=======
+>>>>>>> d20a1b7fd9dbe5aa4d39b2ea48865db0b6a39339
 end_of_record
 TN:
 SF:out\models\answer.js
@@ -591,10 +651,14 @@ DA:2,1
 DA:3,1
 DA:4,1
 <<<<<<< HEAD
+<<<<<<< HEAD
 DA:32,1
 =======
 DA:36,1
 >>>>>>> ykl_dev
+=======
+DA:36,1
+>>>>>>> d20a1b7fd9dbe5aa4d39b2ea48865db0b6a39339
 LF:4
 LH:4
 BRF:0
@@ -942,6 +1006,7 @@ end_of_record
 TN:
 SF:src\server.ts
 <<<<<<< HEAD
+<<<<<<< HEAD
 FN:14,(anonymous_14)
 FN:18,(anonymous_15)
 FN:38,(anonymous_16)
@@ -965,6 +1030,8 @@ FN:119,(anonymous_41)
 FNF:20
 FNH:4
 =======
+=======
+>>>>>>> d20a1b7fd9dbe5aa4d39b2ea48865db0b6a39339
 FN:17,(anonymous_14)
 FN:21,(anonymous_15)
 FN:40,(anonymous_16)
@@ -987,7 +1054,10 @@ FN:154,(anonymous_40)
 FN:154,(anonymous_41)
 FNF:20
 FNH:6
+<<<<<<< HEAD
 >>>>>>> ykl_dev
+=======
+>>>>>>> d20a1b7fd9dbe5aa4d39b2ea48865db0b6a39339
 FNDA:1,(anonymous_14)
 FNDA:1,(anonymous_15)
 FNDA:0,(anonymous_16)
@@ -1003,18 +1073,24 @@ FNDA:0,(anonymous_29)
 FNDA:0,(anonymous_31)
 FNDA:0,(anonymous_32)
 <<<<<<< HEAD
+<<<<<<< HEAD
 FNDA:0,(anonymous_34)
 FNDA:0,(anonymous_35)
 =======
 FNDA:1,(anonymous_34)
 FNDA:1,(anonymous_35)
 >>>>>>> ykl_dev
+=======
+FNDA:1,(anonymous_34)
+FNDA:1,(anonymous_35)
+>>>>>>> d20a1b7fd9dbe5aa4d39b2ea48865db0b6a39339
 FNDA:0,(anonymous_37)
 FNDA:0,(anonymous_38)
 FNDA:0,(anonymous_40)
 FNDA:0,(anonymous_41)
 DA:1,1
 DA:3,1
+<<<<<<< HEAD
 <<<<<<< HEAD
 DA:6,1
 DA:7,1
@@ -1087,6 +1163,8 @@ BRDA:122,8,1,0
 BRF:16
 BRH:1
 =======
+=======
+>>>>>>> d20a1b7fd9dbe5aa4d39b2ea48865db0b6a39339
 DA:8,1
 DA:10,1
 DA:11,1
@@ -1198,7 +1276,10 @@ BRDA:165,15,0,0
 BRDA:165,15,1,0
 BRF:29
 BRH:3
+<<<<<<< HEAD
 >>>>>>> ykl_dev
+=======
+>>>>>>> d20a1b7fd9dbe5aa4d39b2ea48865db0b6a39339
 end_of_record
 TN:
 SF:src\models\answer.ts
@@ -1219,10 +1300,14 @@ FNH:0
 DA:2,1
 DA:4,1
 <<<<<<< HEAD
+<<<<<<< HEAD
 DA:36,1
 =======
 DA:40,1
 >>>>>>> ykl_dev
+=======
+DA:40,1
+>>>>>>> d20a1b7fd9dbe5aa4d39b2ea48865db0b6a39339
 LF:3
 LH:3
 BRF:0

@@ -15,7 +15,7 @@ const AnswerSchema: Schema = new Schema(
             type: String,
             required: true
         },
-        Scoring:{
+        Scoring: {
             type: Array,
             required: false
         }
