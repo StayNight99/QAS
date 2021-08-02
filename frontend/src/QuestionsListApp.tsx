@@ -81,6 +81,11 @@ function QuestionsListApp() {
         );
     }
 
+    const nameTemplate= (rowData: any) => {
+        
+        
+    }
+
     return (
         <div className="default-font">
             <header className="App-header">
@@ -100,7 +105,7 @@ function QuestionsListApp() {
                 <div className="styleWithQuestionTable">
                     <DataTable value={questions} paginator rows={5}>
                         <Column field="QuestionTitle" header="Title" filter filterPlaceholder="Search by title" sortable></Column>
-                        <Column field="name" header="Name" filter filterPlaceholder="Search by name" sortable></Column>
+                        <Column field="name" header="Name" body={nameTemplate} filter filterPlaceholder="Search by name" sortable></Column>
                         <Column field="Answer" header="Answer Count" body={answerTemplate} sortable></Column>
                         <Column field="AnswerScore" header="Score" body={scoreTemplate} sortable></Column>
                         <Column field="QuestionType" header="Tag"  body={tagTemplate} sortable></Column>

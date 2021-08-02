@@ -84,7 +84,40 @@ export default class Server {
             //console.log(res.data['question'].QuestionType);
             //console.log(res.data['question'].AnswerScore.count());
 
-            return res.data['question'];;
+            return res.data['question'];
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    async getQuestionTitleByQID(strQID: string) {
+        try {
+            const res = await axios.get("http://localhost:8888/question/" + strQID);
+            //console.log(res);
+
+            return res.data.question.QuestionTitle;
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    async getQuestionContentsByQID(strQID: string) {
+        try {
+            const res = await axios.get("http://localhost:8888/question/" + strQID);
+            //console.log(res);
+
+            return res.data.question.Contents;
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    async getQuestionTagByQID(strQID: string) {
+        try {
+            const res = await axios.get("http://localhost:8888/question/" + strQID);
+            //console.log(res);
+
+            return res.data.question.QuestionType;
         } catch (e) {
             console.error(e);
         }

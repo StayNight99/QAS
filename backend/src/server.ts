@@ -55,6 +55,26 @@ const startFastify: (port: number) => FastifyInstance<Server, IncomingMessage, S
                 QuestionType: ["React","TypeScript","MERN"],
                 AnswerScore: [2]
         })
+        Question.findByIdAndDelete(141).exec()
+        Question.create({
+            _id: 141,
+                Questioner_id: 141,
+                QuestionTitle: "jquery - cant move a list element back from the right side dunno why",
+                Contents: "Is it easy?",
+                Answer: [],
+                QuestionType: ["Jquery","html","javascript"],
+                AnswerScore: [2,3]
+        })
+        Question.findByIdAndDelete(142).exec()
+        Question.create({
+            _id: 142,
+                Questioner_id: 142,
+                QuestionTitle: "How to sort command output in for loop before dumping to file?",
+                Contents: "The most obvious method would be removing redirection >> and piping script output to sort.",
+                Answer: [2,5,7],
+                QuestionType: ["sorting","for-loop","shell"],
+                AnswerScore: [2,3]
+        })
     })
 
     server.get('/ping', async (request: FastifyRequest, reply: FastifyReply) => {
@@ -127,7 +147,7 @@ const startFastify: (port: number) => FastifyInstance<Server, IncomingMessage, S
         }
         else
         {
-            return reply.status(200).send({ question })
+            return reply.status(200).send({msg: "Success Found", question })
         }
     })
 

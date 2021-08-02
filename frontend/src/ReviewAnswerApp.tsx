@@ -7,20 +7,23 @@ import ReactTagInput from "@pathofdev/react-tag-input";
 import { useParams } from "react-router-dom";
 
 function ReviewAnswerApp() {
-  const [inputBody, setInputBody] = useState<string>('');
-  const [inputTitle, setInputTitle] = useState('');
-  const [tags, setTags] = React.useState(["example tag"])
   const nodeService = new NodeService();
-  const [questions, setQuestions] = useState([]);
 
   //從URL取參數
   let params: any = useParams();
-  let userID = params._id;
+  let QID = params.QID;
 
-  useEffect(() => {
-    //取得問題內容
-    nodeService.getAllQuestions().then((data) => setQuestions(data));
+  const [inputBody, setInputBody] = useState<string>('');
+  const [inputTitle, setInputTitle] = useState<string>('no-title');
+  const [tags, setTags] = React.useState(["example tag"])
+  const [question, setQuestions] = useState([]);
+
+  useEffect(() => {      
+    nodeService.getQuestionTitleByQID(QID).then((data) => setInputTitle(data));
+    nodeService.getQuestionContentsByQID(QID).then((data) => setInputBody(data));
+    nodeService.getQuestionTagByQID(QID).then((data) => setTags(data));
   }, []);
+
 
   return (
     <div className="default-font">
@@ -33,7 +36,7 @@ function ReviewAnswerApp() {
           <td >
             <div>
               <div style={{ margin: '15px 0 15px 0' }}>Title</div>
-                <InputText value={inputTitle} className="width400pxWithInput" onChange={(e) => setInputTitle(e.target.value)} />
+                <InputText value={inputTitle} className="width400pxWithInput" readOnly onChange={(e) => setInputTitle(e.target.value)} />
             </div>
           </td>
 
@@ -46,7 +49,7 @@ function ReviewAnswerApp() {
 
           <div>
             <div style={{ margin: '15px 0 15px 0' }}>Body</div>
-            <InputText className="widthAndHeightQuestion" value={inputBody} onChange={(e) => setInputBody(e.target.value)} />
+            <InputText className="widthAndHeightQuestion" value={inputBody} readOnly onChange={(e) => setInputBody(e.target.value)} />
           </div>
 
 
