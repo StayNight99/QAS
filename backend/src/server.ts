@@ -18,7 +18,7 @@ const startFastify: (port: number) => FastifyInstance<Server, IncomingMessage, S
 
 
     server.register(require('fastify-cors'), {})
-    
+
     server.listen(port, (err, _) => {
         if (err) {
             console.error(err)
@@ -30,9 +30,9 @@ const startFastify: (port: number) => FastifyInstance<Server, IncomingMessage, S
         Users.findByIdAndDelete(2).exec()
         Users.findByIdAndDelete(3).exec()
         Users.create({
-                _id: 1,
-                Name: "Nelson",
-                Passwd:"12345",
+            _id: 1,
+            Name: "Nelson",
+            Passwd: "12345",
         })
         Users.create({
             _id: 2,
@@ -43,6 +43,32 @@ const startFastify: (port: number) => FastifyInstance<Server, IncomingMessage, S
             _id: 3,
             Name: "Daniel",
             Passwd: "1234",
+        })
+
+        //inital Questions
+        Question.create({
+                Questioner_id: 140,
+                QuestionTitle: "How to programing by MERN stack",
+                Contents: "so diffuclt!",
+                Answer: [],
+                QuestionType: ["React","TypeScript","MERN"],
+                AnswerScore: [2]
+        })
+        Question.create({
+                Questioner_id: 141,
+                QuestionTitle: "jquery - cant move a list element back from the right side dunno why",
+                Contents: "Is it easy?",
+                Answer: [],
+                QuestionType: ["Jquery","html","javascript"],
+                AnswerScore: [2,3]
+        })
+        Question.create({
+                Questioner_id: 142,
+                QuestionTitle: "How to sort command output in for loop before dumping to file?",
+                Contents: "The most obvious method would be removing redirection >> and piping script output to sort.",
+                Answer: [2,5,7],
+                QuestionType: ["sorting","for-loop","shell"],
+                AnswerScore: [2,3]
         })
     })
 
@@ -62,15 +88,13 @@ const startFastify: (port: number) => FastifyInstance<Server, IncomingMessage, S
     })
 
     server.get('/user/:user_id', async (request: FastifyRequest, reply: FastifyReply) => {
-        let param:any = request.params
-        let user_id : number = param.user_id
+        let param: any = request.params
+        let user_id: number = param.user_id
         const user: IUsers = await Users.findById(user_id) as IUsers
-        if(user === null)
-        {
+        if (user === null) {
             return reply.status(404).send({ msg: "User Not Found" })
         }
-        else
-        {
+        else {
             return reply.status(200).send({ user })
         }
     })
@@ -78,18 +102,17 @@ const startFastify: (port: number) => FastifyInstance<Server, IncomingMessage, S
     //login api
     server.post('/login', async (request: FastifyRequest, reply: FastifyReply) => {
         const postBody = request.body
-        var login = await Users.find({postBody}).exec()
+        var login = await Users.find({ postBody }).exec()
 
-        let param:any = request.params
+        let param: any = request.params
         let account = param.Name
         let password = param.Passwd
 
-        if(true){
-            return reply.status(200).send({ msg: 'login success!' , _id: '3'})
-        }
-        else
-        {
+        if (login === null) {
             return reply.status(200).send({ msg: 'login error!' })
+        }
+        else {
+            return reply.status(200).send({ msg: 'login success!', login })
         }
     })
 
@@ -98,62 +121,42 @@ const startFastify: (port: number) => FastifyInstance<Server, IncomingMessage, S
     //get all questions api
     server.get('/question', async (request: FastifyRequest, reply: FastifyReply) => {
         const question: Array<IQuestion> = await Question.find()
-        return reply.status(200).send({msg: "Get Questions Success", question })
+        return reply.status(200).send({ msg: "Get Questions Success", question })
     })
 
     //get question api
     server.get('/question/:Question_id', async (request: FastifyRequest, reply: FastifyReply) => {
-        let param:any = request.params
-        let Question_id : number = param.Question_id
+        let param: any = request.params
+        let Question_id: number = param.Question_id
         const question: IQuestion = await Question.findById(Question_id) as IQuestion
-        if(question === null)
-        {
-            return reply.status(404).send({msg: "Question Not Found"})
+        if (question === null) {
+            return reply.status(404).send({ msg: "Question Not Found" })
         }
-        else
-        {
-            return reply.status(200).send({msg: "Get Question Success", question })
-        }
-    })
-
-    //create new question
-    server.post('/question/new', async (request: FastifyRequest, reply: FastifyReply) => {
-        const postBody: IQuestion = request.body as IQuestion
-        const question = await Question.create( postBody )
-        if(question === null)
-        {
-            return reply.status(201).send({msg: "Create Question Failed"})
-        }
-        else
-        {
-            return reply.status(201).send({ msg: "Create Question Success", question })
+        else {
+            return reply.status(200).send({ msg: "Get Question Success", question })
         }
     })
 
     //get all answers api
     server.get('/answer', async (request: FastifyRequest, reply: FastifyReply) => {
         const answer: Array<IAnswer> = await Answer.find()
-        return reply.status(200).send({msg: "Get Answers Success", answer })
+        return reply.status(200).send({ msg: "Get Answers Success", answer })
     })
 
     // get all answers for this question
     server.get('/question/answers/:Question_id', async (request: FastifyRequest, reply: FastifyReply) => {
-        let param:any = request.params
-        let Question_id : number = param.Question_id
+        let param: any = request.params
+        let Question_id: number = param.Question_id
         const question: IQuestion = await Question.findById(Question_id) as IQuestion
-        if(question === null)
-        {
-            return reply.status(404).send({msg: "Question Not Found"})
+        if (question === null) {
+            return reply.status(404).send({ msg: "Question Not Found" })
         }
-        else
-        {
+        else {
             let size = question.Answer.length;
-            if(size === 0)
-            {
-                return reply.status(400).send({ msg: "No Answer Exist"})
+            if (size === 0) {
+                return reply.status(400).send({ msg: "No Answer Exist" })
             }
-            else
-            {
+            else {
                 let answer: Array<IAnswer> = [{
                     _id: 0,
                     User_id: 0,
@@ -163,7 +166,7 @@ const startFastify: (port: number) => FastifyInstance<Server, IncomingMessage, S
                 for (var val of question.Answer) {
                     answer.push(await Answer.findById(val) as IAnswer)
                 }
-                return reply.status(200).send({msg: "Get Answers Success", answer })
+                return reply.status(200).send({ msg: "Get Answers Success", answer })
             }
         }
     })
@@ -171,38 +174,32 @@ const startFastify: (port: number) => FastifyInstance<Server, IncomingMessage, S
     //create new answer for this question
     server.post('/question/new', async (request: FastifyRequest, reply: FastifyReply) => {
         const postBody: IQuestion = request.body as IQuestion
-        const question = await Question.create( postBody )
-        if(question === null)
-        {
-            return reply.status(201).send({msg: "Create Question Failed"})
+        const question = await Question.create(postBody)
+        if (question === null) {
+            return reply.status(201).send({ msg: "Create Question Failed" })
         }
-        else
-        {
-            return reply.status(201).send({msg: "Create Question Success" , question })
+        else {
+            return reply.status(201).send({ msg: "Create Question Success", question })
         }
     })
 
     server.put('/question/answer/new/:Question_id', async (request: FastifyRequest, reply: FastifyReply) => {
-        let param:any = request.params
+        let param: any = request.params
         let question_id = param.Question_id
         let question: IQuestion = await Question.findById(question_id).exec() as IQuestion
-        if(question === null)
-        {
-            return reply.status(404).send({msg: "Question Not Found"})
+        if (question === null) {
+            return reply.status(404).send({ msg: "Question Not Found" })
         }
-        else
-        {
+        else {
             const postBody: IAnswer = request.body as IAnswer
             const answer = await Answer.create(postBody)
-            if(answer === null)
-            {
-                return reply.status(400).send({msg: "Create Answer Failed"})
+            if (answer === null) {
+                return reply.status(400).send({ msg: "Create Answer Failed" })
             }
-            else
-            {
+            else {
                 question.Answer.push(answer._id)
                 await question.save()
-                return reply.status(200).send({msg: "Create Answer Success", answer })
+                return reply.status(200).send({ msg: "Create Answer Success", answer })
             }
         }
     })
@@ -211,26 +208,23 @@ const startFastify: (port: number) => FastifyInstance<Server, IncomingMessage, S
     //Input : account/password
     //Output : msg/userInfo
     server.get('/loginData/:account/:password', async (request: FastifyRequest, reply: FastifyReply) => {
-        let param:any = request.params
+        let param: any = request.params
         let account = param.account
         let password = param.password
         console.log(account);
         console.log(password);
 
-        if(account === 'Daniel' && password === '1234')
-        {
+        if (account === 'Daniel' && password === '1234') {
             return reply.status(200).send({ msg: 'login success!' })
         }
-        else if(account === 'Daniel' && password != '1234')
-        {
+        else if (account === 'Daniel' && password != '1234') {
             return reply.status(200).send({ msg: 'password incorrect!' })
         }
-        else
-        {
+        else {
             return reply.status(200).send({ msg: 'account not exist!' })
         }
-        
-        
+
+
     })
 
 

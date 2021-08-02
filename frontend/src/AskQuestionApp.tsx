@@ -17,7 +17,7 @@ import { default as swal } from 'sweetalert2'
 import { Editor } from 'primereact/editor';
 import ReactTagInput from "@pathofdev/react-tag-input";
 import "@pathofdev/react-tag-input/build/index.css";
-
+import { useParams } from "react-router-dom";
 
 function AskQuestionApp() {
     const [editorBody, setEditorBody] = useState<string>('<div>1. Summarize the problem</div><div>2. Describe what you’ve tried</div><div>3. Show some code</div>');
@@ -25,15 +25,21 @@ function AskQuestionApp() {
     const [tags, setTags] = React.useState(["example tag"])
     const nodeService = new NodeService();
 
+    //從URL取參數
+    let params: any = useParams();
+    let UserID = params._id;
+
     async function btnPostQuestion() {
+        //BUG 此處UserID放不進來
         let dbAccessData = await nodeService.setNewQuestion(3, inputTitle, editorBody, tags);
-        
-        if (dbAccessData.msg === "Create Question Failed") {
+
+        if (dbAccessData === "Create Question Failed") {
             swal.fire('發生錯誤！', '請檢查資料是否填寫不完全!', 'error');
         }
-        else 
-        {
-            swal.fire('成功提問！', 'Your question has been posted!', 'success');
+        else {
+            swal.fire('成功提問！', 'Your question has been posted!', 'success').then(function (result) {
+                window.location.href = "/QuestionsListPage/" + UserID
+            });;
         }
     }
 
@@ -67,7 +73,7 @@ function AskQuestionApp() {
                         <div>
                             <p className="fontSize13px">Add some tags to describe what your question is about</p>
                         </div>
-                        <ReactTagInput tags={tags} onChange={(newTags) => setTags(newTags)}/>
+                        <ReactTagInput tags={tags} onChange={(newTags) => setTags(newTags)} />
                     </div>
 
                     <Button id="btnPostQuestion" style={{ margin: '15px 0 15px 0' }} label="Post your Question" onClick={btnPostQuestion} />

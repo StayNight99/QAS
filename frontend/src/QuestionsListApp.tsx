@@ -31,7 +31,7 @@ function QuestionsListApp() {
     }
 
     const btnReviewQuestion = (rowData: any) => {
-        let QID = rowData.Questioner_id
+        let QID = rowData._id;
         window.location.href = '/ReviewAnswerPage/' + QID;
     }
 
@@ -109,7 +109,7 @@ function QuestionsListApp() {
                         <Column field="Answer" header="Answer Count" body={answerTemplate} sortable></Column>
                         <Column field="AnswerScore" header="Score" body={scoreTemplate} sortable></Column>
                         <Column field="QuestionType" header="Tag"  body={tagTemplate} sortable></Column>
-                        <Column field="Questioner_id" header="Review" body={reviewBodyTemplate}></Column>
+                        <Column field="_id" header="Review" body={reviewBodyTemplate}></Column>
                     </DataTable>
                 </div>
 

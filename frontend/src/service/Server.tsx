@@ -66,10 +66,9 @@ export default class Server {
             question.Contents = strContent
             question.QuestionType = strQuestionType
 
-            const res = await axios.post("http://localhost:8888/question/new", question);
-            console.log(res);       
-
-            return res.data;
+            const res = await axios.post("http://localhost:8888/question/new", question);     
+            console.log(res);
+            return res.data.msg;
         } catch (e) {
             console.error(e);
         }
