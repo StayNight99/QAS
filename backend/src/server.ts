@@ -1,11 +1,12 @@
 import fastify, { FastifyInstance, FastifyReply, FastifyRequest } from 'fastify'
 import { Server, IncomingMessage, ServerResponse } from 'http'
 import { establishConnection } from './plugins/mongodb'
-import { QuestionRouter } from './route.ts/question'
-import { AnswerRouter } from './route.ts/answer'
-import { UserRouter } from './route.ts/user'
+import { QuestionRouter } from './route/question'
+import { AnswerRouter } from './route/answer'
+import { UserRouter } from './route/user'
 import { IUsers } from './types/user'
 import Users from './models/user'
+import * as dbHandler from './test/db'
 
 const server: FastifyInstance<Server, IncomingMessage, ServerResponse> = fastify({
     logger: { prettyPrint: true }
@@ -21,6 +22,7 @@ const startFastify: (port: number) => FastifyInstance<Server, IncomingMessage, S
             console.error(err)
         }
         establishConnection()
+        //dbHandler.clearDatabase()
         Users.create({
             Name: "Nelson",
             Passwd:"12345",
