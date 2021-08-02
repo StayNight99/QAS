@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { Document } from 'mongoose'
 import { IAnswer } from './answer'
 
@@ -12,3 +13,16 @@ interface IQuestion extends Document{
 }
 
 export { IQuestion }
+=======
+import { Document } from 'mongoose'
+
+interface IQuestion extends Document{
+    _id: number
+    QuestionerId: number
+    Content: string
+    QuestionType: string
+    AnswerScore: number
+}
+
+export { IQuestion}
+>>>>>>> Nelson
