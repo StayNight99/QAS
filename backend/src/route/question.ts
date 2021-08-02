@@ -12,10 +12,10 @@ const QuestionRouter = (server: FastifyInstance, opts: RouteShorthandOptions, do
         let userName:Array<string> = []
         userName.pop()
         let user: IUsers
-        question.forEach(async(element) => {
-            user = await Users.findById(element.Questioner_id) as IUsers
+        for(var val of question){
+            user = await Users.findById(val.Questioner_id) as IUsers
             userName.push(user.Name)
-        })
+        }
         return reply.status(200).send({msg: "Get Questions Success", question, userName })
     })
 

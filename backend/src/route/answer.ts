@@ -1,8 +1,10 @@
 import fastify, { FastifyInstance, FastifyReply, FastifyRequest, RouteShorthandOptions } from 'fastify'
 import { IQuestion } from './../types/question'
 import { IAnswer } from './../types/answer'
+import { IUsers } from './../types/user'
 import Question from './../models/question'
 import Answer from './../models/answer'
+import Users from './../models/user'
 
 const AnswerRouter = (server: FastifyInstance, opts: RouteShorthandOptions, done: (error?: Error) => void) => {
 
@@ -34,11 +36,15 @@ const AnswerRouter = (server: FastifyInstance, opts: RouteShorthandOptions, done
                     User_id: "0",
                     Contents: "Initial"
                 } as IAnswer]
+                let userName: Array<string> = []
+                let user: IUsers
                 answer.pop()
-                for (var val of question.Answer) {
+                for (var val of question.Answer){
                     answer.push(await Answer.findById(val) as IAnswer)
+                    user = await Users.findById(answer[answer.length - 1].User_id) as IUsers
+                    userName.push(user.Name)
                 }
-                return reply.status(200).send({msg: "Get Answers Success", answer })
+                return reply.status(200).send({msg: "Get Answers Success", answer,  userName})
             }
         }
     })
