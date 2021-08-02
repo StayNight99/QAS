@@ -1,13 +1,11 @@
 <<<<<<< HEAD
 import { Document } from 'mongoose'
-import { IAnswer } from './answer'
 
 interface IQuestion extends Document{
-    _id: number
-    QuestionerId: number
+    Questioner_id: number
     QuestionTitle: string
-    Content: string
-    Answer: Array<IAnswer>
+    Contents: string
+    Answer: Array<number>
     QuestionType: Array<string>
     AnswerScore: Array<number>
 }

@@ -15,8 +15,11 @@
     "fastify": "^3.19.1",
     "fastify-cors": "^6.0.2",
     "fastify-static": "^4.2.2",
+    "fp-ts": "^2.11.1",
     "mongoose": "^5.13.3",
-    "pino-pretty": "^5.1.2"
+    "pino-pretty": "^5.1.2",
+    "primereact": "^6.5.0",
+    "react-script": "^2.0.5"
   },
   "devDependencies": {
     "@types/jest": "^26.0.24",

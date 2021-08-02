@@ -3,10 +3,6 @@ import { model, Schema } from 'mongoose'
 
 const QuestionSchema: Schema = new Schema(
     {
-        _id: {
-            type: Number,
-            required: true
-        },
         Questioner_id: {
             type: Number,
             required: true

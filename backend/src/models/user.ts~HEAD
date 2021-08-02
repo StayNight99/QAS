@@ -1,3 +1,4 @@
+import { IUsers } from '../types/user'
 import { model, Schema } from 'mongoose'
 
 const UserSchema: Schema = new Schema(
@@ -14,6 +15,10 @@ const UserSchema: Schema = new Schema(
             type: String,
             required: true
         },
+        OwnPost_id: {
+            type: Array,
+            required: false
+        },
         FollowPost_id: {
             type: Array,
             required: false
@@ -24,4 +29,4 @@ const UserSchema: Schema = new Schema(
     }
 )
 
-export default model("Users", UserSchema)
+export default model<IUsers>("Users", UserSchema)

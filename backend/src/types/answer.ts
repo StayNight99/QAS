@@ -2,7 +2,7 @@ import { Document } from 'mongoose'
 
 interface IAnswer extends Document{
     User_id: number
-    Content: string
+    Contents: string
     Scoring: Array<number>
 }
 

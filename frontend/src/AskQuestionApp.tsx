@@ -7,7 +7,7 @@ import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { InputText } from "primereact/inputtext";
 import { Button } from "primereact/button";
-import { NodeService, todoObject } from "./service/nodeService";
+import NodeService from "./service/Server";
 import * as TE from "fp-ts/TaskEither";
 import { zero } from "fp-ts/Array";
 import { Password } from 'primereact/password';
@@ -26,12 +26,14 @@ function AskQuestionApp() {
     const nodeService = new NodeService();
 
     async function btnPostQuestion() {
-        let dbAccessData = await nodeService.setNewQuestionToDB(inputTitle, editorBody, "1111");
-        if (dbAccessData.msg === "success") {
-            swal.fire('成功提問！', 'Your question has been posted!', 'success');
-        }
-        else {
+        let dbAccessData = await nodeService.setNewQuestion(3, inputTitle, editorBody, tags);
+        
+        if (dbAccessData.msg === "Create Question Failed") {
             swal.fire('發生錯誤！', '請檢查資料是否填寫不完全!', 'error');
+        }
+        else 
+        {
+            swal.fire('成功提問！', 'Your question has been posted!', 'success');
         }
     }
 
