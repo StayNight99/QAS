@@ -1,13 +1,22 @@
 import fastify, { FastifyInstance, FastifyReply, FastifyRequest, RouteShorthandOptions } from 'fastify'
 import { IQuestion } from './../types/question'
+import { IUsers } from './../types/user'
 import Question from './../models/question'
+import Users from './../models/user'
 
 const QuestionRouter = (server: FastifyInstance, opts: RouteShorthandOptions, done: (error?: Error) => void) => {
 
     //get all questions api
     server.get('/question', async (request: FastifyRequest, reply: FastifyReply) => {
         const question: Array<IQuestion> = await Question.find()
-        return reply.status(200).send({msg: "Get Questions Success", question })
+        let userName:Array<string> = []
+        userName.pop()
+        let user: IUsers
+        for(var val of question){
+            user = await Users.findById(val.Questioner_id) as IUsers
+            userName.push(user.Name)
+        }
+        return reply.status(200).send({msg: "Get Questions Success", question, userName })
     })
 
     //get question api
