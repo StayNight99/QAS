@@ -160,6 +160,19 @@ const startFastify: (port: number) => FastifyInstance<Server, IncomingMessage, S
     })
 
     //create new answer for this question
+    server.post('/question/new', async (request: FastifyRequest, reply: FastifyReply) => {
+        const postBody: IQuestion = request.body as IQuestion
+        const question = await Question.create( postBody )
+        if(question === null)
+        {
+            return reply.status(201).send({msg: "Create Question Failed"})
+        }
+        else
+        {
+            return reply.status(201).send({msg: "Create Question Success" , question })
+        }
+    })
+
     server.put('/question/answer/new/:Question_id', async (request: FastifyRequest, reply: FastifyReply) => {
         let param:any = request.params
         let question_id = param.Question_id

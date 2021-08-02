@@ -7,39 +7,38 @@ import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { InputText } from "primereact/inputtext";
 import { Button } from "primereact/button";
-import { NodeService, todoObject } from "./service/nodeService";
+import NodeService from "./service/Server";
 import * as TE from "fp-ts/TaskEither";
 import { zero } from "fp-ts/Array";
 import { Password } from 'primereact/password';
 import { Divider } from 'primereact/divider';
 import './App.css';
 import { default as swal } from 'sweetalert2'
-
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@7"></script> 
 
 function LoginApp() {
-    const [todolist, setTodolist] = useState<Array<todoObject>>([]);
     const [addAccount, setAddAccount] = useState<string>("");
     const [addPassword, setAddPassword] = useState<string>("");
     const nodeService = new NodeService();
 
-
     async function submitLoginData() {
         //await postData();
         //getData();
-        let loginData = await nodeService.getLoginData(addAccount , addPassword);
+        let loginData = await nodeService.postLoginData(addAccount , addPassword);
         if(loginData.msg === "login success!")
         {
-            //swal.fire('登入成功！',loginData.msg,'success')
-            window.location.href = "/QuestionsListPage"
+            //swal.fire('登入成功！',loginData.msg,'success')   
+            window.location.href = "/QuestionsListPage/" + loginData._id
         }
         else
         {
             swal.fire('登入失敗！',loginData.msg,'error')
-        }
-
-
-        
+        }        
         //nodeService.getTodoData().then((data) => setTodolist(data));
+    }
+
+    function registerAccount() {
+       
     }
 
 
@@ -65,7 +64,7 @@ function LoginApp() {
             <br></br>
 
             <div className="fontSize13px">
-                Don’t have an account? <a href="" className="App-link">Sign up</a>    
+                Don’t have an account? <a onClick={registerAccount} className="App-link">Sign up</a>    
             </div>
 
             </header>
