@@ -31,8 +31,7 @@ const AnswerRouter = (server: FastifyInstance, opts: RouteShorthandOptions, done
             else
             {
                 let answer: Array<IAnswer> = [{
-                    _id: 0,
-                    User_id: 0,
+                    User_id: "0",
                     Contents: "Initial"
                 } as IAnswer]
                 answer.pop()
