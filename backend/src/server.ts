@@ -23,18 +23,18 @@ const startFastify: (port: number) => FastifyInstance<Server, IncomingMessage, S
         }
         establishConnection()
         //dbHandler.clearDatabase()
-        Users.create({
-            Name: "Nelson",
-            Passwd:"12345",
-        })
-        Users.create({
-            Name: "Kevin",
-            Passwd: "678910",
-        })
-        Users.create({
-            Name: "Daniel",
-            Passwd: "1234",
-        })
+        //Users.create({
+        //    Name: "Nelson",
+        //    Passwd:"12345",
+        //})
+        //Users.create({
+        //    Name: "Kevin",
+        //    Passwd: "678910",
+        //})
+        //Users.create({
+        //    Name: "Daniel",
+        //    Passwd: "1234",
+        //})
     })
 
     server.get('/ping', async (request: FastifyRequest, reply: FastifyReply) => {
