@@ -89,6 +89,11 @@
   margin-left: 5%;
 }
 
+.styleWithAnswerTable{
+  margin-bottom: 1%;
+  width: 800px;
+}
+
 .widthAndHeightQuestion{
   height: 220px; 
   width: 800px;
@@ -97,6 +102,7 @@
 .width400pxWithInput{
   width: 400px;
 }
+
 
 .alignRight{
   text-align:right;

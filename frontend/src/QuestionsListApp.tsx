@@ -31,7 +31,7 @@ function QuestionsListApp() {
     }
 
     const btnReviewQuestion = (rowData: any) => {
-        let QID = rowData.Questioner_id
+        let QID = rowData._id;
         window.location.href = '/ReviewAnswerPage/' + QID;
     }
 
@@ -96,7 +96,7 @@ function QuestionsListApp() {
                             <h2 className="flex--item fl1 fs-headline1">Questions List</h2>
                         </td>
                         <td className="padding30px">
-                            <Button id="btnAskQuestion" label="Ask Question" onClick={btnAskQuestion} className="" />
+                            <Button id="btnAskQuestion" label="Ask Question" onClick={btnAskQuestion} />
                         </td>
                     </tr>
                 </div>
@@ -109,7 +109,7 @@ function QuestionsListApp() {
                         <Column field="Answer" header="Answer Count" body={answerTemplate} sortable></Column>
                         <Column field="AnswerScore" header="Score" body={scoreTemplate} sortable></Column>
                         <Column field="QuestionType" header="Tag"  body={tagTemplate} sortable></Column>
-                        <Column field="Questioner_id" header="Review" body={reviewBodyTemplate}></Column>
+                        <Column field="_id" header="Review" body={reviewBodyTemplate}></Column>
                     </DataTable>
                 </div>
 

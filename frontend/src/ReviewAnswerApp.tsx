@@ -5,6 +5,9 @@ import { default as swal } from 'sweetalert2'
 import { InputText } from "primereact/inputtext";
 import ReactTagInput from "@pathofdev/react-tag-input";
 import { useParams } from "react-router-dom";
+import { DataTable } from "primereact/datatable";
+import { Column } from "primereact/column";
+import { Button } from "primereact/button";
 
 function ReviewAnswerApp() {
   const nodeService = new NodeService();
@@ -18,17 +21,37 @@ function ReviewAnswerApp() {
   const [tags, setTags] = React.useState(["example tag"])
   const [question, setQuestions] = useState([]);
 
-  useEffect(() => {      
+  useEffect(() => {
     nodeService.getQuestionTitleByQID(QID).then((data) => setInputTitle(data));
     nodeService.getQuestionContentsByQID(QID).then((data) => setInputBody(data));
     nodeService.getQuestionTagByQID(QID).then((data) => setTags(data));
   }, []);
 
+  //Answer DataTable
+  const [answers, setAnswers] = useState([]);
+
+  const scoreTemplate = (rowData: any) => {
+    let AnswerScore = rowData.AnswerScore
+    return (
+      <React.Fragment>
+        {AnswerScore.length}
+      </React.Fragment>
+    );
+  }
+
+  useEffect(() => {
+    nodeService.getAllAnswersByQID(QID).then((data) => setAnswers(data));
+  }, []);
+
+  //提供答案
+  function btnProvideAnswer(this: any) {
+
+  }
 
   return (
     <div className="default-font">
       <header className="App-header">
-
+        {/*Show Question */}
         <div className="d-flex">
           <h2 className="flex--item fl1 fs-headline1">Need Your Answer</h2>
         </div>
@@ -36,14 +59,14 @@ function ReviewAnswerApp() {
           <td >
             <div>
               <div style={{ margin: '15px 0 15px 0' }}>Title</div>
-                <InputText value={inputTitle} className="width400pxWithInput" readOnly onChange={(e) => setInputTitle(e.target.value)} />
+              <InputText value={inputTitle} className="width400pxWithInput" readOnly onChange={(e) => setInputTitle(e.target.value)} />
             </div>
           </td>
 
           <td>
             <div className="width400pxWithInput">
               <div style={{ margin: '15px 0 15px 0' }}>Keyword</div>
-                <ReactTagInput tags={tags} readOnly onChange={(newTags) => setTags(newTags)} />
+              <ReactTagInput tags={tags} readOnly onChange={(newTags) => setTags(newTags)} />
             </div>
           </td>
 
@@ -54,6 +77,23 @@ function ReviewAnswerApp() {
 
 
         </tr>
+
+        {/*Show All Answer */}
+        <tr>
+          <td className="padding30px">
+            <h2 className="flex--item fl1 fs-headline1">Answer List</h2>
+          </td>
+          <td className="padding30px">
+            <Button id="btnProvideAnswer" label="Provide Answer" onClick={btnProvideAnswer} />
+          </td>
+        </tr>
+        <div className="styleWithAnswerTable">
+          <DataTable value={answers} paginator rows={5}>
+            <Column field="User_id" header="Name" filter filterPlaceholder="Search by name"></Column>
+            <Column field="Contents" header="Contents" filter filterPlaceholder="Search by content"></Column>
+            <Column field="Scoring" header="Score" body={scoreTemplate} sortable></Column>
+          </DataTable>
+        </div>
 
       </header>
     </div>
