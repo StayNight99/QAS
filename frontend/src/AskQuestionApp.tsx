@@ -30,8 +30,7 @@ function AskQuestionApp() {
     let UserID = params._id;
 
     async function btnPostQuestion() {
-        //BUG 此處UserID放不進來
-        let dbAccessData = await nodeService.setNewQuestion(3, inputTitle, editorBody, tags);
+        let dbAccessData = await nodeService.setNewQuestion(UserID, inputTitle, editorBody, tags);
 
         if (dbAccessData === "Create Question Failed") {
             swal.fire('發生錯誤！', '請檢查資料是否填寫不完全!', 'error');
