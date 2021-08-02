@@ -16,6 +16,7 @@ const server: FastifyInstance<Server, IncomingMessage, ServerResponse> = fastify
 
 const startFastify: (port: number) => FastifyInstance<Server, IncomingMessage, ServerResponse> = (port) => {
 
+
     server.register(require('fastify-cors'), {})
     
     server.listen(port, (err, _) => {
@@ -43,38 +44,6 @@ const startFastify: (port: number) => FastifyInstance<Server, IncomingMessage, S
             Name: "Daniel",
             Passwd: "1234",
         })
-
-        //inital Questions
-        Question.findByIdAndDelete(140).exec()
-        Question.create({
-            _id: 140,
-                Questioner_id: 140,
-                QuestionTitle: "How to programing by MERN stack",
-                Contents: "so diffuclt!",
-                Answer: [],
-                QuestionType: ["React","TypeScript","MERN"],
-                AnswerScore: [2]
-        })
-        Question.findByIdAndDelete(141).exec()
-        Question.create({
-            _id: 141,
-                Questioner_id: 141,
-                QuestionTitle: "jquery - cant move a list element back from the right side dunno why",
-                Contents: "Is it easy?",
-                Answer: [],
-                QuestionType: ["Jquery","html","javascript"],
-                AnswerScore: [2,3]
-        })
-        Question.findByIdAndDelete(142).exec()
-        Question.create({
-            _id: 142,
-                Questioner_id: 142,
-                QuestionTitle: "How to sort command output in for loop before dumping to file?",
-                Contents: "The most obvious method would be removing redirection >> and piping script output to sort.",
-                Answer: [2,5,7],
-                QuestionType: ["sorting","for-loop","shell"],
-                AnswerScore: [2,3]
-        })
     })
 
     server.get('/ping', async (request: FastifyRequest, reply: FastifyReply) => {
@@ -91,7 +60,7 @@ const startFastify: (port: number) => FastifyInstance<Server, IncomingMessage, S
         const cat = await Cat.create(postBody)
         return reply.status(200).send({ cat })
     })
-  
+
     server.get('/user/:user_id', async (request: FastifyRequest, reply: FastifyReply) => {
         let param:any = request.params
         let user_id : number = param.user_id
@@ -125,18 +94,14 @@ const startFastify: (port: number) => FastifyInstance<Server, IncomingMessage, S
     })
 
 
-    //question api
+
+    //get all questions api
     server.get('/question', async (request: FastifyRequest, reply: FastifyReply) => {
         const question: Array<IQuestion> = await Question.find()
-        return reply.status(200).send({ question })
+        return reply.status(200).send({msg: "Get Questions Success", question })
     })
 
-
-    server.get('/answer', async (request: FastifyRequest, reply: FastifyReply) => {
-        const answer: Array<IAnswer> = await Answer.find()
-        return reply.status(200).send({ answer })
-    })
-
+    //get question api
     server.get('/question/:Question_id', async (request: FastifyRequest, reply: FastifyReply) => {
         let param:any = request.params
         let Question_id : number = param.Question_id
@@ -147,11 +112,31 @@ const startFastify: (port: number) => FastifyInstance<Server, IncomingMessage, S
         }
         else
         {
-            return reply.status(200).send({msg: "Success Found", question })
+            return reply.status(200).send({msg: "Get Question Success", question })
         }
     })
 
+    //create new question
+    server.post('/question/new', async (request: FastifyRequest, reply: FastifyReply) => {
+        const postBody: IQuestion = request.body as IQuestion
+        const question = await Question.create( postBody )
+        if(question === null)
+        {
+            return reply.status(201).send({msg: "Create Question Failed"})
+        }
+        else
+        {
+            return reply.status(201).send({ msg: "Create Question Success", question })
+        }
+    })
 
+    //get all answers api
+    server.get('/answer', async (request: FastifyRequest, reply: FastifyReply) => {
+        const answer: Array<IAnswer> = await Answer.find()
+        return reply.status(200).send({msg: "Get Answers Success", answer })
+    })
+
+    // get all answers for this question
     server.get('/question/answers/:Question_id', async (request: FastifyRequest, reply: FastifyReply) => {
         let param:any = request.params
         let Question_id : number = param.Question_id
@@ -165,7 +150,7 @@ const startFastify: (port: number) => FastifyInstance<Server, IncomingMessage, S
             let size = question.Answer.length;
             if(size === 0)
             {
-                return reply.status(400).send({ msg: "Failed"})
+                return reply.status(400).send({ msg: "No Answer Exist"})
             }
             else
             {
@@ -178,11 +163,12 @@ const startFastify: (port: number) => FastifyInstance<Server, IncomingMessage, S
                 for (var val of question.Answer) {
                     answer.push(await Answer.findById(val) as IAnswer)
                 }
-                return reply.status(200).send({ answer })
+                return reply.status(200).send({msg: "Get Answers Success", answer })
             }
         }
     })
 
+    //create new answer for this question
     server.post('/question/new', async (request: FastifyRequest, reply: FastifyReply) => {
         const postBody: IQuestion = request.body as IQuestion
         const question = await Question.create( postBody )
@@ -196,11 +182,10 @@ const startFastify: (port: number) => FastifyInstance<Server, IncomingMessage, S
         }
     })
 
-
     server.put('/question/answer/new/:Question_id', async (request: FastifyRequest, reply: FastifyReply) => {
         let param:any = request.params
-        let Question_id = param.Question_id
-        let question: IQuestion = await Question.findById(Question_id).exec() as IQuestion
+        let question_id = param.Question_id
+        let question: IQuestion = await Question.findById(question_id).exec() as IQuestion
         if(question === null)
         {
             return reply.status(404).send({msg: "Question Not Found"})
@@ -217,10 +202,11 @@ const startFastify: (port: number) => FastifyInstance<Server, IncomingMessage, S
             {
                 question.Answer.push(answer._id)
                 await question.save()
-                return reply.status(200).send({ answer })
+                return reply.status(200).send({msg: "Create Answer Success", answer })
             }
         }
     })
+
     //[測試] loginPage一般帳號密碼登入
     //Input : account/password
     //Output : msg/userInfo
