@@ -79,9 +79,6 @@ const startFastify: (port: number) => FastifyInstance<Server, IncomingMessage, S
             else{
                 return reply.status(404).send({msg: "the user does not exist"})
             }
-        else
-        {
-            return reply.status(200).send({ user })
         }
     })
 
