@@ -61,12 +61,12 @@ const startFastify: (port: number) => FastifyInstance<Server, IncomingMessage, S
             return reply.status(401).send({msg: "Create Users Failed"})
         }
         else{
-            return reply.status(201).send({c_users})
+            return reply.status(201).send({msg: "Create Users Successful"})
         }
     })
     
-    //Put User Posts 回傳 userID,postID
-    server.put('/putPosts/:user_id/:post_id', async (request: FastifyRequest, reply: FastifyReply) => {
+    //Put User Posts (param: userID,postID)
+    server.put('/api/posts/:user_id/:post_id', async (request: FastifyRequest, reply: FastifyReply) => {
         let param:any = request.params as any
         const users:IUsers = await Users.findById(param.user_id).exec() as IUsers
         if(users === null){
@@ -75,36 +75,39 @@ const startFastify: (port: number) => FastifyInstance<Server, IncomingMessage, S
         else{
             const OwnPost_array:Array<number> = users.OwnPost_id as Array<number>
             let [Index,result] = await findInsertionPoint(OwnPost_array,param.post_id)
-            // result[0] : number 回傳可插入的insert index 
-            // result[1] : boolean True:不存在此index可新增 False:存在此index可移除 
 
             if(result != false){
                 let index:number = Index as number
-                await OwnPost_array.splice( index,0, parseInt(param.post_id) )
-                await OwnPost_array.sort( (a,b)=>a-b )
-                //await users.OwnPost_id.update({OwnPost_array})
+                OwnPost_array.splice( index,0, parseInt(param.post_id) )
+                OwnPost_array.sort( (a,b)=>a-b )
                 await users.save()
-
-                return reply.status(404).send(users)
+                return reply.status(200).send({ msg: 'put post successful' })
             }
             else{
-                return reply.status(404).send({msg: "User have this post can delete"})
+                return reply.status(404).send({msg: "User have this post can be deleted"})
             }
         }
-
-        //Users.addToSet({})
-        //users[0].OwnPost_id.length
     })
 
-    //Delete User
-    server.delete('/deleteUsers/:user_id', async (request: FastifyRequest, reply:FastifyReply) =>{
+    //Delete User Post (param: userID,postID)
+    server.delete('/api/delete/:user_id/:post_id', async (request: FastifyRequest, reply:FastifyReply) =>{
         let param:any = request.params
-        const result = await Users.findByIdAndRemove(param.user_id).exec()
-        if(result != null){
-            return reply.status(200).send({ msg:'delete users success!' })
+        const users:IUsers = await Users.findById(param.user_id).exec() as IUsers
+        if(users === null){
+            return reply.status(404).send({msg: "User is not exist"})
         }
         else{
-            return reply.status(200).send({ msg:'the user does not exist'})
+            const OwnPost_array:Array<number> = users.OwnPost_id as Array<number>
+            let [Index,result] = await findInsertionPoint(OwnPost_array,param.post_id)
+            if(result === false){
+                let index:number = Index as number
+                OwnPost_array.splice(index,1)
+                await users.save()
+                return reply.status(200).send({ msg: 'delete users success!'})
+            }
+            else{
+                return reply.status(404).send({msg: "the user does not exist"})
+            }
         }
     })
 
