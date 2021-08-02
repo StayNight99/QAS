@@ -96,7 +96,7 @@ function QuestionsListApp() {
                             <h2 className="flex--item fl1 fs-headline1">Questions List</h2>
                         </td>
                         <td className="padding30px">
-                            <Button id="btnAskQuestion" label="Ask Question" onClick={btnAskQuestion} className="" />
+                            <Button id="btnAskQuestion" label="Ask Question" onClick={btnAskQuestion} />
                         </td>
                     </tr>
                 </div>

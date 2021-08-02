@@ -121,4 +121,16 @@ export default class Server {
             console.error(e);
         }
     }
+
+    //取得該問題下的所有回覆
+    async getAllAnswersByQID(strQID: string){
+        try {
+            const res = await axios.get("http://localhost:8888/question/answers/" + strQID);
+            console.log(res);
+
+            return res.data['answer'];
+        } catch (e) {
+            console.error(e);
+        }
+    }
 }
