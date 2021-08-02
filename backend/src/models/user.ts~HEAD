@@ -1,29 +1,25 @@
-import { IQuestion } from '../types/question'
+import { IUsers } from '../types/user'
 import { model, Schema } from 'mongoose'
 
-const QuestionSchema: Schema = new Schema(
+const UserSchema: Schema = new Schema(
     {
-        Questioner_id: {
+        _id: {
             type: Number,
-            required: true
+            required: false
         },
-        QuestionTitle: {
+        Name: {
             type: String,
             required: true
         },
-        Contents: {
+        Passwd: {
             type: String,
             required: true
         },
-        Answer: {
+        OwnPost_id: {
             type: Array,
             required: false
         },
-        QuestionType:{
-            type: Array,
-            required: false
-        },
-        AnswerScore:{
+        FollowPost_id: {
             type: Array,
             required: false
         }
@@ -33,4 +29,4 @@ const QuestionSchema: Schema = new Schema(
     }
 )
 
-export default model<IQuestion>("Question", QuestionSchema)
+export default model<IUsers>("Users", UserSchema)

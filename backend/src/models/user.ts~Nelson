@@ -1,3 +1,25 @@
+<<<<<<< HEAD:backend/src/models/users.ts:backend/src/models/users.ts
+import { model, Schema } from 'mongoose'
+
+const userSchema: Schema = new Schema(
+    {
+        _id: {
+            type: Number,
+            required: true
+        },
+        Name: {
+            type:String,
+            required: true
+        },
+        Passwd: {
+            type:String,
+            required: true
+        }
+    }
+)
+
+export default model("Users",userSchema)
+=======
 import { IUsers } from '../types/user'
 import { model, Schema } from 'mongoose'
 import { number } from 'yargs'
@@ -31,3 +53,4 @@ const UserSchema: Schema = new Schema(
 )
 
 export default model<IUsers>("Users", UserSchema)
+>>>>>>> Nelson:backend/src/models/user.ts:backend/src/models/user.ts

@@ -44,38 +44,6 @@ const startFastify: (port: number) => FastifyInstance<Server, IncomingMessage, S
             Name: "Daniel",
             Passwd: "1234",
         })
-
-        //inital Questions
-        Question.findByIdAndDelete(140).exec()
-        Question.create({
-            _id: 140,
-                Questioner_id: 140,
-                QuestionTitle: "How to programing by MERN stack",
-                Contents: "so diffuclt!",
-                Answer: [],
-                QuestionType: ["React","TypeScript","MERN"],
-                AnswerScore: [2]
-        })
-        Question.findByIdAndDelete(141).exec()
-        Question.create({
-            _id: 141,
-                Questioner_id: 141,
-                QuestionTitle: "jquery - cant move a list element back from the right side dunno why",
-                Contents: "Is it easy?",
-                Answer: [],
-                QuestionType: ["Jquery","html","javascript"],
-                AnswerScore: [2,3]
-        })
-        Question.findByIdAndDelete(142).exec()
-        Question.create({
-            _id: 142,
-                Questioner_id: 142,
-                QuestionTitle: "How to sort command output in for loop before dumping to file?",
-                Contents: "The most obvious method would be removing redirection >> and piping script output to sort.",
-                Answer: [2,5,7],
-                QuestionType: ["sorting","for-loop","shell"],
-                AnswerScore: [2,3]
-        })
     })
 
     server.get('/ping', async (request: FastifyRequest, reply: FastifyReply) => {
@@ -106,7 +74,18 @@ const startFastify: (port: number) => FastifyInstance<Server, IncomingMessage, S
         }
     })
 
-
+    //login api
+    server.post('/login', async (request: FastifyRequest, reply: FastifyReply) => {
+        const postBody: IUsers = request.body as IUsers
+        const login: IUsers = await Users.findOne( {Name: postBody.Name, Passwd: postBody.Passwd} ).exec() as IUsers
+        if(login === null){
+            return reply.status(200).send({ msg: 'login error!' })
+        }
+        else
+        {
+            return reply.status(200).send({ msg: 'login success!' , login})
+        }
+    })
 
     //get all questions api
     server.get('/question', async (request: FastifyRequest, reply: FastifyReply) => {
@@ -230,7 +209,6 @@ const startFastify: (port: number) => FastifyInstance<Server, IncomingMessage, S
             return reply.status(200).send({ msg: 'account not exist!' })
         }
         
-
         
     })
 
