@@ -6,6 +6,8 @@ import { AnswerRouter } from './route/answer'
 import { UserRouter } from './route/user'
 import { IUsers } from './types/user'
 import Users from './models/user'
+import Question from './models/question'
+import Answer from './models/answer'
 import * as dbHandler from './test/db'
 
 const server: FastifyInstance<Server, IncomingMessage, ServerResponse> = fastify({
@@ -37,36 +39,36 @@ const startFastify: (port: number) => FastifyInstance<Server, IncomingMessage, S
         //     Passwd: "1234",
         // })
         // Question.create({
-        //         Questioner_id: 1,
+        //         Questioner_id: "6108207646513f3a6c6ea07b",
         //         QuestionTitle: "How to programing by MERN stack",
         //         Contents: "so diffuclt!",
-        //         Answer: [],
+        //         Answer: ["6108216142bb6a20a0e48def","6108216142bb6a20a0e48df0"],
         //         QuestionType: ["React","TypeScript","MERN"],
-        //         AnswerScore: [2]
+        //         AnswerScore: ["2"]
         // })
         // Question.create({
-        //         Questioner_id: 2,
+        //         Questioner_id: "6108207646513f3a6c6ea07b",
         //         QuestionTitle: "jquery - cant move a list element back from the right side dunno why",
         //         Contents: "Is it easy?",
         //         Answer: [],
         //         QuestionType: ["Jquery","html","javascript"],
-        //         AnswerScore: [2,3]
+        //         AnswerScore: ["2","3"]
         // })
         // Question.create({
-        //         Questioner_id: 3,
+        //         Questioner_id: "6108207646513f3a6c6ea079",
         //         QuestionTitle: "How to sort command output in for loop before dumping to file?",
         //         Contents: "The most obvious method would be removing redirection >> and piping script output to sort.",
-        //         Answer: [2,5,7],
+        //         Answer: ["2","5","7"],
         //         QuestionType: ["sorting","for-loop","shell"],
-        //         AnswerScore: [2,3]
+        //         AnswerScore: ["2","3"]
         // })
         // Answer.create({
-        //     User_id: 100,
+        //     User_id: "6108207646513f3a6c6ea07b",
         //     Contents: "You can follow the step.",
         //     Scoring: []
         // })
         // Answer.create({
-        //     User_id: 101,
+        //     User_id: "6108207646513f3a6c6ea07b",
         //     Contents: "You can do it.",
         //     Scoring: []
         // })

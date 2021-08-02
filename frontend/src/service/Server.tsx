@@ -7,6 +7,7 @@ import { of } from "fp-ts/Identity";
 import { zero } from "fp-ts/Array";
 import { pipe } from "fp-ts/lib/function";
 import QuestionsListApp from "../QuestionsListApp";
+import { values } from "fp-ts/lib/Map";
 
 export default class Server {
 
@@ -58,15 +59,14 @@ export default class Server {
     //使用者發問問題，需要新增問題相關資訊至資料庫
     //Input : UserPK、Contents、Question Type
     //Output : success/fall
-    async setNewQuestion(strUserPK: number, strTitle: string, strContent: string, strQuestionType: string[]) {
+    async setNewQuestion(strUserPK: string, strTitle: string, strContent: string, strQuestionType: string[]) {
         try {
-            let question: any
-            question.Questioner_id = strUserPK
-            question.QuestionTitle = strTitle
-            question.Contents = strContent
-            question.QuestionType = strQuestionType
-
-            const res = await axios.post("http://localhost:8888/question/new", question);     
+            const res = await axios.post("http://localhost:8888/question/new", {
+                Questioner_id: strUserPK,
+                QuestionTitle: strTitle,
+                Contents:strContent,
+                QuestionType:strQuestionType
+            });     
             console.log(res);
             return res.data.msg;
         } catch (e) {
@@ -79,9 +79,6 @@ export default class Server {
         try {
             const res = await axios.get("http://localhost:8888/question");
             console.log(res);
-
-            //console.log(res.data['question'].QuestionType);
-            //console.log(res.data['question'].AnswerScore.count());
 
             return res.data['question'];
         } catch (e) {
@@ -129,6 +126,21 @@ export default class Server {
             console.log(res);
 
             return res.data['answer'];
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    //新增回答
+    async setNewAnswer(strQID: string,strContent: string,strUID: string){
+        try {
+            const res = await axios.put("http://localhost:8888/question/answer/new/" + strQID, {
+                User_id: strUID,
+                Contents:strContent,
+            });     
+            console.log(res);
+
+            return res.data.msg;
         } catch (e) {
             console.error(e);
         }

@@ -24,7 +24,7 @@ function QuestionsListApp() {
 
     //從URL取參數
     let params:any = useParams();
-    let userID = params._id;
+    let userID = params.UID;
 
     function btnAskQuestion(this : any) {
         window.location.href = '/AskQuestionPage/' + userID;
@@ -32,7 +32,7 @@ function QuestionsListApp() {
 
     const btnReviewQuestion = (rowData: any) => {
         let QID = rowData._id;
-        window.location.href = '/ReviewAnswerPage/' + QID;
+        window.location.href = '/ReviewAnswerPage/' + QID + '/' + userID;
     }
 
     //DataTable
@@ -43,7 +43,7 @@ function QuestionsListApp() {
         //productService.getProductsSmall().then(data => setQuestions(data));
 
         //取得所有Questions
-        nodeService.getAllQuestions().then((data) => setQuestions(data));       
+        nodeService.getAllQuestions().then((data) => setQuestions(data));  
     }, []); 
 
     const reviewBodyTemplate = (rowData: any) => {
@@ -105,7 +105,7 @@ function QuestionsListApp() {
                 <div className="styleWithQuestionTable">
                     <DataTable value={questions} paginator rows={5}>
                         <Column field="QuestionTitle" header="Title" filter filterPlaceholder="Search by title" sortable></Column>
-                        <Column field="name" header="Name" body={nameTemplate} filter filterPlaceholder="Search by name" sortable></Column>
+                        <Column field="Questioner_id" header="Name" body={nameTemplate} filter filterPlaceholder="Search by name" sortable></Column>
                         <Column field="Answer" header="Answer Count" body={answerTemplate} sortable></Column>
                         <Column field="AnswerScore" header="Score" body={scoreTemplate} sortable></Column>
                         <Column field="QuestionType" header="Tag"  body={tagTemplate} sortable></Column>

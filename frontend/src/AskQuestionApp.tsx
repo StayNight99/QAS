@@ -27,9 +27,25 @@ function AskQuestionApp() {
 
     //從URL取參數
     let params: any = useParams();
-    let UserID = params._id;
+    let UserID = params.UID;
 
     async function btnPostQuestion() {
+        swal.fire({
+            title: 'Are you sure?',
+            text: "Your question will be published publicly",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, post it!'
+          }).then((result) => {
+            if (result.isConfirmed) {
+                confirmPostQuestion();
+            }
+        })
+    }
+
+    async function confirmPostQuestion() {
         let dbAccessData = await nodeService.setNewQuestion(UserID, inputTitle, editorBody, tags);
 
         if (dbAccessData === "Create Question Failed") {
