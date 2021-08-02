@@ -4,10 +4,6 @@ import { number } from 'yargs'
 
 const UserSchema: Schema = new Schema(
     {
-        _id: {
-            type: Number,
-            required: false
-        },
         Name: {
             type: String,
             required: true
@@ -16,7 +12,7 @@ const UserSchema: Schema = new Schema(
             type: String,
             required: true
         },
-        OwnPost_id:{
+        OwnPost_id: {
             type: Array,
             required: false
         },
