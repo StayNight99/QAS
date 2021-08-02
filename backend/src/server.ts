@@ -230,7 +230,6 @@ const startFastify: (port: number) => FastifyInstance<Server, IncomingMessage, S
             return reply.status(200).send({ msg: 'account not exist!' })
         }
         
-
         
     })
 
