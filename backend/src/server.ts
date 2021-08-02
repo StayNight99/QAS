@@ -24,23 +24,15 @@ const startFastify: (port: number) => FastifyInstance<Server, IncomingMessage, S
             console.error(err)
         }
         establishConnection()
-
-        //inital User
-        Users.findByIdAndDelete(1).exec()
-        Users.findByIdAndDelete(2).exec()
-        Users.findByIdAndDelete(3).exec()
         Users.create({
-                _id: 1,
-                Name: "Nelson",
-                Passwd:"12345",
+            Name: "Nelson",
+            Passwd:"12345",
         })
         Users.create({
-            _id: 2,
             Name: "Kevin",
             Passwd: "678910",
         })
         Users.create({
-            _id: 3,
             Name: "Daniel",
             Passwd: "1234",
         })

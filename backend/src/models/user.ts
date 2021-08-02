@@ -4,10 +4,6 @@ import { number } from 'yargs'
 
 const UserSchema: Schema = new Schema(
     {
-        _id: {
-            type: Number,
-            required: false
-        },
         Name: {
             type: String,
             required: true
