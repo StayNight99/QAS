@@ -4,7 +4,7 @@ import { model, Schema } from 'mongoose'
 const AnswerSchema: Schema = new Schema(
     {
         User_id: {
-            type: Number,
+            type: String,
             required: true
         },
         Contents: {
