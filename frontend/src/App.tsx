@@ -7,7 +7,6 @@ function App() {
   return (   
     <div className="App default-font">
       <header className="App-header">
-        {/* <img src={logo} className="App-logo" alt="logo" />  */}
         <img src={ufoLogo} className="App-logo" alt="logo" />
         <p>
           Foucs on the solution, not on the problem.
