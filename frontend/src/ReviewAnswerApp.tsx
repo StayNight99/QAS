@@ -10,10 +10,11 @@ import { Column } from "primereact/column";
 import { Button } from "primereact/button";
 import { Dialog } from 'primereact/dialog';
 import { InputTextarea } from 'primereact/inputtextarea';
+import { Editor } from 'primereact/editor';
 
 function ReviewAnswerApp() {
   const nodeService = new NodeService();
-  const [inputBody, setInputBody] = useState<string>('');
+  const [editorBody, setEditorBody] = useState<string>('');
   const [inputTitle, setInputTitle] = useState<string>('no-title');
   const [tags, setTags] = React.useState(["example tag"])
   const [displayDialog, setDisplayDialog] = useState(false);
@@ -21,10 +22,11 @@ function ReviewAnswerApp() {
   //從URL取參數
   let params: any = useParams();
   let QID = params.QID;
+  let UID = params.UID;
 
   useEffect(() => {
     nodeService.getQuestionTitleByQID(QID).then((data) => setInputTitle(data));
-    nodeService.getQuestionContentsByQID(QID).then((data) => setInputBody(data));
+    nodeService.getQuestionContentsByQID(QID).then((data) => setEditorBody(data));
     nodeService.getQuestionTagByQID(QID).then((data) => setTags(data));
   }, []);
 
@@ -32,7 +34,7 @@ function ReviewAnswerApp() {
   const [answers, setAnswers] = useState([]);
 
   const scoreTemplate = (rowData: any) => {
-    let AnswerScore = rowData.AnswerScore
+    let AnswerScore = rowData.Scoring
     return (
       <React.Fragment>
         {AnswerScore.length}
@@ -55,10 +57,23 @@ function ReviewAnswerApp() {
     setDisplayDialog(false);
   };
 
+  async function btnSaveAnswer(){        
+    let answerData = await nodeService.setNewAnswer(QID,inputAnswer,UID)
+    if (answerData === "Create Answer Failed") {
+      swal.fire('發生錯誤！', answerData, 'error');
+    }
+    else 
+    {
+      swal.fire('成功回覆！', answerData, 'success');
+    }
+    setAnswers(answers);
+    setDisplayDialog(false);
+  };
+
   const editDialogFooter = (
     <React.Fragment>
       <Button label='Cancel' icon='pi pi-times' className='p-button-text' onClick={hideDialog} />
-      <Button label='Post' icon='pi pi-check' className='p-button-text' onClick={hideDialog} />
+      <Button label='Post' icon='pi pi-check' className='p-button-text' onClick={btnSaveAnswer} />
     </React.Fragment>
   );
 
@@ -86,7 +101,8 @@ function ReviewAnswerApp() {
 
           <div>
             <div style={{ margin: '15px 0 15px 0' }}>Body</div>
-            <InputText className="widthAndHeightQuestion" value={inputBody} readOnly onChange={(e) => setInputBody(e.target.value)} />
+            
+            <Editor className="widthAndHeightQuestion" value={editorBody} readOnly onTextChange={(e) => setEditorBody} />
           </div>
 
 

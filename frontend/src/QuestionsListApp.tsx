@@ -5,14 +5,9 @@ import "primereact/resources/primereact.css";
 import "primeflex/primeflex.css";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
-import { InputText } from "primereact/inputtext";
 import { Button } from "primereact/button";
 import NodeService from "./service/Server";
-import * as TE from "fp-ts/TaskEither";
-import { zero } from "fp-ts/Array";
-import { Divider } from 'primereact/divider';
 import './App.css';
-import { default as swal } from 'sweetalert2'
 import ProductService from './service/ProductService';
 import ReactTagInput from "@pathofdev/react-tag-input";
 import { useParams } from "react-router-dom";
@@ -24,7 +19,7 @@ function QuestionsListApp() {
 
     //從URL取參數
     let params:any = useParams();
-    let userID = params._id;
+    let userID = params.UID;
 
     function btnAskQuestion(this : any) {
         window.location.href = '/AskQuestionPage/' + userID;
@@ -32,7 +27,7 @@ function QuestionsListApp() {
 
     const btnReviewQuestion = (rowData: any) => {
         let QID = rowData._id;
-        window.location.href = '/ReviewAnswerPage/' + QID;
+        window.location.href = '/ReviewAnswerPage/' + QID + '/' + userID;
     }
 
     //DataTable
@@ -40,10 +35,8 @@ function QuestionsListApp() {
     const productService = new ProductService();
 
     useEffect(() => {
-        //productService.getProductsSmall().then(data => setQuestions(data));
-
         //取得所有Questions
-        nodeService.getAllQuestions().then((data) => setQuestions(data));       
+        nodeService.getAllQuestions().then((data) => setQuestions(data));  
     }, []); 
 
     const reviewBodyTemplate = (rowData: any) => {
@@ -81,11 +74,6 @@ function QuestionsListApp() {
         );
     }
 
-    const nameTemplate= (rowData: any) => {
-        
-        
-    }
-
     return (
         <div className="default-font">
             <header className="App-header">
@@ -105,7 +93,7 @@ function QuestionsListApp() {
                 <div className="styleWithQuestionTable">
                     <DataTable value={questions} paginator rows={5}>
                         <Column field="QuestionTitle" header="Title" filter filterPlaceholder="Search by title" sortable></Column>
-                        <Column field="name" header="Name" body={nameTemplate} filter filterPlaceholder="Search by name" sortable></Column>
+                        <Column field="Questioner_id" header="Name" filter filterPlaceholder="Search by name" sortable></Column>
                         <Column field="Answer" header="Answer Count" body={answerTemplate} sortable></Column>
                         <Column field="AnswerScore" header="Score" body={scoreTemplate} sortable></Column>
                         <Column field="QuestionType" header="Tag"  body={tagTemplate} sortable></Column>
