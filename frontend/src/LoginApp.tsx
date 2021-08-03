@@ -24,16 +24,19 @@ function LoginApp() {
     async function submitLoginData() {
         //await postData();
         //getData();
-        let loginData = await nodeService.postLoginData(addAccount , addPassword);
+        let loginData:any = await nodeService.postLoginData(addAccount , addPassword);
         if(loginData.msg === "login success!")
         {
-            //swal.fire('登入成功！',loginData.msg,'success')   
-            window.location.href = "/QuestionsListPage/" + loginData._id
+            swal.fire('登入成功！',loginData.msg,'success').then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = "/QuestionsListPage/" + loginData.login._id;
+                }
+            })   
         }
         else
         {
             swal.fire('登入失敗！',loginData.msg,'error')
-        }        
+        }
         //nodeService.getTodoData().then((data) => setTodolist(data));
     }
 

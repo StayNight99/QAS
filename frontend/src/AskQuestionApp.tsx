@@ -3,21 +3,15 @@ import "primeicons/primeicons.css";
 import "primereact/resources/themes/saga-blue/theme.css";
 import "primereact/resources/primereact.css";
 import "primeflex/primeflex.css";
-import { DataTable } from "primereact/datatable";
-import { Column } from "primereact/column";
 import { InputText } from "primereact/inputtext";
 import { Button } from "primereact/button";
 import NodeService from "./service/Server";
-import * as TE from "fp-ts/TaskEither";
-import { zero } from "fp-ts/Array";
-import { Password } from 'primereact/password';
-import { Divider } from 'primereact/divider';
 import './App.css';
 import { default as swal } from 'sweetalert2'
 import { Editor } from 'primereact/editor';
 import ReactTagInput from "@pathofdev/react-tag-input";
 import "@pathofdev/react-tag-input/build/index.css";
-
+import { useParams } from "react-router-dom";
 
 function AskQuestionApp() {
     const [editorBody, setEditorBody] = useState<string>('<div>1. Summarize the problem</div><div>2. Describe what you’ve tried</div><div>3. Show some code</div>');
@@ -25,15 +19,36 @@ function AskQuestionApp() {
     const [tags, setTags] = React.useState(["example tag"])
     const nodeService = new NodeService();
 
+    //從URL取參數
+    let params: any = useParams();
+    let UserID = params.UID;
+
     async function btnPostQuestion() {
-        let dbAccessData = await nodeService.setNewQuestion(3, inputTitle, editorBody, tags);
-        
-        if (dbAccessData.msg === "Create Question Failed") {
+        swal.fire({
+            title: 'Are you sure?',
+            text: "Your question will be published publicly",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, post it!'
+          }).then((result) => {
+            if (result.isConfirmed) {
+                confirmPostQuestion();
+            }
+        })
+    }
+
+    async function confirmPostQuestion() {
+        let dbAccessData = await nodeService.setNewQuestion(UserID, inputTitle, editorBody, tags);
+
+        if (dbAccessData === "Create Question Failed") {
             swal.fire('發生錯誤！', '請檢查資料是否填寫不完全!', 'error');
         }
-        else 
-        {
-            swal.fire('成功提問！', 'Your question has been posted!', 'success');
+        else {
+            swal.fire('成功提問！', 'Your question has been posted!', 'success').then(function (result) {
+                window.location.href = "/QuestionsListPage/" + UserID
+            });;
         }
     }
 
@@ -67,7 +82,7 @@ function AskQuestionApp() {
                         <div>
                             <p className="fontSize13px">Add some tags to describe what your question is about</p>
                         </div>
-                        <ReactTagInput tags={tags} onChange={(newTags) => setTags(newTags)}/>
+                        <ReactTagInput tags={tags} onChange={(newTags) => setTags(newTags)} />
                     </div>
 
                     <Button id="btnPostQuestion" style={{ margin: '15px 0 15px 0' }} label="Post your Question" onClick={btnPostQuestion} />
