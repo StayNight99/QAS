@@ -13,7 +13,6 @@ import ReviewAnserApp from './ReviewAnswerApp';
 
 ReactDOM.render(
   <React.StrictMode>
-    {/* <HeaderBar></HeaderBar> */}
     <Router >
       <Route exact path="/" component={App} />
       <Route exact path="/LoginPage" component={LoginApp} />
