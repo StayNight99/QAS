@@ -24,7 +24,8 @@ const startFastify: (port: number) => FastifyInstance<Server, IncomingMessage, S
             console.error(err)
         }
         establishConnection()
-        
+        //dbHandler.clearDatabase()
+
         //inital Data
         // Users.create({
         //     Name: "Nelson",
