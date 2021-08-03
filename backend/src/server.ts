@@ -22,54 +22,6 @@ const startFastify: (port: number) => FastifyInstance<Server, IncomingMessage, S
             console.error(err)
         }
         establishConnection()
-        
-        //inital Data
-        // Users.create({
-        //     Name: "Nelson",
-        //     Passwd:"12345",
-        // })
-        // Users.create({
-        //     Name: "Kevin",
-        //     Passwd: "678910",
-        // })
-        // Users.create({
-        //     Name: "Daniel",
-        //     Passwd: "1234",
-        // })
-        // Question.create({
-        //         Questioner_id: 1,
-        //         QuestionTitle: "How to programing by MERN stack",
-        //         Contents: "so diffuclt!",
-        //         Answer: [],
-        //         QuestionType: ["React","TypeScript","MERN"],
-        //         AnswerScore: [2]
-        // })
-        // Question.create({
-        //         Questioner_id: 2,
-        //         QuestionTitle: "jquery - cant move a list element back from the right side dunno why",
-        //         Contents: "Is it easy?",
-        //         Answer: [],
-        //         QuestionType: ["Jquery","html","javascript"],
-        //         AnswerScore: [2,3]
-        // })
-        // Question.create({
-        //         Questioner_id: 3,
-        //         QuestionTitle: "How to sort command output in for loop before dumping to file?",
-        //         Contents: "The most obvious method would be removing redirection >> and piping script output to sort.",
-        //         Answer: [2,5,7],
-        //         QuestionType: ["sorting","for-loop","shell"],
-        //         AnswerScore: [2,3]
-        // })
-        // Answer.create({
-        //     User_id: 100,
-        //     Contents: "You can follow the step.",
-        //     Scoring: []
-        // })
-        // Answer.create({
-        //     User_id: 101,
-        //     Contents: "You can do it.",
-        //     Scoring: []
-        // })
     })
 
     server.get('/ping', async (request: FastifyRequest, reply: FastifyReply) => {

@@ -3,6 +3,7 @@ import { IQuestion } from './../types/question'
 import { IUsers } from './../types/user'
 import Question from './../models/question'
 import Users from './../models/user'
+import { getUserName } from './../plugins/getUserName'
 
 const QuestionRouter = (server: FastifyInstance, opts: RouteShorthandOptions, done: (error?: Error) => void) => {
 
@@ -11,7 +12,8 @@ const QuestionRouter = (server: FastifyInstance, opts: RouteShorthandOptions, do
         const question: Array<IQuestion> = await Question.find()
         let userName:Array<string> = []
         userName.pop()
-        let user: IUsers
+        let user: IUsers = {} as IUsers
+        //userName = await getUserName(question, user, userName)
         for(var val of question){
             user = await Users.findById(val.Questioner_id) as IUsers
             userName.push(user.Name)

@@ -3,15 +3,15 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for src/server.ts</title>
+    <title>Code coverage report for src/route/question.ts</title>
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="../prettify.css" />
-    <link rel="stylesheet" href="../base.css" />
-    <link rel="shortcut icon" type="image/x-icon" href="../favicon.png" />
+    <link rel="stylesheet" href="../../prettify.css" />
+    <link rel="stylesheet" href="../../base.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="../../favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <style type='text/css'>
         .coverage-summary .sorter {
-            background-image: url(../sort-arrow-sprite.png);
+            background-image: url(../../sort-arrow-sprite.png);
         }
     </style>
 </head>
@@ -19,34 +19,34 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../index.html">All files</a> / <a href="index.html">src</a> server.ts</h1>
+        <h1><a href="../../index.html">All files</a> / <a href="index.html">src/route</a> question.ts</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">65.52% </span>
+                <span class="strong">94.44% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>19/29</span>
+                <span class='fraction'>34/36</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">25% </span>
+                <span class="strong">75% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>1/4</span>
+                <span class='fraction'>6/8</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">33.33% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>2/6</span>
+                <span class='fraction'>7/7</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">73.08% </span>
+                <span class="strong">92.59% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>19/26</span>
+                <span class='fraction'>25/27</span>
             </div>
         
             
@@ -55,7 +55,7 @@
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
     </div>
-    <div class='status-line medium'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -107,107 +107,122 @@
 <a name='L48'></a><a href='#L48'>48</a>
 <a name='L49'></a><a href='#L49'>49</a>
 <a name='L50'></a><a href='#L50'>50</a>
-<a name='L51'></a><a href='#L51'>51</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<a name='L51'></a><a href='#L51'>51</a>
+<a name='L52'></a><a href='#L52'>52</a>
+<a name='L53'></a><a href='#L53'>53</a>
+<a name='L54'></a><a href='#L54'>54</a>
+<a name='L55'></a><a href='#L55'>55</a>
+<a name='L56'></a><a href='#L56'>56</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span></td><td class="text"><pre class="prettyprint lang-js">import fastify, { FastifyInstance, FastifyReply, FastifyRequest } from 'fastify'
-import { Server, IncomingMessage, ServerResponse } from 'http'
-import { establishConnection } from './plugins/mongodb'
-import { QuestionRouter } from './route/question'
-import { AnswerRouter } from './route/answer'
-import { UserRouter } from './route/user'
-import { IUsers } from './types/user'
-import Users from './models/user'
-import * as dbHandler from './test/db'
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span></td><td class="text"><pre class="prettyprint lang-js">import fastify, { FastifyInstance, FastifyReply, FastifyRequest, RouteShorthandOptions } from 'fastify'
+import { IQuestion } from './../types/question'
+import { IUsers } from './../types/user'
+import Question from './../models/question'
+import Users from './../models/user'
+import { getUserName } from './../plugins/getUserName'
 &nbsp;
-const server: FastifyInstance&lt;Server, IncomingMessage, ServerResponse&gt; = fastify({
-    logger: { prettyPrint: true }
-})
+const QuestionRouter = (server: FastifyInstance, opts: RouteShorthandOptions, done: (error?: Error) =&gt; void) =&gt; {
 &nbsp;
-const startFastify: (port: number) =&gt; FastifyInstance&lt;Server, IncomingMessage, ServerResponse&gt; = (port) =&gt; {
-&nbsp;
-&nbsp;
-    server.register(require('fastify-cors'), {})
-    
-    server.listen(port, (err, _) =&gt; {
-        <span class="missing-if-branch" title="if path not taken" >I</span>if (err) {
-<span class="cstat-no" title="statement not covered" >            console.error(err)</span>
+    //get all questions api
+    server.get('/question', async (request: FastifyRequest, reply: FastifyReply) =&gt; {
+        const question: Array&lt;IQuestion&gt; = await Question.find()
+        let userName:Array&lt;string&gt; = []
+        userName.pop()
+        let user: IUsers = {} as IUsers
+        //userName = await getUserName(question, user, userName)
+        for(var val of question){
+            user = await Users.findById(val.Questioner_id) as IUsers
+            userName.push(user.Name)
         }
-        establishConnection()
+        return reply.status(200).send({msg: "Get Questions Success", question, userName })
     })
 &nbsp;
-    server.get('/ping', <span class="fstat-no" title="function not covered" >async (r</span>equest: FastifyRequest, reply: FastifyReply<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >) =&gt; {</span></span>
-<span class="cstat-no" title="statement not covered" >        return reply.status(200).send({ msg: 'pong' })</span>
-    })
-&nbsp;
-    //login api
-    server.post('/login', <span class="fstat-no" title="function not covered" >async (r</span>equest: FastifyRequest, reply: FastifyReply<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >) =&gt; {</span></span>
-        const <span class="cstat-no" title="statement not covered" >postBody: IUsers = request.body as IUsers</span>
-        const <span class="cstat-no" title="statement not covered" >login: IUsers = <span class="cstat-no" title="statement not covered" >await Users.findOne( {Name: postBody.Name, Passwd: postBody.Passwd} ).exec() as IUsers</span></span>
-<span class="cstat-no" title="statement not covered" >        if(login === null){</span>
-<span class="cstat-no" title="statement not covered" >            return reply.status(200).send({ msg: 'login error!' })</span>
+    //get question api
+    server.get('/question/:Question_id', async (request: FastifyRequest, reply: FastifyReply) =&gt; {
+        let param:any = request.params
+        let Question_id : number = param.Question_id
+        const question: IQuestion = await Question.findById(Question_id) as IQuestion
+        <span class="missing-if-branch" title="if path not taken" >I</span>if(question === null)
+        {
+<span class="cstat-no" title="statement not covered" >            return reply.status(404).send({msg: "Question Not Found"})</span>
         }
         else
         {
-<span class="cstat-no" title="statement not covered" >            return reply.status(200).send({ msg: 'login success!' , login})</span>
+            return reply.status(200).send({msg: "Get Question Success", question })
         }
     })
 &nbsp;
-    server.register(QuestionRouter)
-    server.register(AnswerRouter)
-    server.register(UserRouter)
+    //create new question
+    server.post('/question/new', async (request: FastifyRequest, reply: FastifyReply) =&gt; {
+        const postBody: IQuestion = request.body as IQuestion
+        const question = await Question.create( postBody )
+        <span class="missing-if-branch" title="if path not taken" >I</span>if(question === null)
+        {
+<span class="cstat-no" title="statement not covered" >            return reply.status(201).send({msg: "Create Question Failed"})</span>
+        }
+        else
+        {
+            return reply.status(201).send({ msg: "Create Question Success", question })
+        }
+    })
 &nbsp;
-    return server
+    done()
 }
 &nbsp;
-export { startFastify }</pre></td></tr></table></pre>
+export { QuestionRouter }</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
             </div><!-- /wrapper -->
@@ -217,14 +232,14 @@ export { startFastify }</pre></td></tr></table></pre>
                 at Tue Aug 03 2021 09:37:19 GMT+0800 (台北標準時間)
             </div>
         </div>
-        <script src="../prettify.js"></script>
+        <script src="../../prettify.js"></script>
         <script>
             window.onload = function () {
                 prettyPrint();
             };
         </script>
-        <script src="../sorter.js"></script>
-        <script src="../block-navigation.js"></script>
+        <script src="../../sorter.js"></script>
+        <script src="../../block-navigation.js"></script>
     </body>
 </html>
     
