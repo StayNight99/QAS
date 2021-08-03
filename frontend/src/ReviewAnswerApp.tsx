@@ -66,7 +66,7 @@ function ReviewAnswerApp() {
     {
       swal.fire('成功回覆！', answerData, 'success');
     }
-    setAnswers(answers);
+    //setAnswers(answers);
     setDisplayDialog(false);
   };
 
