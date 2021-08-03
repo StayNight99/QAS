@@ -75,10 +75,6 @@ const startFastify: (port: number) => FastifyInstance<Server, IncomingMessage, S
         // })
     })
 
-    server.get('/ping', async (request: FastifyRequest, reply: FastifyReply) => {
-        return reply.status(200).send({ msg: 'pong' })
-    })
-
     //login api
     server.post('/login', async (request: FastifyRequest, reply: FastifyReply) => {
         const postBody: IUsers = request.body as IUsers

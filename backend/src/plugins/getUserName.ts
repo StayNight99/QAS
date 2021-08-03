@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { IQuestion } from './../types/question'
 import { IUsers } from './../types/user'
 import Question from './../models/question'
@@ -11,4 +12,19 @@ function getUserName (question: Array<IQuestion>, user: IUsers, userName: Array<
     return userName
 }
 
+=======
+import { IQuestion } from './../types/question'
+import { IUsers } from './../types/user'
+import Question from './../models/question'
+import Users from './../models/user'
+
+function getUserName (question: Array<IQuestion>, user: IUsers, userName: Array<string>) {
+    question.forEach(async(value) => {
+        user = await Users.findById(value.Questioner_id) as IUsers
+        userName.push(user.Name)
+    })
+    return userName
+}
+
+>>>>>>> a24892af95dcabfb00835513254f2bf40713ac96
 export { getUserName }
