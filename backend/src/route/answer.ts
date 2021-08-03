@@ -5,11 +5,18 @@ import { IUsers } from './../types/user'
 import Question from './../models/question'
 import Answer from './../models/answer'
 import Users from './../models/user'
+import { AnswerRepoImpl } from '../repo/answer-repo'
 
 const AnswerRouter = (server: FastifyInstance, opts: RouteShorthandOptions, done: (error?: Error) => void) => {
 
+    const answerRepo = AnswerRepoImpl.of()
+
+    interface IdParam {
+        id: string
+    }
+
     //get all answers api
-    server.get('/answer', async (request: FastifyRequest, reply: FastifyReply) => {
+    server.get('/answers', async (request: FastifyRequest, reply: FastifyReply) => {
         const answer: Array<IAnswer> = await Answer.find()
         return reply.status(200).send({msg: "Get Answers Success", answer })
     })
@@ -50,7 +57,7 @@ const AnswerRouter = (server: FastifyInstance, opts: RouteShorthandOptions, done
     })
 
     //create new answer for this question
-    server.put('/question/answer/new/:Question_id', async (request: FastifyRequest, reply: FastifyReply) => {
+    server.put('/question/:Question_id/answer', async (request: FastifyRequest, reply: FastifyReply) => {
         let param:any = request.params
         let question_id = param.Question_id
         let question: IQuestion = await Question.findById(question_id).exec() as IQuestion
