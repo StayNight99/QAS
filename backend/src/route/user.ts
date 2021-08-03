@@ -1,8 +1,15 @@
 import fastify, { FastifyInstance, FastifyReply, FastifyRequest, RouteShorthandOptions } from 'fastify'
 import { IUsers } from './../types/user'
 import Users from './../models/user'
+import { UserRepoImpl } from '../repo/user-repo'
 
 const UserRouter = (server: FastifyInstance, opts: RouteShorthandOptions, done: (error?: Error) => void) => {
+
+    const userRepo = UserRepoImpl.of()
+
+    interface IdParam {
+        id: string
+    }
 
     server.get('/user', async (request: FastifyRequest, reply: FastifyReply) => {
         const user: Array<IUsers> = await Users.find()

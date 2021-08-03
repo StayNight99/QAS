@@ -3,12 +3,19 @@ import { IQuestion } from './../types/question'
 import { IUsers } from './../types/user'
 import Question from './../models/question'
 import Users from './../models/user'
+import { QuestionRepoImpl } from '../repo/question-repo'
 import { getUserName } from './../plugins/getUserName'
 
 const QuestionRouter = (server: FastifyInstance, opts: RouteShorthandOptions, done: (error?: Error) => void) => {
 
+    const questionRepo = QuestionRepoImpl.of()
+
+    interface IdParam {
+        id: string
+    }
+
     //get all questions api
-    server.get('/question', async (request: FastifyRequest, reply: FastifyReply) => {
+    server.get('/questions', async (request: FastifyRequest, reply: FastifyReply) => {
         const question: Array<IQuestion> = await Question.find()
         let userName:Array<string> = []
         userName.pop()
@@ -22,7 +29,7 @@ const QuestionRouter = (server: FastifyInstance, opts: RouteShorthandOptions, do
     })
 
     //get question api
-    server.get('/question/:Question_id', async (request: FastifyRequest, reply: FastifyReply) => {
+    server.get('/questions/:Question_id', async (request: FastifyRequest, reply: FastifyReply) => {
         let param:any = request.params
         let Question_id : number = param.Question_id
         const question: IQuestion = await Question.findById(Question_id) as IQuestion
@@ -37,7 +44,7 @@ const QuestionRouter = (server: FastifyInstance, opts: RouteShorthandOptions, do
     })
 
     //create new question
-    server.post('/question/new', async (request: FastifyRequest, reply: FastifyReply) => {
+    server.post('/questions', async (request: FastifyRequest, reply: FastifyReply) => {
         const postBody: IQuestion = request.body as IQuestion
         const question = await Question.create( postBody )
         if(question === null)
