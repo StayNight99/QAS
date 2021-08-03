@@ -23,20 +23,13 @@ const QuestionRouter = (server: FastifyInstance, opts: RouteShorthandOptions, do
     server.get('/questions', async (request: FastifyRequest, reply: FastifyReply) => {
         try {
             const question: Array<IQuestion> = await questionRepo.getQuestions()
-            let userName:Array<string> = []
-            let user: IUsers = {} as IUsers
-            //userName = await getUserName(question, user, userName)
-            for(var val of question){
-                const user: IUsers | null = await userRepo.getUser(val.Questioner_id)
-                if(user === null)
+            const userName = await Promise.all(question.map(async(item) => {
+                const user: IUsers | null = await userRepo.getUser(item.Questioner_id)
+                if(user != null)
                 {
-                    
+                    return user.Name
                 }
-                else
-                {
-                    userName.push(user.Name)
-                }
-            }
+            }))
             return reply.status(200).send({msg: "Get Questions Success", question, userName })
         }
         catch(error) {
@@ -62,19 +55,22 @@ const QuestionRouter = (server: FastifyInstance, opts: RouteShorthandOptions, do
                 }
                 else
                 {
-                    let answer: Array<IAnswer> = [{
-                        User_id: "0",
-                        Contents: "Initial"
-                    } as IAnswer]
-                    let userName: Array<string> = []
-                    let user: IUsers
-                    answer.pop()
-                    for (var val of question.Answer){
-                        answer.push(await Answer.findById(val) as IAnswer)
-                        user = await Users.findById(answer[answer.length - 1].User_id) as IUsers
-                        userName.push(user.Name)
-                    }
-                    return reply.status(200).send({msg: "Get Answers Success", question, answer,  userName})
+                    const answer = await Promise.all(question.Answer.map(async(item) => await answerRepo.getAnswer(item)))
+                    const userName = await Promise.all(answer.map(async(item) => {
+                        if(item != null)
+                        {
+                            const user: IUsers | null = await userRepo.getUser(item.User_id)
+                            if(user != null)
+                            {
+                                return user.Name
+                            }
+                        }
+                        else    
+                        {
+                            return null
+                        }
+                    }))
+                    return reply.status(200).send({msg: "Get Answers Success", question, answer, userName})
                 }
             }
         }

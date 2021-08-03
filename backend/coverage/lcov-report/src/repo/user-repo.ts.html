@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for src/models/question.ts</title>
+    <title>Code coverage report for src/repo/user-repo.ts</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../prettify.css" />
     <link rel="stylesheet" href="../../base.css" />
@@ -19,13 +19,13 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../index.html">All files</a> / <a href="index.html">src/models</a> question.ts</h1>
+        <h1><a href="../../index.html">All files</a> / <a href="index.html">src/repo</a> user-repo.ts</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">68.75% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>3/3</span>
+                <span class='fraction'>11/16</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">37.5% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/0</span>
+                <span class='fraction'>3/8</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">68.75% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>3/3</span>
+                <span class='fraction'>11/16</span>
             </div>
         
             
@@ -55,7 +55,7 @@
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
     </div>
-    <div class='status-line high'></div>
+    <div class='status-line medium'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -93,32 +93,11 @@
 <a name='L34'></a><a href='#L34'>34</a>
 <a name='L35'></a><a href='#L35'>35</a>
 <a name='L36'></a><a href='#L36'>36</a>
-<a name='L37'></a><a href='#L37'>37</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L37'></a><a href='#L37'>37</a>
+<a name='L38'></a><a href='#L38'>38</a>
+<a name='L39'></a><a href='#L39'>39</a>
+<a name='L40'></a><a href='#L40'>40</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -129,43 +108,73 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { IQuestion } from '../types/question'
-import { model, Schema } from 'mongoose'
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span></td><td class="text"><pre class="prettyprint lang-js">import { IUsers } from './../types/user'
+import Users from './../models/user'
 &nbsp;
-const QuestionSchema: Schema = new Schema(
-    {
-        Questioner_id: {
-            type: String,
-            required: true
-        },
-        QuestionTitle: {
-            type: String,
-            required: true
-        },
-        Contents: {
-            type: String,
-            required: true
-        },
-        Answer: {
-            type: Array,
-            required: false
-        },
-        QuestionType:{
-            type: Array,
-            required: false
-        },
-        AnswerScore:{
-            type: Array,
-            required: false
-        }
-    },
-    {
-        timestamps: true
+interface UserRepo {
+    getUsers(): Promise&lt;Array&lt;IUsers&gt;&gt;
+    getUser(id: string): Promise&lt;IUsers | null&gt;
+    addUser(user: IUsers): Promise&lt;IUsers&gt;
+    updateUser(id: string, user: IUsers): Promise&lt;IUsers | null&gt;
+    deleteUser(id: string): Promise&lt;IUsers | null&gt;
+}
+&nbsp;
+class UserRepoImpl implements UserRepo {
+    private constructor() { }
+&nbsp;
+    static of(): UserRepoImpl {
+        return new UserRepoImpl()
     }
-)
 &nbsp;
-export default model&lt;IQuestion&gt;("Question", QuestionSchema)
-&nbsp;</pre></td></tr></table></pre>
+<span class="fstat-no" title="function not covered" >    async g</span>etUsers(): Promise&lt;Array&lt;IUsers&gt;&gt; {
+<span class="cstat-no" title="statement not covered" >        return Users.find()</span>
+    }
+&nbsp;
+<span class="fstat-no" title="function not covered" >    async g</span>etUser(id: string): Promise&lt;IUsers | null&gt; {
+<span class="cstat-no" title="statement not covered" >        return Users.findById(id)</span>
+    }
+&nbsp;
+<span class="fstat-no" title="function not covered" >    async a</span>ddUser(user: IUsers): Promise&lt;IUsers&gt; {
+<span class="cstat-no" title="statement not covered" >        return Users.create(user)</span>
+    }
+&nbsp;
+<span class="fstat-no" title="function not covered" >    async u</span>pdateUser(id: string, user: IUsers): Promise&lt;IUsers | null&gt; {
+<span class="cstat-no" title="statement not covered" >        return Users.findByIdAndUpdate(id, user)</span>
+    }
+&nbsp;
+<span class="fstat-no" title="function not covered" >    async d</span>eleteUser(id: string): Promise&lt;IUsers | null&gt; {
+<span class="cstat-no" title="statement not covered" >        return Users.findByIdAndDelete(id)</span>
+    }
+}
+&nbsp;
+export { UserRepoImpl }</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
             </div><!-- /wrapper -->
