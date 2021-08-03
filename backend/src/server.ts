@@ -24,7 +24,7 @@ const startFastify: (port: number) => FastifyInstance<Server, IncomingMessage, S
             console.error(err)
         }
         establishConnection()
-        
+
         //inital Data
         // Users.create({
         //     Name: "Nelson",
