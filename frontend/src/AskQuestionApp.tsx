@@ -3,15 +3,9 @@ import "primeicons/primeicons.css";
 import "primereact/resources/themes/saga-blue/theme.css";
 import "primereact/resources/primereact.css";
 import "primeflex/primeflex.css";
-import { DataTable } from "primereact/datatable";
-import { Column } from "primereact/column";
 import { InputText } from "primereact/inputtext";
 import { Button } from "primereact/button";
 import NodeService from "./service/Server";
-import * as TE from "fp-ts/TaskEither";
-import { zero } from "fp-ts/Array";
-import { Password } from 'primereact/password';
-import { Divider } from 'primereact/divider';
 import './App.css';
 import { default as swal } from 'sweetalert2'
 import { Editor } from 'primereact/editor';
@@ -27,11 +21,26 @@ function AskQuestionApp() {
 
     //從URL取參數
     let params: any = useParams();
-    let UserID = params._id;
+    let UserID = params.UID;
 
     async function btnPostQuestion() {
-        //BUG 此處UserID放不進來
-        let dbAccessData = await nodeService.setNewQuestion(3, inputTitle, editorBody, tags);
+        swal.fire({
+            title: 'Are you sure?',
+            text: "Your question will be published publicly",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, post it!'
+          }).then((result) => {
+            if (result.isConfirmed) {
+                confirmPostQuestion();
+            }
+        })
+    }
+
+    async function confirmPostQuestion() {
+        let dbAccessData = await nodeService.setNewQuestion(UserID, inputTitle, editorBody, tags);
 
         if (dbAccessData === "Create Question Failed") {
             swal.fire('發生錯誤！', '請檢查資料是否填寫不完全!', 'error');
