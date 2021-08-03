@@ -12,16 +12,16 @@ import { Editor } from 'primereact/editor';
 import ReactTagInput from "@pathofdev/react-tag-input";
 import "@pathofdev/react-tag-input/build/index.css";
 import { useParams } from "react-router-dom";
+import { useCookies } from 'react-cookie';
 
 function AskQuestionApp() {
-    const [editorBody, setEditorBody] = useState<string>('<div>1. Summarize the problem</div><div>2. Describe what you’ve tried</div><div>3. Show some code</div>');
+    const [editorBody, setEditorBody] = useState('<div>1. Summarize the problem</div><div>2. Describe what you’ve tried</div><div>3. Show some code</div>');
     const [inputTitle, setInputTitle] = useState('');
     const [tags, setTags] = React.useState(["example tag"])
     const nodeService = new NodeService();
 
-    //從URL取參數
-    let params: any = useParams();
-    let UserID = params.UID;
+    const [cookies, setCookie] = useCookies(['UID']);
+    let UserID = cookies.UID;
 
     async function btnPostQuestion() {
         swal.fire({
@@ -47,7 +47,7 @@ function AskQuestionApp() {
         }
         else {
             swal.fire('成功提問！', 'Your question has been posted!', 'success').then(function (result) {
-                window.location.href = "/QuestionsListPage/" + UserID
+                window.location.href = "/QuestionsListPage/"
             });;
         }
     }
@@ -74,7 +74,7 @@ function AskQuestionApp() {
                         <div>
                             <p className="fontSize13px">Include all the information someone would need to answer your question</p>
                         </div>
-                        <Editor style={{ height: '320px' }} value={editorBody} onTextChange={(e) => setEditorBody} />
+                        <Editor style={{ height: '320px' }} value={editorBody} onTextChange={(e) => setEditorBody(e.textValue)} />
                     </div>
 
                     <div>

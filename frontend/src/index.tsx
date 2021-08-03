@@ -16,11 +16,11 @@ ReactDOM.render(
     <Router >
       <Route exact path="/" component={App} />
       <Route exact path="/LoginPage" component={LoginApp} />
-      <Route exact path="/QuestionsListPage/:UID" component={QuestionsListApp} />
+      {/* <Route exact path="/QuestionsListPage/:UID" component={QuestionsListApp} /> */}
       <Route exact path="/QuestionsListPage" component={QuestionsListApp} />
-      <Route exact path="/AskQuestionPage/:UID" component={AskQuestionApp} />
+      {/* <Route exact path="/AskQuestionPage/:UID" component={AskQuestionApp} /> */}
       <Route exact path="/AskQuestionPage" component={AskQuestionApp} />
-      <Route exact path="/ReviewAnswerPage/:QID/:UID" component={ReviewAnserApp} />
+      <Route exact path="/ReviewAnswerPage/:QID" component={ReviewAnserApp} />
     </Router>
     <FooterArea />
   </React.StrictMode>,

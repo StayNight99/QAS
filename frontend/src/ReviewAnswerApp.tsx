@@ -11,6 +11,7 @@ import { Button } from "primereact/button";
 import { Dialog } from 'primereact/dialog';
 import { InputTextarea } from 'primereact/inputtextarea';
 import { Editor } from 'primereact/editor';
+import { useCookies } from 'react-cookie';
 
 function ReviewAnswerApp() {
   const nodeService = new NodeService();
@@ -22,7 +23,9 @@ function ReviewAnswerApp() {
   //從URL取參數
   let params: any = useParams();
   let QID = params.QID;
-  let UID = params.UID;
+
+  const [cookies, setCookie] = useCookies(['UID']);
+  let userID = cookies.UID;
 
   useEffect(() => {
     nodeService.getQuestionTitleByQID(QID).then((data) => setInputTitle(data));
@@ -58,7 +61,7 @@ function ReviewAnswerApp() {
   };
 
   async function btnSaveAnswer(){        
-    let answerData = await nodeService.setNewAnswer(QID,inputAnswer,UID)
+    let answerData = await nodeService.setNewAnswer(QID,inputAnswer,userID)
     if (answerData === "Create Answer Failed") {
       swal.fire('發生錯誤！', answerData, 'error');
     }

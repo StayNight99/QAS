@@ -13,13 +13,16 @@ import { zero } from "fp-ts/Array";
 import { Password } from 'primereact/password';
 import { Divider } from 'primereact/divider';
 import './App.css';
-import { default as swal } from 'sweetalert2'
+import { useCookies } from 'react-cookie';
+import { default as swal } from 'sweetalert2';
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@7"></script> 
+
 
 function LoginApp() {
     const [addAccount, setAddAccount] = useState<string>("");
     const [addPassword, setAddPassword] = useState<string>("");
     const nodeService = new NodeService();
+    const [cookies, setCookie] = useCookies(['UID']);
 
     async function submitLoginData() {
         //await postData();
@@ -29,7 +32,8 @@ function LoginApp() {
         {
             swal.fire('登入成功！',loginData.msg,'success').then((result) => {
                 if (result.isConfirmed) {
-                    window.location.href = "/QuestionsListPage/" + loginData.login._id;
+                    setCookie('UID', loginData.login._id, { path: '/' })
+                    window.location.href = "/QuestionsListPage";
                 }
             })   
         }

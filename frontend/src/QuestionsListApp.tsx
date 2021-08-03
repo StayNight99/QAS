@@ -11,23 +11,23 @@ import './App.css';
 import ProductService from './service/ProductService';
 import ReactTagInput from "@pathofdev/react-tag-input";
 import { useParams } from "react-router-dom";
+import { useCookies } from 'react-cookie';
 
 function QuestionsListApp() {
     var [tags, setTags] = React.useState(["no-tag"])
     const nodeService = new NodeService();
     // const dt = useRef(null);
 
-    //從URL取參數
-    let params:any = useParams();
-    let userID = params.UID;
+    const [cookies, setCookie] = useCookies(['UID']);
+    let userID = cookies.UID;
 
     function btnAskQuestion(this : any) {
-        window.location.href = '/AskQuestionPage/' + userID;
+        window.location.href = '/AskQuestionPage';
     }
 
     const btnReviewQuestion = (rowData: any) => {
         let QID = rowData._id;
-        window.location.href = '/ReviewAnswerPage/' + QID + '/' + userID;
+        window.location.href = '/ReviewAnswerPage/' + QID;
     }
 
     //DataTable
