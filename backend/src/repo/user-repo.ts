@@ -2,10 +2,11 @@ import { IUsers } from './../types/user'
 import Users from './../models/user'
 
 interface UserRepo {
-    getAnswers(): Promise<Array<IUsers>>
-    addAnswer(user: IUsers): Promise<IUsers>
-    updateAnswer(id: string, user: IUsers): Promise<IUsers | null>
-    deleteAnswer(id: string): Promise<IUsers | null>
+    getUsers(): Promise<Array<IUsers>>
+    getUser(id: string): Promise<IUsers | null>
+    addUser(user: IUsers): Promise<IUsers>
+    updateUser(id: string, user: IUsers): Promise<IUsers | null>
+    deleteUser(id: string): Promise<IUsers | null>
 }
 
 class UserRepoImpl implements UserRepo {
@@ -15,19 +16,23 @@ class UserRepoImpl implements UserRepo {
         return new UserRepoImpl()
     }
 
-    async getAnswers(): Promise<Array<IUsers>> {
+    async getUsers(): Promise<Array<IUsers>> {
         return Users.find()
     }
 
-    async addAnswer(user: IUsers): Promise<IUsers> {
+    async getUser(id: string): Promise<IUsers | null> {
+        return Users.findById(id)
+    }
+
+    async addUser(user: IUsers): Promise<IUsers> {
         return Users.create(user)
     }
 
-    async updateAnswer(id: string, user: IUsers): Promise<IUsers | null> {
+    async updateUser(id: string, user: IUsers): Promise<IUsers | null> {
         return Users.findByIdAndUpdate(id, user)
     }
 
-    async deleteAnswer(id: string): Promise<IUsers | null> {
+    async deleteUser(id: string): Promise<IUsers | null> {
         return Users.findByIdAndDelete(id)
     }
 }

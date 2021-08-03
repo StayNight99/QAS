@@ -1,30 +1,30 @@
 import { IAnswer } from './../types/answer'
 import Answer from './../models/answer'
 
-interface QuestionRepo {
-    getAnswers(): Promise<Array<IAnswer>>
-    addAnswer(question: IAnswer): Promise<IAnswer>
-    updateAnswer(id: string, question: IAnswer): Promise<IAnswer | null>
+interface AnswerRepo {
+    getAnswer(id: string): Promise<IAnswer | null>
+    addAnswer(answer: IAnswer): Promise<IAnswer>
+    updateAnswer(id: string, answer: IAnswer): Promise<IAnswer | null>
     deleteAnswer(id: string): Promise<IAnswer | null>
 }
 
-class AnswerRepoImpl implements QuestionRepo {
+class AnswerRepoImpl implements AnswerRepo {
     private constructor() { }
 
     static of(): AnswerRepoImpl {
         return new AnswerRepoImpl()
     }
 
-    async getAnswers(): Promise<Array<IAnswer>> {
-        return Answer.find()
+    async getAnswer(id: string): Promise<IAnswer | null> {
+        return Answer.findById(id)
     }
 
-    async addAnswer(question: IAnswer): Promise<IAnswer> {
-        return Answer.create(question)
+    async addAnswer(answer: IAnswer): Promise<IAnswer> {
+        return Answer.create(answer)
     }
 
-    async updateAnswer(id: string, question: IAnswer): Promise<IAnswer | null> {
-        return Answer.findByIdAndUpdate(id, question)
+    async updateAnswer(id: string, answer: IAnswer): Promise<IAnswer | null> {
+        return Answer.findByIdAndUpdate(id, answer)
     }
 
     async deleteAnswer(id: string): Promise<IAnswer | null> {

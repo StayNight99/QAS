@@ -7,26 +7,37 @@ const UserRouter = (server: FastifyInstance, opts: RouteShorthandOptions, done: 
 
     const userRepo = UserRepoImpl.of()
 
-    interface IdParam {
-        id: string
+    interface IdParams {
+        user_id: string
     }
 
-    server.get('/user', async (request: FastifyRequest, reply: FastifyReply) => {
-        const user: Array<IUsers> = await Users.find()
-        return reply.status(200).send({msg: "Get Questions Success", user })
+    server.get('/users', async (request: FastifyRequest, reply: FastifyReply) => {
+        try {
+            const user: Array<IUsers> = await userRepo.getUsers()
+            return reply.status(200).send({msg: "Get Questions Success", user })
+        }
+        catch(error) {
+            console.error(`GET /users Error: ${error}`)
+            return reply.status(500).send(`[Server Error]: ${error}`)
+        }
     })
 
-    server.get('/user/:user_id', async (request: FastifyRequest, reply: FastifyReply) => {
-        let param:any = request.params
-        let user_id : number = param.user_id
-        const user: IUsers = await Users.findById(user_id) as IUsers
-        if(user === null)
-        {
-            return reply.status(404).send({ msg: "User Not Found" })
+    server.get<{ Params: IdParams }>('/users/:user_id', opts, async (request, reply: FastifyReply) => {
+        try {
+            const user_id : string = request.params.user_id
+            const user: IUsers | null = await userRepo.getUser(user_id)
+            if(user === null)
+            {
+                return reply.status(404).send({ msg: "User Not Found" })
+            }
+            else
+            {
+                return reply.status(200).send({ user })
+            }
         }
-        else
-        {
-            return reply.status(200).send({ user })
+        catch(error) {
+            console.error(`GET /users Error: ${error}`)
+            return reply.status(500).send(`[Server Error]: ${error}`)
         }
     })
 

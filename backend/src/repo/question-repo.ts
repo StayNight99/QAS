@@ -3,6 +3,7 @@ import Question from './../models/question'
 
 interface QuestionRepo {
     getQuestions(): Promise<Array<IQuestion>>
+    getQuestion(id: string): Promise<IQuestion | null>
     addQuestion(question: IQuestion): Promise<IQuestion>
     updateQuestion(id: string, question: IQuestion): Promise<IQuestion | null>
     deleteQuestion(id: string): Promise<IQuestion | null>
@@ -17,6 +18,10 @@ class QuestionRepoImpl implements QuestionRepo {
 
     async getQuestions(): Promise<Array<IQuestion>> {
         return Question.find()
+    }
+
+    async getQuestion(id: string): Promise<IQuestion | null> {
+        return Question.findById(id)
     }
 
     async addQuestion(question: IQuestion): Promise<IQuestion> {
