@@ -61,7 +61,7 @@ export default class Server {
     //Output : success/fall
     async setNewQuestion(strUserPK: string, strTitle: string, strContent: string, strQuestionType: string[]) {
         try {
-            const res = await axios.post("http://localhost:8888/question/new", {
+            const res = await axios.post("http://localhost:8888/questions", {
                 Questioner_id: strUserPK,
                 QuestionTitle: strTitle,
                 Contents:strContent,
@@ -77,7 +77,7 @@ export default class Server {
     //取得所有問題
     async getAllQuestions() {
         try {
-            const res = await axios.get("http://localhost:8888/question");
+            const res = await axios.get("http://localhost:8888/questions");
             console.log(res);
 
             return res.data['question'];
@@ -88,7 +88,7 @@ export default class Server {
 
     async getQuestionTitleByQID(strQID: string) {
         try {
-            const res = await axios.get("http://localhost:8888/question/" + strQID);
+            const res = await axios.get("http://localhost:8888/questions/" + strQID);
             //console.log(res);
 
             return res.data.question.QuestionTitle;
@@ -99,7 +99,7 @@ export default class Server {
 
     async getQuestionContentsByQID(strQID: string) {
         try {
-            const res = await axios.get("http://localhost:8888/question/" + strQID);
+            const res = await axios.get("http://localhost:8888/questions/" + strQID);
             //console.log(res);
 
             return res.data.question.Contents;
@@ -110,7 +110,7 @@ export default class Server {
 
     async getQuestionTagByQID(strQID: string) {
         try {
-            const res = await axios.get("http://localhost:8888/question/" + strQID);
+            const res = await axios.get("http://localhost:8888/questions/" + strQID);
             //console.log(res);
 
             return res.data.question.QuestionType;
@@ -122,7 +122,7 @@ export default class Server {
     //取得該問題下的所有回覆
     async getAllAnswersByQID(strQID: string){
         try {
-            const res = await axios.get("http://localhost:8888/question/answers/" + strQID);
+            const res = await axios.get("http://localhost:8888/question/" + strQID + "/answer");
             console.log(res);
 
             return res.data['answer'];
